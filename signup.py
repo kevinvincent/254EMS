@@ -1,6 +1,6 @@
 #http://stackoverflow.com/questions/11616260/how-to-get-all-objects-with-a-date-that-fall-in-a-specific-month-sqlalchemy
 import os
-import datetime
+import datetime as dt
 import calendar
 from flask import Flask
 from flask import request
@@ -17,7 +17,7 @@ class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     #type of event - food / ride
-    name = db.Column(db.String(80)) 
+    name = db.Column(db.Text) 
 
     #date of event - python datetime object
     date = db.Column(db.DateTime)
@@ -39,18 +39,27 @@ class Event(db.Model):
 
 @app.route('/events/<month>')
 def getMonthEvents(month):
-	year = 2012
-	month = 6
+	year = 2013
 
 	num_days = calendar.monthrange(year, month)[1]
 	start_date = datetime.date(year, month, 1)
 	end_date = datetime.date(year, month, num_days)
 
-	results = session.query(Event).filter(and_(Event.date >= start_date, Event.date <= end_date)).all()
+	results = db.session.query(Event).filter(and_(Event.date >= start_date, Event.date <= end_date)).all()
 	return "getting events for" + month;
 
-@app.route('/events/add', methods=['GET', 'POST'])
+@app.route('/events/add')
 def addEvent():
-	name = request.args.get('name', '')
-	return name
+	event = Event('ride', dt.today(), "me");
+	db.session.add(event);
+	db.session.commit();
+	return event;
+
+@app.route('/')
+def default():
+	return "Hi";
+
+if __name__ == '__main__':
+	app.debug = True
+	app.run()
 
