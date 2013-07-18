@@ -39,7 +39,7 @@ class Event(db.Model):
     maxAttendees = db.Column(db.Integer)
 
     #Metadata - for kicks... and application specific crap later on
-    metadata = db.Column(db.Text)
+    meta = db.Column(db.Text)
 
     #Initialize ALL THE COLUMNS!
     def __init__(self, title, description, startDateTime, endDateTime, attendees, maxAttendees, metadata=None):
