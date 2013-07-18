@@ -47,9 +47,9 @@ def getMonthEvents(month):
 	end_date = datetime.date(year, month, num_days)
 
 	results = session.query(Event).filter(and_(Event.date >= start_date, Event.date <= end_date)).all()
-    return "getting events for" + month
+	return "getting events for" + month;
 
 @app.route('/events/add', methods=['GET', 'POST'])
 def addEvent()
 	name = request.args.get('name', '')
-	
+
