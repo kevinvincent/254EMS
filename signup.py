@@ -19,15 +19,11 @@ class Event(db.Model):
     #type of event - food / ride
     name = db.Column(db.Text) 
 
-    #date of event - python datetime object
-    date = db.Column(db.DateTime)
-
     #users signed up - json string
     signups = db.Column(db.Text)
 
-    def __init__(self, name, date, signups):
+    def __init__(self, name, signups):
         self.name = name
-        self.date = date
         self.signups = signups
 
     def __repr__(self):
@@ -50,10 +46,10 @@ def getMonthEvents(month):
 
 @app.route('/events/add')
 def addEvent():
-	event = Event('ride', dt.today(), "me");
+	event = Event('ride', "me");
 	db.session.add(event);
 	db.session.commit();
-	return event;
+	return str(event);
 
 @app.route('/')
 def default():
