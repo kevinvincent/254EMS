@@ -16,31 +16,49 @@ db = SQLAlchemy(app)
 """ Event Schema """
 
 class Event(db.Model):
-	#id's FTW - use em
+
+	#Id's FTW - unique and fresh, don't mess with it
     id = db.Column(db.Integer, primary_key=True)
 
-    #type of event - food / ride
-    name = db.Column(db.Text) 
+    #Name of event
+    title = db.Column(db.Text)
 
-    #Date time objects
-    date = db.Column(db.Date)
+    #Description of event
+    description = db.Column(db.Text)
 
-    #users signed up - json string
-    signups = db.Column(db.Text)
+    #Starting Date and Time of Event
+    startDateTime = db.Column(db.DateTime)
 
-    def __init__(self, name, date, signups):
-        self.name = name
-        self.date = date
-        self.signups = signups
+    #Ending Date and Time of Event
+    endDateTime = db.Column(db.DateTime)
+
+    #Attendees - json string
+    attendees = db.Column(db.Text)
+
+    #Max Attendees
+    maxAttendees = db.Column(db.Integer)
+
+    #Metadata - for kicks... and application specific crap later on
+    metadata = db.Column(db.Text)
+
+    #Initialize ALL THE COLUMNS!
+    def __init__(self, title, description, startDateTime, endDateTime, attendees, maxAttendees, metadata=None):
+        self.title = title
+        self.description = description
+        self.startDateTime = startDateTime
+        self.endDateTime = endDateTime
+        self.attendees = attendees
+        self.maxAttendees = maxAttendees
+        self.metadata = metadata
 
     def __repr__(self):
-        return '<Event %r>' % self.name
+        return '<Event: %r>' % self.title
 
 
 
 """ Main Pages """
 
-@app.route('/events/<theYear>/<theMonth>')
+@app.route('/search/<theYear>/<theMonth>')
 def getMonthEventData(theYear,theMonth):
 	year = int(theYear);
 	month = int(theMonth);
@@ -49,31 +67,43 @@ def getMonthEventData(theYear,theMonth):
 	start_date = datetime.date(year, month, 1)
 	end_date = datetime.date(year, month, num_days)
 
-	results = db.session.query(Event).filter(and_(Event.date >= start_date, Event.date <= end_date)).all()
+	results = db.session.query(Event).filter(and_(Event.startDateTime >= start_date, Event.startDateTime <= end_date)).all()
 	return_Str = ""
 	for event in results:
-		return_Str += event.date.strftime('%m/%d/%Y')
+		return_Str += event.startDateTime.strftime('%m/%d/%Y')
 		return_Str += " - "
-		return_Str += event.signups
+		return_Str += event.attendees
 		return_Str += "</br>"
 	return return_Str
 
-@app.route('/events/<theYear>/<theMonth>/<theDay>')
+@app.route('/search/<theYear>/<theMonth>/<theDay>')
 def getDayEventData(theYear,theMonth,theDay):
 	year = int(theYear);
 	month = int(theMonth);
 	day = int(theDay);
 	
-	searchDate = datetime.date(year, month, day)
+	start_date = datetime.datetime(year, month, day, 0,0,0,0,None)
+	end_date = datetime.datetime(year, month, day, 23, 59, 59,999999,None)
 
-	results = db.session.query(Event).filter(Event.date.date()==searchDate).all()
-	#return_Str = ""
-	#for event in results:
-		#return_Str += event.date.strftime('%m/%d/%Y')
-		#return_Str += " - "
-		#return_Str += event.signups
-		#return_Str += "</br>"
-	return searchDate.strftime('%m/%d/%Y')
+	results = db.session.query(Event).filter(and_(Event.startDateTime >= start_date, Event.startDateTime <= end_date)).all()
+	return_Str = ""
+	for event in results:
+		return_Str += event.startDateTime.strftime('%m/%d/%Y')
+		return_Str += " - "
+		return_Str += event.attendees
+		return_Str += "</br>"
+	return return_Str
+
+@app.route('/event/<id>')
+def getEventData(id):
+	event = db.session.query(Event).filter(Event.id==id).first()
+	return_Str = ""
+	return_Str += event.startDateTime.strftime('%m/%d/%Y')
+	return_Str += " - "
+	return_Str += event.attendees
+	return_Str += "</br>"
+	return return_Str
+
 
 @app.route('/events/add')
 def addEvent():
