@@ -20,10 +20,10 @@ class Event(db.Model):
     name = db.Column(db.String(80)) 
 
     #date of event - python datetime object
-    date = Column(db.DateTime)
+    date = db.Column(db.DateTime)
 
     #users signed up - json string
-    signups = Column(db.Text)
+    signups = db.Column(db.Text)
 
     def __init__(self, name, date, signups):
         self.name = name
@@ -50,6 +50,7 @@ def getMonthEvents(month):
 	return "getting events for" + month;
 
 @app.route('/events/add', methods=['GET', 'POST'])
-def addEvent()
+def addEvent():
 	name = request.args.get('name', '')
+	return name
 
