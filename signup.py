@@ -72,7 +72,9 @@ def getMonthEventData(theYear,theMonth):
 	for event in results:
 		return_Str += event.startDateTime.strftime('%m/%d/%Y')
 		return_Str += " - "
-		return_Str += event.attendees
+		return_Str += str(event.title)
+		return_Str += " - "
+		return_Str += str(event.id)
 		return_Str += "</br>"
 	return return_Str
 
@@ -90,7 +92,9 @@ def getDayEventData(theYear,theMonth,theDay):
 	for event in results:
 		return_Str += event.startDateTime.strftime('%m/%d/%Y')
 		return_Str += " - "
-		return_Str += event.attendees
+		return_Str += str(event.title)
+		return_Str += " - "
+		return_Str += str(event.id)
 		return_Str += "</br>"
 	return return_Str
 
@@ -100,14 +104,16 @@ def getEventData(id):
 	return_Str = ""
 	return_Str += event.startDateTime.strftime('%m/%d/%Y')
 	return_Str += " - "
-	return_Str += event.attendees
+	return_Str += str(event.title)
+	return_Str += " - "
+	return_Str += str(event.id)
 	return_Str += "</br>"
 	return return_Str
 
 
-@app.route('/events/add')
+@app.route('/event/add')
 def addEvent():
-	event = Event('ride', datetime.datetime.today(), "me");
+	event = Event('Tester', 'test desc', datetime.datetime.today(), datetime.datetime.today(), "todos", 20);
 	db.session.add(event);
 	db.session.commit();
 	return "added";
