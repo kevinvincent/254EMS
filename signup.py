@@ -3,6 +3,8 @@ import os
 import datetime
 import calendar
 import json
+import hashlib
+
 from flask import Flask
 from flask import request
 
@@ -124,23 +126,81 @@ def addAttendee(id):
 	name = request.args['name']
 	email = request.args['email']
 
+
 	event = db.session.query(Event).filter(Event.id==id).first()
+	uniqueCode = hashlib.md5(str(email)+str(event.id)).hexdigest();
+
 	attendees = json.loads(event.attendees)
-	attendees[email] = name
+	attendees[uniqueCode] = name,email
 	event.attendees = json.dumps(attendees)
 	db.session.commit()
 
-	return name + " - " + email
+	return "Added: " + email
 
 #Remove Attendee
-@app.route('/event/<id>/remove', methods=['POST'])
+@app.route('/event/<id>/remove', methods=['GET'])
 def removeAttendee(id):
-	pass
+	email = request.args['email']
+
+	event = db.session.query(Event).filter(Event.id==id).first()
+	uniqueCode = hashlib.md5(str(email)+str(event.id)).hexdigest();
+
+	attendees = json.loads(event.attendees)
+	attendees.pop(uniqueCode, None)
+	event.attendees = json.dumps(attendees)
+	db.session.commit()
+
+	return "Removed: " + email
 
 #Edit Event - Admin
-@app.route('/event/<id>/edit', methods=['POST'])
+@app.route('/event/<id>/edit', methods=['GET'])
 def editEvent(id):
-	pass
+	title = request.args['title']
+	description = request.args['description']
+	startDateTime = request.args['startDateTime']
+	endDateTime = request.args['endDateTime']
+	maxAttendees = request.args['maxAttendees']
+
+	event = db.session.query(Event).filter(Event.id==id).first()
+
+	try:
+		title
+	except NameError:
+		pass
+	else:
+		event.title = title
+
+	try:
+		description
+	except NameError:
+		pass
+	else:
+		event.description = description
+
+	try:
+		startDateTime
+	except NameError:
+		pass
+	else:
+		event.startDateTime = startDateTime
+
+	try:
+		endDateTime
+	except NameError:
+		pass
+	else:
+		event.endDateTime = endDateTime
+
+	try:
+		maxAttendees
+	except NameError:
+		pass
+	else:
+		event.maxAttendees = maxAttendees
+
+	db.session.commit()
+	return "Edited" + id;
+
 
 @app.route('/')
 def default():
