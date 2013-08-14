@@ -121,12 +121,12 @@ def addEvent():
 #Add Attendee
 @app.route('/event/<id>/add', methods=['GET'])
 def addAttendee(id):
-	name = request.form['name']
-	email = request.form['email']
+	name = request.args['name']
+	email = request.args['email']
 
 	event = db.session.query(Event).filter(Event.id==id).first()
 	attendees = json.loads(event.attendees)
-	attendees[name] = email
+	attendees[email] = name
 	event.attendees = json.dumps(attendees)
 	db.session.commit()
 
