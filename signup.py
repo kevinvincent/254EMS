@@ -2,6 +2,7 @@
 import os
 import datetime
 import calendar
+import json
 from flask import Flask
 from flask import request
 
@@ -54,10 +55,7 @@ class Event(db.Model):
     def __repr__(self):
         return '<Event: %r>' % self.title
 
-
-
-""" Main Pages """
-
+#Search By Year and Month
 @app.route('/search/<theYear>/<theMonth>')
 def getMonthEventData(theYear,theMonth):
 	year = int(theYear);
@@ -78,6 +76,7 @@ def getMonthEventData(theYear,theMonth):
 		return_Str += "</br>"
 	return return_Str
 
+#Search By Year and Month and Day
 @app.route('/search/<theYear>/<theMonth>/<theDay>')
 def getDayEventData(theYear,theMonth,theDay):
 	year = int(theYear);
@@ -98,6 +97,7 @@ def getDayEventData(theYear,theMonth,theDay):
 		return_Str += "</br>"
 	return return_Str
 
+#Get event data by id
 @app.route('/event/<id>')
 def getEventData(id):
 	event = db.session.query(Event).filter(Event.id==id).first()
@@ -110,13 +110,37 @@ def getEventData(id):
 	return_Str += "</br>"
 	return return_Str
 
-
-@app.route('/event/add')
+#Create New Event
+@app.route('/event/new')
 def addEvent():
-	event = Event('Tester', 'test desc', datetime.datetime.today(), datetime.datetime.today(), "todos", 20);
+	event = Event('Tester', 'test desc', datetime.datetime.today(), datetime.datetime.today(), json.dumps(dict()), 20);
 	db.session.add(event);
 	db.session.commit();
 	return "added";
+
+#Add Attendee
+@app.route('/event/<id>/add', methods=['GET'])
+def addAttendee(id):
+	name = request.form['name']
+	email = request.form['email']
+
+	event = db.session.query(Event).filter(Event.id==id).first()
+	attendees = json.loads(event.attendees)
+	attendees[name] = email
+	event.attendees = json.dumps(attendees)
+	db.session.commit()
+
+	return name + " - " + email
+
+#Remove Attendee
+@app.route('/event/<id>/remove', methods=['POST'])
+def removeAttendee(id):
+	pass
+
+#Edit Event - Admin
+@app.route('/event/<id>/edit', methods=['POST'])
+def editEvent(id):
+	pass
 
 @app.route('/')
 def default():
