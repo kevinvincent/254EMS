@@ -16,192 +16,80 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://ssdigfrrpvgjev:cTzHaJFPU5L
 app.config['DEBUG'] = True;
 db = SQLAlchemy(app)
 
-""" Event Schema """
 
-class Event(db.Model):
+#Define all the Schemas!
+class event_type(db.Model):
 
-	#Id's FTW - unique and fresh, don't mess with it
+    #unique event type id
+    event_id = db.Column(db.Integer, primary_key=True)
+
+    #name of event type
+    type = db.Column(db.Text)
+
+class events(db.Model):
+
+    #Id's FTW - unique and fresh, don't mess with it
     id = db.Column(db.Integer, primary_key=True)
 
-    #Name of event
-    title = db.Column(db.Text)
-
-    #Description of event
-    description = db.Column(db.Text)
+    #--> event_type.eid
+    event_type_id = db.Column(db.Integer)
 
     #Starting Date and Time of Event
-    startDateTime = db.Column(db.DateTime)
+    start_time = db.Column(db.DateTime)
 
     #Ending Date and Time of Event
-    endDateTime = db.Column(db.DateTime)
+    end_time = db.Column(db.DateTime)
 
-    #Attendees - json string
-    attendees = db.Column(db.Text)
+    #Is it open?
+    available = db.Column(db.Boolean)
 
-    #Max Attendees
-    maxAttendees = db.Column(db.Integer)
+    #Amount slots open
+    num_slotes = db.Column(db.Integer)
 
-    #Metadata - for kicks... and application specific crap later on
-    meta = db.Column(db.Text)
+    #Has it been cancelled?
+    cancelled = db.Column(db.Boolean)
 
-    #Initialize ALL THE COLUMNS!
-    def __init__(self, title, description, startDateTime, endDateTime, attendees, maxAttendees, metadata=None):
-        self.title = title
-        self.description = description
-        self.startDateTime = startDateTime
-        self.endDateTime = endDateTime
-        self.attendees = attendees
-        self.maxAttendees = maxAttendees
-        self.metadata = metadata
+    #specific info?
+    notes = db.Column(db.Text)
 
-    def __repr__(self):
-        return '<Event: %r>' % self.title
+class registrations(db.Model):
 
-#Search By Year and Month
-@app.route('/search/<theYear>/<theMonth>')
-def getMonthEventData(theYear,theMonth):
-	year = int(theYear);
-	month = int(theMonth);
+    #Id's FTW - unique and fresh, don't mess with it
+    id = db.Column(db.Integer, primary_key=True)
 
-	num_days = calendar.monthrange(year, month)[1]
-	start_date = datetime.date(year, month, 1)
-	end_date = datetime.date(year, month, num_days)
+    #users.id "what user?"
+    user_id = db.Column(db.Integer)
 
-	results = db.session.query(Event).filter(and_(Event.startDateTime >= start_date, Event.startDateTime <= end_date)).all()
-	return_Str = ""
-	for event in results:
-		return_Str += event.startDateTime.strftime('%m/%d/%Y')
-		return_Str += " - "
-		return_Str += str(event.title)
-		return_Str += " - "
-		return_Str += str(event.id)
-		return_Str += "</br>"
-	return return_Str
+    #events.id "wat event"
+    event_id = db.Column(db.Integer)
 
-#Search By Year and Month and Day
-@app.route('/search/<theYear>/<theMonth>/<theDay>')
-def getDayEventData(theYear,theMonth,theDay):
-	year = int(theYear);
-	month = int(theMonth);
-	day = int(theDay);
-	
-	start_date = datetime.datetime(year, month, day, 0,0,0,0,None)
-	end_date = datetime.datetime(year, month, day, 23, 59, 59,999999,None)
+    #timestamp of registration
+    timestamp = db.Column(db.DateTime)
 
-	results = db.session.query(Event).filter(and_(Event.startDateTime >= start_date, Event.startDateTime <= end_date)).all()
-	return_Str = ""
-	for event in results:
-		return_Str += event.startDateTime.strftime('%m/%d/%Y')
-		return_Str += " - "
-		return_Str += str(event.title)
-		return_Str += " - "
-		return_Str += str(event.id)
-		return_Str += "</br>"
-	return return_Str
+    #would u like a reminder oh forgetful one?
+    remind = db.Column(db.Boolean)
 
-#Get event data by id
-@app.route('/event/<id>')
-def getEventData(id):
-	event = db.session.query(Event).filter(Event.id==id).first()
-	return_Str = ""
-	return_Str += event.startDateTime.strftime('%m/%d/%Y')
-	return_Str += " - "
-	return_Str += str(event.title)
-	return_Str += " - "
-	return_Str += str(event.id)
-	return_Str += "</br>"
-	return return_Str
+    #why u cancel?
+    cancel_time = db.Column(db.DateTime, default=None)
 
-#Create New Event
-@app.route('/event/new')
-def addEvent():
-	event = Event('Tester', 'test desc', datetime.datetime.today(), datetime.datetime.today(), json.dumps(dict()), 20);
-	db.session.add(event);
-	db.session.commit();
-	return "added";
+    #why u no show up?
+    no_show = db.Column(db.Boolean, default=False)
 
-#Add Attendee
-@app.route('/event/<id>/add', methods=['GET'])
-def addAttendee(id):
-	name = request.args['name']
-	email = request.args['email']
+    #anything else?
+    notes = db.Column(db.Text)
+
+class users(db.Model):
+
+    #More Id's FTW - unique and fresh, don't mess with it
+    id = db.Column(db.Integer, primary_key=True)
+
+    #email address
+    email = db.Column(db.Text)
+
+    #user full name
+    name = db.Column(db.Text)
+
+    # 'normal', 'eligible', 'leader', 'mentor'
+    status = db.Column(db.Text)
 
 
-	event = db.session.query(Event).filter(Event.id==id).first()
-	uniqueCode = hashlib.md5(str(email)+str(event.id)).hexdigest();
-
-	attendees = json.loads(event.attendees)
-	attendees[uniqueCode] = name,email
-	event.attendees = json.dumps(attendees)
-	db.session.commit()
-
-	return "Added: " + email
-
-#Remove Attendee
-@app.route('/event/<id>/remove', methods=['GET'])
-def removeAttendee(id):
-	email = request.args['email']
-
-	event = db.session.query(Event).filter(Event.id==id).first()
-	uniqueCode = hashlib.md5(str(email)+str(event.id)).hexdigest();
-
-	attendees = json.loads(event.attendees)
-	attendees.pop(uniqueCode, None)
-	event.attendees = json.dumps(attendees)
-	db.session.commit()
-
-	return "Removed: " + email
-
-#Edit Event - Admin
-@app.route('/event/<id>/edit', methods=['GET'])
-def editEvent(id):
-	title = request.args['title']
-	description = request.args['description']
-	startDateTime = request.args['startDateTime']
-	endDateTime = request.args['endDateTime']
-	maxAttendees = request.args['maxAttendees']
-
-	event = db.session.query(Event).filter(Event.id==id).first()
-
-	try:
-		title
-	except NameError:
-		pass
-	else:
-		event.title = title
-
-	try:
-		description
-	except NameError:
-		pass
-	else:
-		event.description = description
-
-	try:
-		startDateTime
-	except NameError:
-		pass
-	else:
-		event.startDateTime = startDateTime
-
-	try:
-		endDateTime
-	except NameError:
-		pass
-	else:
-		event.endDateTime = endDateTime
-
-	try:
-		maxAttendees
-	except NameError:
-		pass
-	else:
-		event.maxAttendees = maxAttendees
-
-	db.session.commit()
-	return "Edited" + id;
-
-
-@app.route('/')
-def default():
-	return "Hi";
