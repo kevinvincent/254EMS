@@ -8,7 +8,7 @@ class event_type(db.Model):
     type = db.Column(db.Text)
 
 #Figure it out
-class events(db.Model):
+class event(db.Model):
 
     #Id's FTW - unique and fresh, don't mess with it
     id = db.Column(db.Integer, primary_key=True)
@@ -35,7 +35,7 @@ class events(db.Model):
     notes = db.Column(db.Text)
 
 #Holds the signups
-class registrations(db.Model):
+class registration(db.Model):
 
     #Primary ID - It Better be unique.
     id = db.Column(db.Integer, primary_key=True)
@@ -63,16 +63,10 @@ class registrations(db.Model):
 
 
 #Caching the json response (wouldn't wanna hug the auth api to death), holds session data for each user
-class users(db.Model):
+class user(db.Model):
 
     #More Id's FTW - unique and fresh, don't mess with it
     id = db.Column(db.Integer, primary_key=True)
 
-    #email address
-    email = db.Column(db.Text)
-
-    #user full name
-    name = db.Column(db.Text)
-
-    # 'normal', 'eligible', 'leader', 'mentor'
-    status = db.Column(db.Text)
+    #Pure json response from auth api
+    user_data = db.Column(db.Text)
