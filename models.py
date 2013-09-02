@@ -4,6 +4,7 @@ from signup import *
 
 #I have no idea why this needs it's own table but, who gives a shit anyway?
 class event_type(db.Model):
+    __tablename__ = 'event_type'
 
     #unique event type id
     event_id = db.Column(db.Integer, primary_key=True)
@@ -13,6 +14,7 @@ class event_type(db.Model):
 
 #Figure it out
 class event(db.Model):
+    __tablename__ = 'event'
 
     #Id's FTW - unique and fresh, don't mess with it
     id = db.Column(db.Integer, primary_key=True)
@@ -40,6 +42,7 @@ class event(db.Model):
 
 #Holds the signups
 class registration(db.Model):
+    __tablename__ = 'registration'
 
     #Primary ID - It Better be unique.
     id = db.Column(db.Integer, primary_key=True)
@@ -68,6 +71,7 @@ class registration(db.Model):
 
 #Caching the json response (wouldn't wanna hug the auth api to death), holds session data for each user
 class user(db.Model):
+    __tablename__ = 'user'
 
     #More Id's FTW - unique and fresh, don't mess with it
     id = db.Column(db.Integer)
