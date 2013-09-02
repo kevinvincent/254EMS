@@ -1,3 +1,7 @@
+#import Main App
+from signup import *
+
+
 #I have no idea why this needs it's own table but, who gives a shit anyway?
 class event_type(db.Model):
 

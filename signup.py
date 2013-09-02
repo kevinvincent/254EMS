@@ -25,14 +25,12 @@ import requests
 
 #Flask shit
 from flask import Flask
-from flask import request
+from flask import *
 
 #DB stuff that no one cares about
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import and_
 
-#Application Stuff in other files
-from models import *
 
 #Config, Config, Config
 app = Flask(__name__)
@@ -44,27 +42,40 @@ db = SQLAlchemy(app)
 app.secret_key = '\xe8\xec~G:\xa9iZ{D|^\x1bvc}U\xac\xbc\x1e\xf4\xed\x8c'
 BASE_URL = "http://localhost:5000" #no trailing slash
 
+#Application Stuff in other files
+from models import *
 
-''' Call this function at every request to make sure user is authenticated'''
-def gateKeeper(redirect_url):
+import logging
+stream_handler = logging.StreamHandler()
+app.logger.addHandler(stream_handler)
+app.logger.setLevel(logging.INFO)
+
+@app.before_request
+def gateKeeper():
+
+    #DEBUG
+    if request.endpoint == "wp_login" or request.endpoint == "wp_logout":
+        return
+
+
     #Are you authenticated with this app bro?
     if 'user_id' in session:
-        return #Ya = return
+        return #Ya = return   
 
     #Na = off you go to be authenticated then
     else:
         #Check if the wp cookie exists. It BETTER be chocolate chip.
-        wpCookieExists == False
-        wpCookieData == "";
+        wpCookieExists = False
+        wpCookieData = "";
         for cookie in request.cookies:
             if 'wordpress_logged_in' in cookie:
-                wpCookieExists == True
-                wpCookieData == cookie;
+                wpCookieExists = True
+                wpCookieData = cookie;
                 break
 
         #If it doesn't, send them to go get a cookie from the cookie monster (wp login page) and come back to gatekeeper caller
         if not wpCookieExists:
-            return redirect("www.team254.com/wp-login.php?redirect_to="+BASE_URL+redirect_url) # <-- cookie monster
+            return redirect("http://www.team254.com/wp-login.php?redirect_to="+request.url) # <-- cookie monster
 
         #If it does, go get their user data from wp and make em a sandwich (affecionately known as a session)
         else:
@@ -90,7 +101,7 @@ def gateKeeper(redirect_url):
 
             else:
                 #TODO: What do if da cookie expire?
-                pass;
+                pass
 
 
 
@@ -98,7 +109,22 @@ def gateKeeper(redirect_url):
 
 @app.route('/')
 def login():
-    gateKeeper(url_for(login))
+    return "MAIN PAGE"
+
+
+
+@app.route('/wp_login')
+def wp_login():
+    resp = make_response();
+    resp.set_cookie('wordpress_logged_in')
+    return resp
+
+
+@app.route('/wp_logout')
+def wp_logout():
+    resp = make_response()
+    resp.set_cookie('wordpress_logged_in', expires=0)
+    return resp
 
 
 
