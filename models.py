@@ -70,7 +70,7 @@ class registration(db.Model):
 class user(db.Model):
 
     #More Id's FTW - unique and fresh, don't mess with it
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer)
 
     #Pure json response from auth api
     user_data = db.Column(db.Text)

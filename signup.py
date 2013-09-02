@@ -40,7 +40,8 @@ db = SQLAlchemy(app)
 
 #Super Super Super duper secret key - cookie signing
 app.secret_key = '\xe8\xec~G:\xa9iZ{D|^\x1bvc}U\xac\xbc\x1e\xf4\xed\x8c'
-BASE_URL = "http://localhost:5000" #no trailing slash
+BASE_URL = "http://www.team254.com:5000" #no trailing slash
+AUTH_URL = "http://www.team254.com/auth/"
 
 #Application Stuff in other files
 from models import *
@@ -70,7 +71,7 @@ def gateKeeper():
         for cookie in request.cookies:
             if 'wordpress_logged_in' in cookie:
                 wpCookieExists = True
-                wpCookieData = cookie;
+                wpCookieData = request.cookies[cookie];
                 break
 
         #If it doesn't, send them to go get a cookie from the cookie monster (wp login page) and come back to gatekeeper caller
@@ -79,10 +80,7 @@ def gateKeeper():
 
         #If it does, go get their user data from wp and make em a sandwich (affecionately known as a session)
         else:
-
-            # hit the auth api, HARD
-            payload = {'cookie':"#"+wpCookieData, 'trollololol':'u mad bro?'} # <-- Whoever checks the logs next is gonna get trolled, HARD
-            r = requests.get("http://www.team254.com/auth/", params = payload)
+            r = requests.get(AUTH_URL+"?cookie="+wpCookieData)
 
             #check if good
             if r.status_code == 200:
@@ -116,14 +114,14 @@ def login():
 @app.route('/wp_login')
 def wp_login():
     resp = make_response();
-    resp.set_cookie('wordpress_logged_in')
+    resp.set_cookie('wordpress_logged_in_3d42b000d2a4a2d18a5508d8ef1e38e4')
     return resp
 
 
 @app.route('/wp_logout')
 def wp_logout():
     resp = make_response()
-    resp.set_cookie('wordpress_logged_in', expires=0)
+    resp.set_cookie('wordpress_logged_in_3d42b000d2a4a2d18a5508d8ef1e38e4', expires=0)
     return resp
 
 
