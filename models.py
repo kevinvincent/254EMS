@@ -70,8 +70,8 @@ class registration(db.Model):
 
 
 #Caching the json response (wouldn't wanna hug the auth api to death), holds session data for each user
-class session(db.Model):
-    __tablename__ = 'session'
+class session_cache(db.Model):
+    __tablename__ = 'session_cache'
 
     #More Id's FTW - unique and fresh, don't mess with it - not really used right now
     id = db.Column(db.Integer, primary_key=True)

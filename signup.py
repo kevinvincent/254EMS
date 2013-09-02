@@ -58,11 +58,9 @@ def gateKeeper():
     if request.endpoint == "wp_login" or request.endpoint == "wp_logout":
         return
 
-
-    #Are you authenticated with this app bro?
+    app.logger.info(session)
     if 'user_id' in session:
-        return #Ya = return   
-
+        return
     #Na = off you go to be authenticated then
     else:
         #Check if the wp cookie exists. It BETTER be chocolate chip.
@@ -93,8 +91,8 @@ def gateKeeper():
                 session['user_id'] = user_data['id'];
 
                 #cache response to db
-                the_user = user(int(user_data[id]), json.dumps(user_data));
-                db.session.add(the_user);
+                the_session = session(int(user_data[id]), json.dumps(user_data));
+                db.session.add(the_session);
                 db.session.commit();
 
             else:
