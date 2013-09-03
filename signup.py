@@ -46,6 +46,13 @@ AUTH_URL = "http://www.team254.com/auth/"
 #Application Stuff in other files
 from models import *
 
+#KVSession
+from simplekv.db.sql import SQLAlchemyStore
+from flask.ext.kvsession import KVSessionExtension
+store = SQLAlchemyStore(db.engine, db.metadata, 'sessions')
+kvsession = KVSessionExtension(store, app)
+
+#Logging
 import logging
 stream_handler = logging.StreamHandler()
 app.logger.addHandler(stream_handler)
@@ -59,8 +66,10 @@ def gateKeeper():
         return
 
     app.logger.info(session)
+
     if 'user_id' in session:
         return
+
     #Na = off you go to be authenticated then
     else:
         #Check if the wp cookie exists. It BETTER be chocolate chip.
@@ -90,11 +99,6 @@ def gateKeeper():
                 #set session cookie with id
                 session['user_id'] = user_data['id'];
 
-                #cache response to db
-                the_session = session(int(user_data[id]), json.dumps(user_data));
-                db.session.add(the_session);
-                db.session.commit();
-
             else:
                 #TODO: What do if da cookie expire?
                 pass
@@ -107,20 +111,16 @@ def gateKeeper():
 def login():
     return "MAIN PAGE"
 
+@app.route('/sess')
+def sess():
+    cache = session_cache.query.filter_by(user_id=session['user_id']).first()
+    return cache.user_data
 
-
-@app.route('/wp_login')
-def wp_login():
-    resp = make_response();
-    resp.set_cookie('wordpress_logged_in_3d42b000d2a4a2d18a5508d8ef1e38e4')
-    return resp
-
-
-@app.route('/wp_logout')
+@app.route('/local_logout')
 def wp_logout():
-    resp = make_response()
-    resp.set_cookie('wordpress_logged_in_3d42b000d2a4a2d18a5508d8ef1e38e4', expires=0)
-    return resp
+    session.destroy()
+
+    return "Logged Out"
 
 
 
