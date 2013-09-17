@@ -67,17 +67,3 @@ class registration(db.Model):
 
     #anything else?
     notes = db.Column(db.Text)
-
-
-#Caching the json response (wouldn't wanna hug the auth api to death), holds session data for each user
-class session_cache(db.Model):
-    __tablename__ = 'session_cache'
-
-    #More Id's FTW - unique and fresh, don't mess with it - not really used right now
-    id = db.Column(db.Integer, primary_key=True)
-
-    #User Id from response - used to lookup session from cookie also
-    user_id = db.Column(db.Integer, index=True, unique=True)
-
-    #Pure json response from auth api
-    user_data = db.Column(db.Text)
