@@ -1,17 +1,28 @@
 cheesy-signups
 ==============
+The signup system for FRC - maybe extended later to other signupss
 
-Signup System (In development)
+Stack Infomration
+-----------------
+- Flask microframework for python
+- SQL Alchemy for ORM
+- Postgresql DB on Heroku
+- KVSession Flask extension for Server Side sessions
 
-Files you should be concerned with
-----------------------------------
-signup.py --> Main App
+- DB and App run on Heroku for now
 
-models.py --> Holds the db table schemas as objects (ORM or something like that)
+
+Files you should care about
+---------------------------
+* signup.py --> Main App
+* models.py --> Holds the db table schemas
+
+
 
 Status Updates:
---------------
+---------------
 DB models are done - 8/29/13
 
 Auth implemented. But IDK if it works - 8/29/13
 
+Auth implemented and working! - 9/25/13
