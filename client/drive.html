@@ -1,0 +1,222 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Cheesy Signups &middot; 254</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+    <link href="assets/css/bootstrap-flat.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 80px;
+        padding-bottom: 40px;
+        background: url("assets/img/billie_holiday.png");
+      }
+
+      .navbar-inner {
+        background-image: none;
+        background-repeat: no-repeat;
+        filter: none;
+      }
+
+      .thumbnail {
+        padding: 5%;
+        cursor: pointer;
+        -webkit-border-radius:0px;-moz-border-radius:0px;border-radius:0px;
+      }
+
+      .thumbnail:hover {
+        border:1px solid #bbb;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.055);-moz-box-shadow:0 1px 3px rgba(0,0,0,0.055);box-shadow:0 1px 3px rgba(0,0,0,0.055);-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;transition:all .2s ease-in-out;
+      }
+
+      .thumbnail .btn-group {
+        width: 100%;
+      }
+
+      .btnspacer {
+        margin-top: 5%;
+      }
+
+      .sidebar-nav {
+          padding: 9px 0;
+      }
+
+      .sidebar-nav-fixed {
+          position:fixed;
+          top:80px;
+          width:21.97%;
+      }
+
+      @media (max-width: 767px) {
+          .sidebar-nav-fixed {
+              top:80px;
+              position:static;
+              width:auto;
+          }
+      }
+
+      @media (max-width: 979px) {
+          .sidebar-nav-fixed {
+              top:80px;
+          }
+      }
+
+      #calendar {
+        width: 700px;
+        margin: 0 auto;
+      }
+
+
+    </style>
+
+    <link href='assets/fullcalendar/fullcalendar.css' rel='stylesheet' />
+    <link href='assets/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <script src='assets/lib/jquery.min.js'></script>
+    <script src='assets/lib/jquery-ui.custom.min.js'></script>
+    <script src='assets/fullcalendar/fullcalendar.min.js'></script>
+    <script>
+      $(document).ready(function() {
+  
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+    
+    $('#calendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,basicWeek,basicDay'
+      },
+      editable: true,
+      events: [
+        {
+          title: 'All Day Event',
+          start: new Date(y, m, 1)
+        },
+        {
+          title: 'Long Event',
+          start: new Date(y, m, d-5),
+          end: new Date(y, m, d-2)
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: new Date(y, m, d-3, 16, 0),
+          allDay: false
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: new Date(y, m, d+4, 16, 0),
+          allDay: false
+        },
+        {
+          title: 'Meeting',
+          start: new Date(y, m, d, 10, 30),
+          allDay: false
+        },
+        {
+          title: 'Lunch',
+          start: new Date(y, m, d, 12, 0),
+          end: new Date(y, m, d, 14, 0),
+          allDay: false
+        },
+        {
+          title: 'Birthday Party',
+          start: new Date(y, m, d+1, 19, 0),
+          end: new Date(y, m, d+1, 22, 30),
+          allDay: false
+        },
+        {
+          title: 'Click for Google',
+          start: new Date(y, m, 28),
+          end: new Date(y, m, 29),
+          url: 'http://google.com/'
+        }
+      ]
+    });
+    
+  });
+    </script>
+
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel='stylesheet' href='assets/iconic fill/iconic_fill.css' type='text/css' media='screen' />
+    <style> .thumbnail .btn {font-family:'Helvetica', arial, sans-serif;}
+
+    .thumbnail .iconic { 
+      font-size:65px; 
+    } 
+    
+    </style>
+
+
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="assets/ico/favicon.png">
+  </head>
+
+   <body>
+      <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#"><span class='iconic layers_alt'></span> BCP MyDrive</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+              <li><a href="#">Kevin.Vincent15</a></li>
+              <li><a href="#about">Logout</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">About<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">Bug Report</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div id="parent" class="container-fluid">
+      <div class="row-fluid">
+        <div id='calendar'></div>
+      </div>
+    </div> <!-- /container -->
+
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap-transition.js"></script>
+    <script src="assets/js/bootstrap-alert.js"></script>
+    <script src="assets/js/bootstrap-modal.js"></script>
+    <script src="assets/js/bootstrap-dropdown.js"></script>
+    <script src="assets/js/bootstrap-scrollspy.js"></script>
+    <script src="assets/js/bootstrap-tab.js"></script>
+    <script src="assets/js/bootstrap-tooltip.js"></script>
+    <script src="assets/js/bootstrap-popover.js"></script>
+    <script src="assets/js/bootstrap-button.js"></script>
+    <script src="assets/js/bootstrap-collapse.js"></script>
+    <script src="assets/js/bootstrap-carousel.js"></script>
+    <script src="assets/js/bootstrap-typeahead.js"></script>
+  </body>
+</html>
