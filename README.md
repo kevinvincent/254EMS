@@ -14,15 +14,18 @@ Stack Infomration
 
 Files you should care about
 ---------------------------
-* signup.py --> Main App
-* models.py --> Holds the db table schemas
+- signup.py --> Main App
+- models.py --> Holds the db table schemas
 
 
 
 Status Updates:
 ---------------
-DB models are done - 8/29/13
+- DB models are done - 8/29/13
 
-Auth implemented. But IDK if it works - 8/29/13
+- Auth implemented. But IDK if it works - 8/29/13
 
-Auth implemented and working! - 9/25/13
+- Auth implemented and working! - 9/25/13
+
+- Server can now handle jsonp requests (cross domain ajax for client) - 9/26/13
+
