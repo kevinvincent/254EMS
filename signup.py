@@ -1,51 +1,83 @@
 #http://stackoverflow.com/questions/11616260/how-to-get-all-objects-with-a-date-that-fall-in-a-specific-month-sqlalchemy
+#qry = DBSession.query(User).filter(User.birthday.between('1985-01-17', '1988-01-17'))
 
 
-#Python libs
+# *************** #
+# General Imports
+# *************** #
 import os
 import datetime
 import calendar
 import json
+import time
 import hashlib
 import requests
-
 from flask import *
 
 
-#DB stuff that no one cares about
+# ********** #
+# DB Imports
+# ********** #
 from flask.ext.sqlalchemy import SQLAlchemy
-from sqlalchemy.sql import and_
+from sqlalchemy.sql import *
 
 
-#Config, Config, Config
+# *********** #
+# APP Configs
+# *********** #
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://ssdigfrrpvgjev:cTzHaJFPU5LekOPl7cUEnkqEP8@ec2-54-225-68-241.compute-1.amazonaws.com:5432/d1a8ndh1lhq25k"
 app.config['DEBUG'] = False;
 db = SQLAlchemy(app)
-
-#Super Super Super duper secret key - cookie signing
 app.secret_key = '\xe8\xec~G:\xa9iZ{D|^\x1bvc}U\xac\xbc\x1e\xf4\xed\x8c'
-BASE_URL = "http://team254.com:5000" #no trailing slash
+
+
+# *********** #
+# URL Configs
+# *********** #
+BASE_URL = "http://team254.com:5000"
 AUTH_URL = "http://team254.com/auth/"
 
-#Application Stuff in other files
+
+# ******************************** #
+# Application Stuff in other files
+# ******************************** #
 from models import *
 
-#Logging
+
+# ******* #
+# Logging
+# ******* #
 import logging
 stream_handler = logging.StreamHandler()
 app.logger.addHandler(stream_handler)
 app.logger.setLevel(logging.INFO)
 
-#KVSession
-from simplekv.memory import DictStore
-#from simplekv.db.sql import SQLAlchemyStore
-from flask.ext.kvsession import KVSessionExtension
 
-#store = SQLAlchemyStore(db.engine, db.metadata, 'sessions')
+# ********* #
+# KVSession
+# ********* #
+from simplekv.memory import DictStore
+from flask.ext.kvsession import KVSessionExtension
+    #from simplekv.db.sql import SQLAlchemyStore
+    #store = SQLAlchemyStore(db.engine, db.metadata, 'sessions')
 store = DictStore()
 kvsession = KVSessionExtension(store, app)
 
+
+# ****************** #
+# DB Admin Interface
+# ****************** #
+from flask.ext.admin import Admin
+from flask.ext.admin.contrib.sqlamodel import ModelView
+
+class CustomView(ModelView):
+    column_display_pk = True
+
+admin = Admin(app, name = "Cheesy-Signups DB Admin")
+admin.add_view(CustomView(event_type, db.session))
+admin.add_view(CustomView(event, db.session))
+admin.add_view(CustomView(registration, db.session))
 
 
 
@@ -64,7 +96,6 @@ def gateKeeper():
                 wpCookieExists = True
                 wpCookieData = request.cookies[cookie]
                 break
-        app.logger.info("WP_COOKIE_CHECK")
 
         if not wpCookieExists:
             return redirect("http://www.team254.com/wp-login.php?redirect_to=http://www.team254.com/auth/?sub="+"www"+"&path="+"/") # <-- cookie monster
@@ -86,7 +117,7 @@ def gateKeeper():
 
 
 @app.route('/')
-def login():
+def main():
     return "MAIN PAGE"
 
 @app.route('/sess')
@@ -112,4 +143,24 @@ def loadView():
         return json.dumps(l)    
 
 
+@app.route('/createEvents')
+def createEvents():
+    def daterange(start_date, end_date):
+        for n in range(int ((end_date - start_date).days)):
+            yield start_date + datetime.timedelta(n)
 
+
+    year = 2013
+    month = 7
+
+    num_days = calendar.monthrange(year, month)[1]
+    start_date = datetime.date(year, month, 1)
+    end_date = datetime.date(year, month+1, 1)
+
+    returnString = ""
+    for single_date in daterange(start_date, end_date):
+        #returnString += time.strftime("%Y-%m-%d", single_date.timetuple())
+        returnString += str(single_date)
+        returnString += "<br/>"
+
+    return returnString

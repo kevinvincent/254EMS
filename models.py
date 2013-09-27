@@ -32,7 +32,7 @@ class event(db.Model):
     available = db.Column(db.Boolean)
 
     #Amount slots open
-    num_slotes = db.Column(db.Integer)
+    num_slots = db.Column(db.Integer)
 
     #Has it been cancelled?
     cancelled = db.Column(db.Boolean)

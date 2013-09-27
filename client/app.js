@@ -14,7 +14,7 @@ $(document).ready(function() {
 
       weekMode: 'liquid',
       height: 600,
-      editable: true,
+      editable: false,
 
       events: {
         url: 'http://team254.com:5000/loadView',
