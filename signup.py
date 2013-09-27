@@ -95,8 +95,21 @@ def sess():
 
 @app.route('/loadView')
 def loadView():
-    return '["0",{"allDay":false,"title":"Test event","id":"821","end":"2013-06-06 14:00:00","start":"2013-06-06 06:00:00"}]'
+    data = {}
+    data['title'] = "Test Event"
+    data['allDay'] = True
+    data['start'] = "2013-06-06 06:00:00"
+    data['end'] = "2013-06-06 14:00:00"
 
+    l = []
+    l.append(data)
+
+    #Handle Jsonp cross domain requests
+    # - Basically allow this to be accesed from any domain through ajax
+    if(request.args.get('callback') != None):
+        return request.args.get('callback') + "(" + json.dumps(l) + ")"
+    else:
+        return json.dumps(l)    
 
 
 

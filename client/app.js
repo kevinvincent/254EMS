@@ -19,10 +19,7 @@ $(document).ready(function() {
       events: {
         url: 'http://team254.com:5000/loadView',
         type: 'GET',
-        data: {
-            custom_param1: 'something',
-            custom_param2: 'somethingelse'
-        },
+        dataType: "jsonp",
         error: function() {
             alert('there was an error while fetching events!');
         }
