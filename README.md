@@ -12,10 +12,15 @@ Stack Infomration
 - DB and App run on Heroku for now
 
 
-Files you should care about
+
+Files
 ---------------------------
-- signup.py --> Main App
-- models.py --> Holds the db table schemas
+- (dir) client: html and js frontend for applciation, completely independent
+- (dir) dev: contains old code and a heroku deploy script
+- (file) Procfile: Heroku config file
+- (file) requirements.txt: Heroku requirements file (all these resources are necessary and can be installed via pip)
+- (file) models.py: Holds all table schemas
+- (file) signup.py: Main app with controllers
 
 
 
