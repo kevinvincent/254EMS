@@ -73,12 +73,13 @@ from flask.ext.admin.contrib.sqlamodel import ModelView
 
 class CustomView(ModelView):
     column_display_pk = True
+    column_auto_select_related = True
 
 admin = Admin(app, name = "Cheesy-Signups DB Admin")
-admin.add_view(CustomView(event_type, db.session))
-admin.add_view(CustomView(event, db.session))
-admin.add_view(CustomView(registration, db.session))
-
+admin.add_view(CustomView(Event, db.session))
+admin.add_view(CustomView(Event_Category, db.session))
+admin.add_view(CustomView(Event_Meta, db.session))
+admin.add_view(CustomView(Registration, db.session))
 
 
 @app.before_request
@@ -98,7 +99,11 @@ def gateKeeper():
                 break
 
         if not wpCookieExists:
-            return redirect("http://www.team254.com/wp-login.php?redirect_to=http://www.team254.com/auth/?sub="+"www"+"&path="+"/") # <-- cookie monster
+            #Handle jsonp requests
+            if(request.args.get('callback') != None):
+                return 'window.location = '+'"http://www.team254.com/wp-login.php?redirect_to=http://www.team254.com/auth/?sub=www&path=/"'
+            else:
+                return redirect("http://www.team254.com/wp-login.php?redirect_to=http://www.team254.com/auth/?sub=www&path=/") # <-- cookie monster
 
         else:
 
@@ -124,23 +129,31 @@ def main():
 def sess():
     return session['user_data']
 
+
 @app.route('/loadView')
 def loadView():
-    data = {}
-    data['title'] = "Test Event"
-    data['allDay'] = True
-    data['start'] = "2013-06-06 06:00:00"
-    data['end'] = "2013-06-06 14:00:00"
 
-    l = []
-    l.append(data)
+    start_date = datetime.datetime.fromtimestamp(int(request.args.get('start')))
+    end_date = datetime.datetime.fromtimestamp(int(request.args.get('end')))
+
+    results = db.session.query(Event).filter(or_(and_(Event.start_time >= start_date, Event.start_time <= end_date),and_(Event.end_time >= start_date, Event.end_time <= end_date))).all()
+    
+    returnList = []
+
+    for theEvent in results:
+        data = {}
+        data['title'] = theEvent.title
+        data['allDay'] = True
+        data['start'] = str(theEvent.start_time)
+        data['end'] = str(theEvent.end_time)
+        returnList.append(data)
 
     #Handle Jsonp cross domain requests
     # - Basically allow this to be accesed from any domain through ajax
     if(request.args.get('callback') != None):
-        return request.args.get('callback') + "(" + json.dumps(l) + ")"
+        return request.args.get('callback') + "(" + json.dumps(returnList) + ")"
     else:
-        return json.dumps(l)    
+        return json.dumps(returnList)  
 
 
 @app.route('/createEvents')
@@ -153,7 +166,6 @@ def createEvents():
     year = 2013
     month = 7
 
-    num_days = calendar.monthrange(year, month)[1]
     start_date = datetime.date(year, month, 1)
     end_date = datetime.date(year, month+1, 1)
 
@@ -164,3 +176,10 @@ def createEvents():
         returnString += "<br/>"
 
     return returnString
+
+
+@app.route('/reset')
+def reset():
+    db.drop_all()
+    db.create_all()
+    return "DONE"
