@@ -82,6 +82,12 @@ admin.add_view(CustomView(Event_Meta, db.session))
 admin.add_view(CustomView(Registration, db.session))
 
 
+
+
+# ********************** #
+# Main App
+# ********************** #
+
 @app.before_request
 def gateKeeper():
 
@@ -121,6 +127,7 @@ def gateKeeper():
                 pass
 
 
+"""TESTER VIEWS"""
 @app.route('/')
 def main():
     return "MAIN PAGE"
@@ -128,33 +135,6 @@ def main():
 @app.route('/sess')
 def sess():
     return session['user_data']
-
-
-@app.route('/loadView')
-def loadView():
-
-    start_date = datetime.datetime.fromtimestamp(int(request.args.get('start')))
-    end_date = datetime.datetime.fromtimestamp(int(request.args.get('end')))
-
-    results = db.session.query(Event).filter(or_(and_(Event.start_time >= start_date, Event.start_time <= end_date),and_(Event.end_time >= start_date, Event.end_time <= end_date))).all()
-    
-    returnList = []
-
-    for theEvent in results:
-        data = {}
-        data['title'] = theEvent.title
-        data['allDay'] = True
-        data['start'] = str(theEvent.start_time)
-        data['end'] = str(theEvent.end_time)
-        returnList.append(data)
-
-    #Handle Jsonp cross domain requests
-    # - Basically allow this to be accesed from any domain through ajax
-    if(request.args.get('callback') != None):
-        return request.args.get('callback') + "(" + json.dumps(returnList) + ")"
-    else:
-        return json.dumps(returnList)  
-
 
 @app.route('/createEvents')
 def createEvents():
@@ -177,9 +157,98 @@ def createEvents():
 
     return returnString
 
-
 @app.route('/reset')
 def reset():
     db.drop_all()
     db.create_all()
     return "DONE"
+
+
+
+""" Application Views """
+
+#Full Calendar Event Loader
+@app.route('/loadView')
+def loadView():
+    print "loadView";
+
+    start_date = datetime.datetime.fromtimestamp(int(request.args.get('start')))
+    end_date = datetime.datetime.fromtimestamp(int(request.args.get('end')))
+
+    results = db.session.query(Event).filter(or_(and_(Event.start_time >= start_date, Event.start_time <= end_date),and_(Event.end_time >= start_date, Event.end_time <= end_date))).all()
+    
+    returnList = []
+
+    for theEvent in results:
+        data = {}
+
+        #Full Calendar Required Information
+        data['title'] = theEvent.title
+        data['allDay'] = True
+        data['start'] = str(theEvent.start_time)
+        data['end'] = str(theEvent.end_time)
+
+        #Custom MetaData
+        category = db.session.query(Event_Category).filter(Event_Category.id==theEvent.et_id).first()
+        data['category'] = str(category.name)
+        data['id'] = theEvent.id
+
+        signupsResults = theEvent.registrations.filter(Registration.has_cancelled==False).all()
+        signups = []
+        for theRegistration in signupsResults:
+            signups.append(theRegistration.username);
+        data['registrations'] = signups
+        
+        returnList.append(data)
+
+    app.logger.info(json.dumps(returnList));
+
+    #Handle Jsonp cross domain requests
+    # - Basically allow this to be accesed from any domain through ajax
+    if(request.args.get('callback') != None):
+        return request.args.get('callback') + "(" + json.dumps(returnList) + ")"
+    else:
+        return json.dumps(returnList)  
+
+#Dashboard feed wide
+@app.route('/mySignupsFeed')
+def mySignupsFeed():
+    print "mySignupsFeed";
+
+    returnList = [];
+
+    mySignups = db.session.query(Event).join(Registration).filter(and_(Registration.u_id==session['user_id'],Registration.has_cancelled==False)).all();
+
+    for signup in mySignups:
+        data = {}
+
+        data['title'] = signup.title
+        data['start'] = str(signup.start_time)
+        data['id'] = signup.id
+
+        returnList.append(data)
+
+        #Handle Jsonp cross domain requests
+    # - Basically allow this to be accesed from any domain through ajax
+    if(request.args.get('callback') != None):
+        return request.args.get('callback') + "(" + json.dumps(returnList) + ")"
+    else:
+        return json.dumps(returnList)
+
+
+#Cancel a registration
+@app.route('/cancel/<cancelId>')
+def cancel(cancelId):
+
+    cancelEventId = int(cancelId)
+    mySignupToCancel = db.session.query(Registration).filter(Registration.u_id==session['user_id'] and Registration.e_id==cancelEventId).first();
+
+    mySignupToCancel.has_cancelled = True;
+
+    db.session.commit();
+    app.logger.info("Canceled Event " + str(cancelEventId) + ": Registration - " + str(mySignupToCancel.id));
+
+    if(request.args.get('callback') != None):
+        return request.args.get('callback') + "(" + json.dumps([]) + ")"
+    else:
+        return json.dumps([])

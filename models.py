@@ -92,6 +92,9 @@ class Registration(db.Model):
     #users.id "what user?"
     u_id = db.Column(db.Integer)
 
+    #username
+    username = db.Column(db.Text)
+
     #events.id "wat event"
     e_id = db.Column(db.Integer, db.ForeignKey('Event.id'))
 
@@ -103,6 +106,9 @@ class Registration(db.Model):
 
     #why u cancel?
     cancel_time = db.Column(db.DateTime, default=None)
+
+    #Is it cancelled?
+    has_cancelled = db.Column(db.Boolean, default=False)
 
     #why u no show up?
     no_show = db.Column(db.Boolean, default=False)
