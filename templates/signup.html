@@ -6,33 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="assets/assets/assets/ico/favicon.png">
+    <link rel="shortcut icon" href="/static/assets//static/assets//static/assets/ico/favicon.png">
 
     <title>Jumbotron Template for Bootstrap</title>
 
-    <!-- CORE -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
 
     <!-- Full Calendar -->
-    <link href='assets/fullcalendar/fullcalendar.css' rel='stylesheet' />
-    <link href='assets/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
-    <script src='assets/lib/jquery.min.js'></script>
-    <script src='assets/lib/jquery-ui.custom.min.js'></script>
-    <script src='assets/fullcalendar/fullcalendar.min.js'></script>
+    <link href='/static/assets/fullcalendar/fullcalendar.css' rel='stylesheet' />
+    <link href='/static/assets/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <script src='/static/assets/lib/jquery.min.js'></script>
+    <script src='/static/assets/lib/jquery-ui.custom.min.js'></script>
+    <script src='/static/assets/fullcalendar/fullcalendar.min.js'></script>
+
+    <!-- CORE -->
+    <script src="/static/assets/js/bootstrap.min.js"></script>
+    <link href="/static/assets/css/bootstrap.css" rel="stylesheet">
 
     <style type="text/css">
     .jumbotron {
-      margin-top: -20px;
+      margin-top: -50px;
       background-color: white;
     }
 
     body {
-      background-color: #EEEEEE;
+      background-color: #E5E5E5;
     }
 
     .text-muted {
       font-size: 40px;
+    }
+
+    * {
+      -webkit-border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+      border-radius: 0 !important;
     }
 
     </style>
@@ -53,8 +60,8 @@
         </div>
         <div class="navbar-collapse collapse navbar-right">
           <ul class="nav navbar-nav">
-            <li><a href="main.html">Dashboard</a></li>
-            <li class="active"><a href="signup.html">Signup</a></li>
+            <li><a href="/">Dashboard</a></li>
+            <li class="active"><a href="/signup">Signup</a></li>
             <li><a href="#contact">Information</a></li>
           </ul>
         </div><!--/.navbar-collapse -->
@@ -71,7 +78,7 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-10 col-lg-offset-1">
           <div class="panel panel-primary">
             <div class="panel-heading"></div>
             <div class="panel-body">
@@ -141,8 +148,8 @@
     </div><!-- /.modal -->
 
     <!-- Application JS -->
-    <script src="assets/js/bootstrap-modal.js"></script>
-    <script src="app.js"></script>
+    <script src="/static/assets/js/bootstrap-modal.js"></script>
+    <script src="/static/app.js"></script>
 
   </body>
 </html>

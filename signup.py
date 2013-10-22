@@ -128,9 +128,6 @@ def gateKeeper():
 
 
 """TESTER VIEWS"""
-@app.route('/')
-def main():
-    return "MAIN PAGE"
 
 @app.route('/sess')
 def sess():
@@ -190,15 +187,26 @@ def loadView():
 
         #Custom MetaData
         category = db.session.query(Event_Category).filter(Event_Category.id==theEvent.et_id).first()
+
+        #Event Category
         data['category'] = str(category.name)
+
+        #Unique Id
         data['id'] = theEvent.id
 
+        #Registrations List
         signupsResults = theEvent.registrations.filter(Registration.has_cancelled==False).all()
         signups = []
         for theRegistration in signupsResults:
-            signups.append(theRegistration.username);
+            signups.append(theRegistration.username)
         data['registrations'] = signups
-        
+
+        #Number of Registrations
+        data['numberOfRegistrations'] = len(signups)
+
+        #Max Number of registrations
+        data['maxRegistrations'] = theEvent.metas.filter(Event_Meta.key=="maxSignups").first().value;
+
         returnList.append(data)
 
     app.logger.info(json.dumps(returnList));
@@ -237,8 +245,26 @@ def mySignupsFeed():
 
 
 #Cancel a registration
-@app.route('/cancel/<cancelId>')
-def cancel(cancelId):
+@app.route('/cancel/<eventId>')
+def cancel(eventId):
+
+    cancelEventId = int(eventId)
+    mySignupToCancel = db.session.query(Registration).filter(Registration.u_id==session['user_id'] and Registration.e_id==cancelEventId).first();
+
+    mySignupToCancel.has_cancelled = True;
+
+    db.session.commit();
+    app.logger.info("Canceled Event " + str(cancelEventId) + ": Registration - " + str(mySignupToCancel.id));
+
+    if(request.args.get('callback') != None):
+        return request.args.get('callback') + "(" + json.dumps(["Successfully Cancelled"]) + ")"
+    else:
+        return json.dumps([])
+
+
+#Add a registration
+@app.route('/register/<eventId>')
+def register(eventId):
 
     cancelEventId = int(cancelId)
     mySignupToCancel = db.session.query(Registration).filter(Registration.u_id==session['user_id'] and Registration.e_id==cancelEventId).first();
@@ -249,6 +275,15 @@ def cancel(cancelId):
     app.logger.info("Canceled Event " + str(cancelEventId) + ": Registration - " + str(mySignupToCancel.id));
 
     if(request.args.get('callback') != None):
-        return request.args.get('callback') + "(" + json.dumps([]) + ")"
+        return request.args.get('callback') + "(" + json.dumps(["Successfully Registered"]) + ")"
     else:
         return json.dumps([])
+
+
+@app.route('/')
+def dashboard():
+    return render_template("main.html")
+
+@app.route('/signup')
+def signup():
+    return render_template("signup.html")

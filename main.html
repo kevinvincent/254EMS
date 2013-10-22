@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
+
+    <title>Jumbotron Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+    <style type="text/css">
+    .jumbotron {
+      margin-top: -20px;
+      background-color: white;
+    }
+
+    body {
+      background-color: #EEEEEE;
+    }
+
+    .text-muted {
+      font-size: 40px;
+    }
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Cheesy Signups</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-right">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="main.html">Dashboard</a></li>
+            <li><a href="signup.html">Signup</a></li>
+            <li><a href="#contact">Information</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Dashboard <small>View your Information</small></h1>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="panel panel-primary">
+
+            <div class="panel-heading">
+              <h1 class="panel-title">Signed Up For</h1>
+            </div>
+
+            <div id="feed-wrapper" class="list-group">
+              <a href="#" class="list-group-item">
+                <h4 class="list-group-item-heading">Loading Feed</h4>
+                <p class="list-group-item-text">Please Wait...</p>
+              </a>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h1 class="panel-title">My Hours <span class="label label-inverse pull-right">Total</span></h1>
+            </div>
+            <!-- Table -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Sign Out Time</th>
+                  <th>Hours Earned</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+              </div>
+           </div>  
+          </div>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootbox.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
