@@ -13,9 +13,10 @@ Stack Infomration
 
 
 
-Files
+Files && Directories
 ---------------------------
-- (dir) client: html and js frontend for applciation, completely independent
+- (dir) templates: html for frontend
+- (dir) static: static css and js files
 - (dir) dev: contains old code and a heroku deploy script
 - (file) Procfile: Heroku config file
 - (file) requirements.txt: Heroku requirements file (all these resources are necessary and can be installed via pip)
