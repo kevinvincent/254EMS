@@ -23,7 +23,7 @@ function cancelEvent(e_id) {
 	      callback: function() {
 	        $.ajax({
 	          type : "GET",
-	          dataType : "jsonp",
+	          dataType : "json",
 	          url : 'http://signups.team254.com/cancel/'+e_id,
 	          success: function(data){
 	            alert("Event Cancelled!");
@@ -85,7 +85,7 @@ $(document).ready(function() {
 
     $.ajax({
       type : "GET",
-      dataType : "jsonp",
+      dataType : "json",
       url : 'http://signups.team254.com/mySignupsFeed',
       success: function(data){
         feed = data;
@@ -128,7 +128,7 @@ $(document).ready(function() {
       events: {
         url: 'http://signups.team254.com/loadView',
         type: 'GET',
-        dataType: "jsonp",
+        dataType: "json",
         error: function() {
             alert('there was an error while fetching events!');
           }
