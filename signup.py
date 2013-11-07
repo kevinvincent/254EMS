@@ -172,8 +172,10 @@ def loadView():
     start_date = datetime.datetime.fromtimestamp(int(request.args.get('start')))
     end_date = datetime.datetime.fromtimestamp(int(request.args.get('end')))
 
+    startDbTime = int(round(time.time() * 1000))
     results = db.session.query(Event).filter(or_(and_(Event.start_time >= start_date, Event.start_time <= end_date),and_(Event.end_time >= start_date, Event.end_time <= end_date))).all()
-    
+    app.logger.info("Calendar DB Query: " + str(int(round(time.time() * 1000))-startDbTime));
+
     returnList = []
 
     for theEvent in results:
@@ -225,7 +227,9 @@ def mySignupsFeed():
 
     returnList = [];
 
+    startDbTime = int(round(time.time() * 1000))
     mySignups = db.session.query(Event).join(Registration).filter(and_(Registration.u_id==session['user_id'],Registration.has_cancelled==False)).all();
+    app.logger.info("Feed DB Query: " + str(int(round(time.time() * 1000))-startDbTime));
 
     for signup in mySignups:
         data = {}
@@ -263,16 +267,17 @@ def cancel(eventId):
 
 
 #Add a registration
-@app.route('/register/<eventId>')
+@app.route('/register/<eventId>',methods=['GET','POST'])
 def register(eventId):
 
-    cancelEventId = int(cancelId)
-    mySignupToCancel = db.session.query(Registration).filter(Registration.u_id==session['user_id'] and Registration.e_id==cancelEventId).first();
+    theEvent = db.session.query(Event).filter(Event.id == int(eventId)).first()
+    userInfo = json.loads(session['user_data']);
 
-    mySignupToCancel.has_cancelled = True;
+    #Registration(u_id=userInfo['id'], username=userInfo['username'], e_id=theEvent, timestamp=datetime.datetime.now(), remind=False, cancel_time=None, has_cancelled=False, no_show=False, notes=request.args.get("notes"))
+    newRegistration = Registration(u_id=userInfo['id'], username=userInfo['username'], e_id=theEvent.id, timestamp=datetime.datetime.now(), remind=False, cancel_time=None, has_cancelled=False, no_show=False, notes=request.args.get("notes",""))
 
-    db.session.commit();
-    app.logger.info("Canceled Event " + str(cancelEventId) + ": Registration - " + str(mySignupToCancel.id));
+    db.session.add(newRegistration)
+    db.session.commit()
 
     if(request.args.get('callback') != None):
         return request.args.get('callback') + "(" + json.dumps(["Successfully Registered"]) + ")"

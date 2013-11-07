@@ -4,10 +4,10 @@ function cancelEvent(e_id) {
   var event_str;
   for (i in feed) {
     theEvent = feed[i]
-    if(theEvent.id == e_id) event_str = " for " + theEvent.title + " on " + theEvent.start;
+    if(theEvent.id == e_id) event_str = " for </h4></br><h5>" + theEvent.title + " on " + theEvent.start;
   }
   	bootbox.dialog({
-	  message: "Are you sure you want to cancel your signup" + event_str + "?",
+	  message: "<h4>Are you sure you want to cancel your signup" + event_str + "?</h5>",
 	  title: "Confirm Cancellation",
 	  buttons: {
 	    main: {
@@ -40,6 +40,9 @@ function ratioToColor(numberAttending, maxAttending) {
 	else return "success"
 }
 
+function registerEvent() {
+	
+}
 function showEvent(calEvent) {
 	var start_time = new Date(calEvent.start);
 	var end_time = new Date(calEvent.end || calEvent.start);
@@ -48,6 +51,7 @@ function showEvent(calEvent) {
 	var end_time_string = end_time.getHours()+":"+end_time.getMinutes()
 
 	$('#event-title').html(calEvent.title);
+	$('#event-id').html(calEvent.id);
 	$('#event-category').html(calEvent.category);
 	$('#event-start').html(start_time_string);
 	$('#event-end').html(end_time_string);

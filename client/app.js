@@ -7,7 +7,7 @@ function cancelEvent(e_id) {
     if(theEvent.id == e_id) event_str = " for " + theEvent.title + " on " + theEvent.start;
   }
   	bootbox.dialog({
-	  message: "Are you sure you want to cancel your signup" + event_str + "?",
+	  message: "Are you sure you want to cancel your signup</br>" + event_str + "?",
 	  title: "Confirm Cancellation",
 	  buttons: {
 	    main: {
@@ -117,7 +117,7 @@ $(document).ready(function() {
       editable: false,
       buttonIcons: true,
       height: 700,
-      
+
 
       events: {
         url: '/loadView',
