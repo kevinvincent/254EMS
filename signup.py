@@ -174,7 +174,7 @@ def loadView():
 
     startDbTime = int(round(time.time() * 1000))
     results = db.session.query(Event).filter(or_(and_(Event.start_time >= start_date, Event.start_time <= end_date),and_(Event.end_time >= start_date, Event.end_time <= end_date))).all()
-    app.logger.info("Calendar DB Query: " + str(int(round(time.time() * 1000))-startDbTime));
+    print "Calendar DB Query: " + str(int(round(time.time() * 1000))-startDbTime);
 
     returnList = []
 
@@ -229,7 +229,7 @@ def mySignupsFeed():
 
     startDbTime = int(round(time.time() * 1000))
     mySignups = db.session.query(Event).join(Registration).filter(and_(Registration.u_id==session['user_id'],Registration.has_cancelled==False)).all();
-    app.logger.info("Feed DB Query: " + str(int(round(time.time() * 1000))-startDbTime));
+    print "Feed DB Query: " + str(int(round(time.time() * 1000))-startDbTime)
 
     for signup in mySignups:
         data = {}
