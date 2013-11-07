@@ -1,3 +1,6 @@
+//alertify.js
+//offline.js
+
 var feed;
 
 function cancelEvent(e_id) {
