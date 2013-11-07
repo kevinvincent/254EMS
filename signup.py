@@ -27,7 +27,7 @@ from sqlalchemy.sql import *
 # *********** #
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://ssdigfrrpvgjev:cTzHaJFPU5LekOPl7cUEnkqEP8@ec2-54-225-68-241.compute-1.amazonaws.com:5432/d1a8ndh1lhq25k"
-app.config['DEBUG'] = False;
+app.config['DEBUG'] = True;
 db = SQLAlchemy(app)
 app.secret_key = '\xe8\xec~G:\xa9iZ{D|^\x1bvc}U\xac\xbc\x1e\xf4\xed\x8c'
 
