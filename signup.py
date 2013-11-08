@@ -207,7 +207,7 @@ def loadView():
         data['numberOfRegistrations'] = len(signups)
 
         #Max Number of registrations
-        data['maxRegistrations'] = theEvent.metas.filter(Event_Meta.key=="maxSignups").first().value;
+        data['maxRegistrations'] = theEvent.metas.filter(Event_Meta.key=="MAX_REGISTRATION_COUNT").first().value;
 
         returnList.append(data)
 
