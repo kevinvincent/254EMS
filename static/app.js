@@ -1,8 +1,26 @@
 //alertify.js
 //offline.js
 
+//Code to make allow direct linking but prevent back button linking
+if(window.location.hash.substr(1) != '') {
+	value = window.location.hash.substr(1)
+	window.location.replace("#");
+	showLinkedEvent(value)
+}
+$(window).on('hashchange', function() {
+	value = window.location.hash.substr(1)
+	$(window).unbind( 'hashchange', hashChanged);
+	window.location.replace(window.location+"#");
+	 setTimeout(function(){
+        $(window).bind( 'hashchange', hashChanged);
+    }, 100);
+	if(value!='') showLinkedEvent(value)
+});
+
+//
 var feed;
 
+//Cancel user registration for event id
 function cancelEvent(e_id) {
   var event_str;
   for (i in feed) {
@@ -23,8 +41,8 @@ function cancelEvent(e_id) {
 	      callback: function() {
 	        $.ajax({
 	          type : "GET",
-	          dataType : "json",
-	          url : '/cancel/'+e_id,
+	          dataType : "jsonp",
+	          url : 'http://team254.com:5000/cancel/'+e_id,
 	          success: function(data){
 	            alert("Event Cancelled!");
 	            location.reload(true);
@@ -36,6 +54,7 @@ function cancelEvent(e_id) {
 	});
 }
 
+//Converts ratio of signups/maxsignups to a color value
 function ratioToColor(numberAttending, maxAttending) {
 	ratio = maxAttending/numberAttending;
 	if(ratio < 1.33) return "danger"
@@ -46,7 +65,9 @@ function ratioToColor(numberAttending, maxAttending) {
 function registerEvent() {
 	
 }
-function showEvent(calEvent) {
+
+//Used by fullcalendar to launch event modal
+function showEventModal(calEvent) {
 	var start_time = new Date(calEvent.start);
 	var end_time = new Date(calEvent.end || calEvent.start);
 
@@ -79,14 +100,29 @@ function showEvent(calEvent) {
     $('#myModal').modal('show');
 }
 
+//An event that wasn't loaded by fullcalendar
+function showLinkedEvent(eventId) {
+	$.ajax({
+      type : "GET",
+      dataType : "jsonp",
+      url : 'http://team254.com:5000/getEvent/'+eventId,
+      success: function(data){
+      	showEventModal(data);
+      }
+    });
+
+}
+
+
+
 
 $(document).ready(function() {
 
 
     $.ajax({
       type : "GET",
-      dataType : "json",
-      url : '/mySignupsFeed',
+      dataType : "jsonp",
+      url : 'http://team254.com:5000/mySignupsFeed',
       success: function(data){
         feed = data;
         var feedHTML = "";
@@ -98,12 +134,13 @@ $(document).ready(function() {
 	                      ].join('\n');
         } else {
 	        for (i in feed) {
-	          var theEvent = feed[i]
-	          feedHTML += ['<a href="#" class="list-group-item">',
-	                      '<button type="button" onclick="cancelEvent('+theEvent.id+')" class="btn btn-danger btn-xs pull-right">Cancel</button>',
+	        var theEvent = feed[i]
+	          feedHTML += ['<li class="list-group-item">',
+	                      '<a onclick="cancelEvent('+theEvent.id+')" class="btn btn-danger btn-md pull-right" role="button"><i class="fa fa-times"></i></a>',
+	                      '<a href="/signup#'+theEvent.id+'" class="btn btn-success btn-md pull-right" role="button"> <i class="fa fa-info"></i> </a>',
 	                      '<h4 class="list-group-item-heading">'+theEvent.title+'</h4>',
 	                      '<p class="list-group-item-text">Date: '+theEvent.start+'</p>',
-	                      '</a>'
+	                      '</li>'
 	                      ].join('\n');
 	        }
     	}
@@ -123,19 +160,19 @@ $(document).ready(function() {
       handleWindowResize: true,
       editable: false,
       buttonIcons: true,
-      height: 700,
+      aspectRatio: 1.75,
 
       events: {
-        url: '/loadView',
+        url: 'http://team254.com:5000/loadView',
         type: 'GET',
-        dataType: "json",
+        dataType: "jsonp",
         error: function() {
             alert('there was an error while fetching events!');
           }
        },
 
       eventClick: function(calEvent, jsEvent, view) {
-      	showEvent(calEvent);
+      	showEventModal(calEvent);
       }
 
     

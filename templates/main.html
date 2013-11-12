@@ -13,10 +13,31 @@
     <!-- Bootstrap core CSS -->
     <link href="/static/assets/css/bootstrap.css" rel="stylesheet">
 
+    <!-- Font Awesome -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
     <style type="text/css">
     .jumbotron {
       margin-top: -50px;
       background-color: white;
+    }
+
+    #text {
+      margin-bottom: -20px;
+    }
+
+    .fa-tachometer {
+      position: relative;
+      top: -3px;
+    }
+
+    .btn-success {
+      margin-right: 10px;
+    }
+
+    .glyphicon-remove {
+      position: relative;
+      top: 2px;
     }
 
     body {
@@ -25,6 +46,12 @@
 
     .text-muted {
       font-size: 40px;
+    }
+
+    * {
+      -webkit-border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+      border-radius: 0 !important;
     }
     </style>
 
@@ -54,8 +81,8 @@
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <div class="container">
-        <h1>Dashboard <small>View your Information</small></h1>
+      <div class="container" id="text">
+        <h1><i class="fa fa-tachometer"></i> Dashboard <small>View your Information</small></h1>
       </div>
     </div>
 
@@ -63,24 +90,8 @@
 
       <!-- Example row of columns -->
       <div class="row">
+
         <div class="col-md-4">
-          <div class="panel panel-primary">
-
-            <div class="panel-heading">
-              <h1 class="panel-title">Signed Up For</h1>
-            </div>
-
-            <div id="feed-wrapper" class="list-group">
-              <a href="#" class="list-group-item">
-                <h4 class="list-group-item-heading">Loading Feed</h4>
-                <p class="list-group-item-text">Please Wait...</p>
-              </a>
-            </div>
-
-
-          </div>
-        </div>
-        <div class="col-md-8">
           <div class="panel panel-primary">
             <div class="panel-heading">
               <h1 class="panel-title">My Hours <span class="label label-inverse pull-right">Total</span></h1>
@@ -112,9 +123,26 @@
                 </tr>
               </tbody>
             </table>
-              </div>
-           </div>  
           </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="panel panel-primary">
+
+            <div class="panel-heading">
+              <h1 class="panel-title">Signed Up For</h1>
+            </div>
+
+            <div id="feed-wrapper">
+              <ul class="list-group">
+              </ul>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
     </div> <!-- /container -->
 
 

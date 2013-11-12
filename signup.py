@@ -203,6 +203,12 @@ def loadView():
             signups.append(theRegistration.username)
         data['registrations'] = signups
 
+        #Is the user already registered?
+	    if(theEvent.registrations.filter(and_(Registration.u_id==session['user_id'],Registration.has_cancelled==False)).count()==0):
+	    	data['isRegistered'] = False
+	    else:
+	    	data['isRegistered'] = True
+
         #Number of Registrations
         data['numberOfRegistrations'] = len(signups)
 
@@ -218,7 +224,60 @@ def loadView():
     if(request.args.get('callback') != None):
         return request.args.get('callback') + "(" + json.dumps(returnList) + ")"
     else:
-        return json.dumps(returnList)  
+        return json.dumps(returnList)
+
+@app.route('/getEvent/<eventId>')
+def getEvent(eventId):
+    print "getEvent";
+
+    startDbTime = int(round(time.time() * 1000))
+    theEvent = db.session.query(Event).filter(Event.id==int(eventId)).first()
+    print "Event DB Query: " + str(int(round(time.time() * 1000))-startDbTime);
+
+    data = {}
+
+    #Full Calendar Required Information
+    data['title'] = theEvent.title
+    data['allDay'] = True
+    data['start'] = str(theEvent.start_time)
+    data['end'] = str(theEvent.end_time)
+
+    #Custom MetaData
+    category = db.session.query(Event_Category).filter(Event_Category.id==theEvent.et_id).first()
+
+    #Event Category
+    data['category'] = str(category.name)
+
+    #Unique Id
+    data['id'] = theEvent.id
+
+    #Registrations List
+    signupsResults = theEvent.registrations.filter(Registration.has_cancelled==False).all()
+    signups = []
+    for theRegistration in signupsResults:
+        signups.append(theRegistration.username)
+    data['registrations'] = signups
+
+    #Is the user already registered?
+    if(theEvent.registrations.filter(and_(Registration.u_id==session['user_id'],Registration.has_cancelled==False)).count()==0):
+    	data['isRegistered'] = False
+    else:
+    	data['isRegistered'] = True
+
+    #Number of Registrations
+    data['numberOfRegistrations'] = len(signups)
+
+    #Max Number of registrations
+    data['maxRegistrations'] = theEvent.metas.filter(Event_Meta.key=="MAX_REGISTRATION_COUNT").first().value;
+
+    app.logger.info(json.dumps(data));
+
+    #Handle Jsonp cross domain requests
+    # - Basically allow this to be accesed from any domain through ajax
+    if(request.args.get('callback') != None):
+        return request.args.get('callback') + "(" + json.dumps(data) + ")"
+    else:
+        return json.dumps(data)
 
 #Dashboard feed wide
 @app.route('/mySignupsFeed')
