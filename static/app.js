@@ -41,8 +41,8 @@ function cancelEvent(e_id) {
 	      callback: function() {
 	        $.ajax({
 	          type : "GET",
-	          dataType : "jsonp",
-	          url : 'http://team254.com:5000/cancel/'+e_id,
+	          dataType : "json",
+	          url : '/cancel/'+e_id,
 	          success: function(data){
 	            alert("Event Cancelled!");
 	            location.reload(true);
@@ -104,8 +104,8 @@ function showEventModal(calEvent) {
 function showLinkedEvent(eventId) {
 	$.ajax({
       type : "GET",
-      dataType : "jsonp",
-      url : 'http://team254.com:5000/getEvent/'+eventId,
+      dataType : "json",
+      url : '/getEvent/'+eventId,
       success: function(data){
       	showEventModal(data);
       }
@@ -121,7 +121,7 @@ $(document).ready(function() {
 
     $.ajax({
       type : "GET",
-      dataType : "jsonp",
+      dataType : "json",
       url : 'http://team254.com:5000/mySignupsFeed',
       success: function(data){
         feed = data;
@@ -163,9 +163,9 @@ $(document).ready(function() {
       aspectRatio: 1.75,
 
       events: {
-        url: 'http://team254.com:5000/loadView',
+        url: '/loadView',
         type: 'GET',
-        dataType: "jsonp",
+        dataType: "json",
         error: function() {
             alert('there was an error while fetching events!');
           }
