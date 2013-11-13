@@ -204,10 +204,10 @@ def loadView():
         data['registrations'] = signups
 
         #Is the user already registered?
-	    if(theEvent.registrations.filter(and_(Registration.u_id==session['user_id'],Registration.has_cancelled==False)).count()==0):
-	    	data['isRegistered'] = False
-	    else:
-	    	data['isRegistered'] = True
+        if(theEvent.registrations.filter(and_(Registration.u_id==session['user_id'],Registration.has_cancelled==False)).count()==0):
+            data['isRegistered'] = False
+        else:
+            data['isRegistered'] = True
 
         #Number of Registrations
         data['numberOfRegistrations'] = len(signups)
