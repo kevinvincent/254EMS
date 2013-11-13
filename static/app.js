@@ -122,7 +122,7 @@ $(document).ready(function() {
     $.ajax({
       type : "GET",
       dataType : "json",
-      url : 'http://team254.com:5000/mySignupsFeed',
+      url : '/mySignupsFeed',
       success: function(data){
         feed = data;
         var feedHTML = "";
