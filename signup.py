@@ -312,7 +312,7 @@ def mySignupsFeed():
 def cancel(eventId):
 
     cancelEventId = int(eventId)
-    mySignupToCancel = db.session.query(Registration).filter(Registration.u_id==session['user_id'] and Registration.e_id==cancelEventId).first();
+    mySignupToCancel = db.session.query(Registration).filter(and_(Registration.u_id==session['user_id'], Registration.e_id==cancelEventId, Registration.has_cancelled==False)).first();
 
     mySignupToCancel.has_cancelled = True;
 

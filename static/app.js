@@ -41,8 +41,8 @@ function cancelEvent(e_id) {
 	      callback: function() {
 	        $.ajax({
 	          type : "GET",
-	          dataType : "jsonp",
-	          url : 'http://www.team254.com:5000/cancel/'+e_id,
+	          dataType : "json",
+	          url : '/cancel/'+e_id,
 	          success: function(data){
 	            alert("Event Cancelled!");
 	            location.reload(true);
@@ -104,8 +104,8 @@ function showEventModal(calEvent) {
 function showLinkedEvent(eventId) {
 	$.ajax({
       type : "GET",
-      dataType : "jsonp",
-      url : 'http://www.team254.com:5000/getEvent/'+eventId,
+      dataType : "json",
+      url : '/getEvent/'+eventId,
       success: function(data){
       	showEventModal(data);
       }
@@ -121,27 +121,28 @@ $(document).ready(function() {
 
     $.ajax({
       type : "GET",
-      dataType : "jsonp",
-      url : 'http://www.team254.com:5000/mySignupsFeed',
+      dataType : "json",
+      url : '/mySignupsFeed',
       success: function(data){
         feed = data;
         var feedHTML = "";
         if(feed.length == 0) {
-        	feedHTML += ['<a href="#" class="list-group-item">',
-	                      '<h4 class="list-group-item-heading">No Events Found</h4>',
-	                      '<p class="list-group-item-text">Events you have signed up for will appear here </p>',
-	                      '</a>'
-	                      ].join('\n');
+	        feedHTML += ['<a href="#" class="list-group-item" >',
+              			'<h5 class="list-group-item-heading">No Events Found</h5>',
+              			'<p class="list-group-item-text"><span class="label label-success">Events that you have signed up for will appear here</span></p>',
+            			'</a>'
+            			].join('\n');
+
         } else {
 	        for (i in feed) {
 	        var theEvent = feed[i]
-	          feedHTML += ['<li class="list-group-item">',
-	                      '<a onclick="cancelEvent('+theEvent.id+')" class="btn btn-danger btn-md pull-right" role="button"><i class="fa fa-times"></i></a>',
-	                      '<a href="/signup#'+theEvent.id+'" class="btn btn-success btn-md pull-right" role="button"> <i class="fa fa-info"></i> </a>',
-	                      '<h4 class="list-group-item-heading">'+theEvent.title+'</h4>',
-	                      '<p class="list-group-item-text">Date: '+theEvent.start+'</p>',
-	                      '</li>'
-	                      ].join('\n');
+	         feedHTML += ['<a href="#" class="list-group-item">',
+              				'<button onclick="cancelEvent('+theEvent.id+')" class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i></button>',
+              				'<button onclick="showLinkedEvent('+theEvent.id+')" class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>',
+              				'<h5 class="list-group-item-heading">'+theEvent.title+'</h5>',
+              				'<p class="list-group-item-text"><span class="label label-warning">Date: '+theEvent.start+'</span></p>',
+            				'</a>'
+            				].join('\n');
 	        }
     	}
         $("#feed-wrapper").html(feedHTML);
@@ -163,9 +164,9 @@ $(document).ready(function() {
       aspectRatio: 1.75,
 
       events: {
-        url: 'http://www.team254.com:5000/loadView',
+        url: '/loadView',
         type: 'GET',
-        dataType: "jsonp",
+        dataType: "json",
         error: function() {
             alert('there was an error while fetching events!');
           }

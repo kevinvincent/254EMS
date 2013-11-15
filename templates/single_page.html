@@ -61,11 +61,11 @@
       -moz-box-shadow: 0 0 8px #888;
       -webkit-box-shadow: 0 0 8px#888;
       box-shadow: 0 0 8px #888;
-      /*margin-top: -21px;*/
+      margin-top: -21px;
     }
 
-    #signedUpList {
-      /*margin-top: -21px;*/
+    .alist {
+      margin-top: -21px;
       -moz-box-shadow: 0 0 8px #888;
       -webkit-box-shadow: 0 0 8px#888;
       box-shadow: 0 0 8px #888;
@@ -109,9 +109,9 @@
         </div>
         <div class="navbar-collapse collapse navbar-right">
           <ul class="nav navbar-nav">
-            <li><a href="/">Dashboard</a></li>
-            <li class="active"><a href="/signup">Signup</a></li>
-            <li><a href="#contact">successrmation</a></li>
+            <li><a href="/signup">Information</a></li>
+            <li><a href="#contact">Notifications</a></li>
+            <li><a href="/"><i class="fa fa-user"></i> kevinvincent</a></li>
           </ul>
         </div><!--/.navbar-collapse -->
       </div>
@@ -130,9 +130,20 @@
       <div class="col-md-3">
 
         <div class="panel panel-primary shadow">
+          <div class="panel-heading">Registered Events</div>
+        </div>
+          <div class="list-group alist" id="feed-wrapper">
+            <a href="#" class="list-group-item" >
+              <h5 class="list-group-item-heading">No Events Found</h5>
+              <p class="list-group-item-text"><span class="label label-success">Events that you have signed up for will appear here</span></p>
+            </a>
+          </div>
+
+
+        <div class="panel panel-primary shadow">
           <div class="panel-heading">Categories</div> 
         </div>
-        <div class="list-group" id="signedUpList">
+        <div class="list-group alist">
             <a href="#" class="list-group-item">
               <button class="btn btn-info btn-xs pull-right">Show</button>
               <h5 class="list-group-item-heading">FRC Build</h5>
@@ -147,35 +158,7 @@
             </a>
         </div>
 
-        <div class="panel panel-primary shadow">
-          <div class="panel-heading">Registered Events</div>
-        </div>
-          <div class="list-group" id="signedUpList">
-            <a href="#" class="list-group-item">
-              <button class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i></button>
-              <button class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>
-              <h5 class="list-group-item-heading">Santa Clara Basketball Outreach</h5>
-              <p class="list-group-item-text"><span class="label label-warning">Date: 11/11/11</span></p>
-            </a>
-            <a href="#" class="list-group-item">
-              <button class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i></button>
-              <button class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>
-              <h5 class="list-group-item-heading">BCP Vex Tournament Volunteer</h5>
-              <p class="list-group-item-text"><span class="label label-warning">Date: 11/11/11</span></p>
-            </a>
-            <a href="#" class="list-group-item">
-              <button class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i></button>
-              <button class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>
-              <h5 class="list-group-item-heading">FRC Build</h5>
-              <p class="list-group-item-text"><span class="label label-warning">Date: 11/11/11</span></p>
-            </a>
-            <a href="#" class="list-group-item">
-              <button class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i></button>
-              <button class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>
-              <h5 class="list-group-item-heading">FRC Food</h5>
-              <p class="list-group-item-text"><span class="label label-warning">Date: 11/11/11</span></p>
-            </a>
-          </div>
+        
 
       </div>
 
@@ -285,6 +268,7 @@
 
     <!-- Application JS -->
     <script src="/static/assets/js/bootstrap-modal.js"></script>
+    <script src="/static/assets/js/bootbox.js"></script>
     <script src="/static/app.js"></script>
 
   </body>
