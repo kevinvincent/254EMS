@@ -26,7 +26,7 @@ from sqlalchemy.sql import *
 # APP Configs
 # *********** #
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://ssdigfrrpvgjev:cTzHaJFPU5LekOPl7cUEnkqEP8@ec2-54-225-68-241.compute-1.amazonaws.com:5432/d1a8ndh1lhq25k"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://hllpxqiyjuxsdm:qyPRWZzTNvdFRxTbwNL0igVkDf@ec2-54-204-37-92.compute-1.amazonaws.com:5432/d312udd5d2fig4"
 app.config['DEBUG'] = True;
 db = SQLAlchemy(app)
 app.secret_key = '\xe8\xec~G:\xa9iZ{D|^\x1bvc}U\xac\xbc\x1e\xf4\xed\x8c'
@@ -348,6 +348,14 @@ def register(eventId):
 def dashboard():
     return render_template("main.html")
 
+@app.route('/flat')
+def flat():
+    return render_template("main_flat.html")
+
 @app.route('/signup')
 def signup():
     return render_template("signup.html")
+
+@app.route('/single')
+def singlePage():
+    return render_template("single_page.html")

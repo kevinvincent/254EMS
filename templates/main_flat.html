@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/static/assets/ico/favicon.png">
+
+    <title>Jumbotron Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/assets/css/bootstrap-flat.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <style type="text/css">
+    .jumbotron-heading {
+      margin-top: -40px;
+      background-color: white;
+    }
+
+    #text {
+      margin-bottom: -30px;
+    }
+
+    .fa-tachometer {
+      position: relative;
+      top: -3px;
+    }
+
+    .page-head {
+      padding-bottom: 9.5px;
+      margin: 5px 0 5px;
+    }
+
+
+    .btn-success {
+      margin-right: 10px;
+    }
+
+    small {
+      color: #2c3e50 !important;
+    }
+
+    .glyphicon-remove {
+      position: relative;
+      top: 2px;
+    }
+
+    body {
+      background-color: #EEEEEE;
+    }
+
+    .text-muted {
+      font-size: 40px;
+    }
+
+
+    .caption {
+      margin-top: -15px;
+      margin-bottom: -5px;
+    }
+
+
+    .navbar {
+      -webkit-border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+      border-radius: 0 !important;
+    }
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-default navbar-fixed">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Cheesy Signups</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-right">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Dashboard</a></li>
+            <li><a href="/signup">Signup</a></li>
+            <li><a href="#contact">Information</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+    <div class="jumbotron jumbotron-heading">
+      <div class="container" id="text">
+      <h1 class="page-head"><i class="fa fa-tachometer"></i> Dashboard <small>View your Information</small></h1>  
+      </div>
+    </div>
+
+    <div class="container">
+    
+      <!-- Example row of columns -->
+      <div class="row">
+
+        <div class="col-md-4">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h1 class="panel-title">My Hours <span class="label label-inverse pull-right">Total</span></h1>
+            </div>
+            <!-- Table -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Sign Out Time</th>
+                  <th>Hours Earned</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="panel panel-info">
+
+            <div class="panel-heading">
+              <h1 class="panel-title">Signed Up For</h1>
+            </div>
+<!-- 
+            <div id="feed-wrapper">
+              <ul class="list-group">
+              </ul>
+            </div> -->
+          </div>
+
+          <div class="thumbnail">
+              <div class="caption">
+                <h3>
+                  <i class="fa fa-tachometer"></i> 
+                  <div class="btn-group btn-group-sm"></div>
+                  FRC Build
+                  <a href="#" class="btn btn-success pull-right btn-sm" style="margin-right: 10px;" role="button">Button</a> <a href="#" class="btn btn-danger btn-sm pull-right" style="margin-right: 10px;" role="button">Button</a>
+                </h3>
+            </div>
+          </div>
+          <br/>
+          <div class="thumbnail">
+              <div class="col-md-1"><h3><i class="fa fa-tachometer"></i></h3></div>
+              <div class="col-md-8">b</div>
+              <div class="col-md-3">c</div>
+              <div class="caption">
+                <h3>
+                  FRC Build
+                  <a href="#" class="btn btn-success pull-right btn-sm" style="margin-right: 10px;" role="button">Button</a> <a href="#" class="btn btn-danger btn-sm pull-right" style="margin-right: 10px;" role="button">Button</a>
+                </h3>
+                <h5>
+                  Date: 12/12/12
+                </h5>
+            </div>
+          </div>
+          <br/>
+          <div class="thumbnail">
+              <div class="caption">
+                <h3>
+                  <i class="fa fa-tachometer"></i> 
+                  <div class="btn-group btn-group-sm"></div>
+                  FRC Build
+                  <a href="#" class="btn btn-success pull-right btn-sm" style="margin-right: 10px;" role="button">Button</a> <a href="#" class="btn btn-danger btn-sm pull-right" style="margin-right: 10px;" role="button">Button</a>
+                </h3>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/assets/js/jquery.js"></script>
+    <script src="/static/assets/js/bootstrap.min.js"></script>
+    <script src="/static/assets/js/bootbox.js"></script>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

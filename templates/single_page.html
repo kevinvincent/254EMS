@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/static/assets//static/assets//static/assets/ico/favicon.png">
+
+    <title>Jumbotron Template for Bootstrap</title>
+
+
+    <!-- Full Calendar -->
+    <link href='/static/assets/fullcalendar/fullcalendar.css' rel='stylesheet' />
+    <link href='/static/assets/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <script src='/static/assets/lib/jquery.min.js'></script>
+    <script src='/static/assets/lib/jquery-ui.custom.min.js'></script>
+    <script src='/static/assets/fullcalendar/fullcalendar.min.js'></script>
+
+    <!-- CORE -->
+    <script src="/static/assets/js/bootstrap.min.js"></script>
+    <link href="/static/assets/css/bootstrap-flat.css" rel="stylesheet">
+
+    <!-- Messenger -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/messenger/1.3.3/js/messenger.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/messenger/1.3.3/js/messenger-theme-future.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/messenger/1.3.3/css/messenger.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/messenger/1.3.3/css/messenger-theme-future.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    
+
+    <style type="text/css">
+    .jumbotron {
+      margin-top: -50px;
+      background-color: white;
+    }
+
+    .glyphicon-ok-sign {
+      position: relative;
+      top: 6px;
+    }
+
+    #text {
+      margin-bottom: -20px;
+    }
+
+    body {
+      background-color: #E5E5E5;
+    }
+
+    .text-muted {
+      font-size: 40px;
+    }
+
+    #calendarBG {
+      background-color: #FFFFFF;
+      -moz-box-shadow: 0 0 8px #888;
+      -webkit-box-shadow: 0 0 8px#888;
+      box-shadow: 0 0 8px #888;
+      /*margin-top: -21px;*/
+    }
+
+    #signedUpList {
+      /*margin-top: -21px;*/
+      -moz-box-shadow: 0 0 8px #888;
+      -webkit-box-shadow: 0 0 8px#888;
+      box-shadow: 0 0 8px #888;
+    }
+
+    .shadow {
+      -moz-box-shadow: 0 0 8px #888;
+      -webkit-box-shadow: 0 0 8px#888;
+      box-shadow: 0 0 8px #888;
+    }
+
+    .btn-success {
+      margin-right: 10px;
+    }
+
+    .navbar {
+      background-color: black;
+    }
+
+    * {
+      -webkit-border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+      border-radius: 0 !important;
+    }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-default navbar-fixed">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Cheesy Signups</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-right">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Dashboard</a></li>
+            <li class="active"><a href="/signup">Signup</a></li>
+            <li><a href="#contact">successrmation</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action 
+    <div class="jumbotron">
+      <div class="container" id="text">
+        <h1><span class="glyphicon glyphicon-ok-sign"></span> Signup <small>Register for events</small></h1>
+      </div>
+    </div>
+    -->
+
+
+      <!-- Sidebar -->
+      <div class="col-md-3">
+
+        <div class="panel panel-primary shadow">
+          <div class="panel-heading">Categories</div> 
+        </div>
+        <div class="list-group" id="signedUpList">
+            <a href="#" class="list-group-item">
+              <button class="btn btn-info btn-xs pull-right">Show</button>
+              <h5 class="list-group-item-heading">FRC Build</h5>
+            </a>
+            <a href="#" class="list-group-item">
+              <button class="btn btn-info btn-xs pull-right">Hide</i></button>
+              <h5 class="list-group-item-heading">FRC Build</h5>
+            </a>
+            <a href="#" class="list-group-item">
+              <button class="btn btn-info btn-xs pull-right">Show</button>
+              <h5 class="list-group-item-heading">FRC Build</h5>
+            </a>
+        </div>
+
+        <div class="panel panel-primary shadow">
+          <div class="panel-heading">Registered Events</div>
+        </div>
+          <div class="list-group" id="signedUpList">
+            <a href="#" class="list-group-item">
+              <button class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i></button>
+              <button class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>
+              <h5 class="list-group-item-heading">Santa Clara Basketball Outreach</h5>
+              <p class="list-group-item-text"><span class="label label-warning">Date: 11/11/11</span></p>
+            </a>
+            <a href="#" class="list-group-item">
+              <button class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i></button>
+              <button class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>
+              <h5 class="list-group-item-heading">BCP Vex Tournament Volunteer</h5>
+              <p class="list-group-item-text"><span class="label label-warning">Date: 11/11/11</span></p>
+            </a>
+            <a href="#" class="list-group-item">
+              <button class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i></button>
+              <button class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>
+              <h5 class="list-group-item-heading">FRC Build</h5>
+              <p class="list-group-item-text"><span class="label label-warning">Date: 11/11/11</span></p>
+            </a>
+            <a href="#" class="list-group-item">
+              <button class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i></button>
+              <button class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>
+              <h5 class="list-group-item-heading">FRC Food</h5>
+              <p class="list-group-item-text"><span class="label label-warning">Date: 11/11/11</span></p>
+            </a>
+          </div>
+
+      </div>
+
+      <!-- Cal -->
+      <div class="col-md-9">
+
+        <div class="panel panel-primary shadow">
+          <div class="panel-heading"> Calendar </div>
+        </div>
+          <div class="well" id="calendarBG">
+            <div id="calendar"></div>
+          </div>
+      </div>
+
+      <!-- Calendar 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-primary">
+            <div class="panel-heading"></div>
+            <div class="panel-body">
+              <div id="calendar"></div>
+            </div>
+          </div>
+        </div> 
+      </div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Modal -->
+    <a data-toggle="modal" href="#myModal" style="visibility: hidden;" class="btn btn-primary btn-lg modalButton">Launch demo modal</a> 
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h2 class="modal-title"><div id="event-title">FRC Build</div></h2>
+            <div id="event-id" style="display: none;"></div>
+          </div>
+
+          <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                  <center><div class="well"><h3>Start</h3> <h5><div id="event-start">12/12/12</div></h5></div></center>
+                </div>
+                <div class="col-md-4">
+                 <center> <div class="well"><h3>Category</h3> <h5><div id="event-category">Build</div></h5></div></center>
+                </div>
+                <div class="col-md-4">
+                  <center><div class="well"><h3>End</h3> <h5><div id="event-end">12/12/12</div></h5></div></center>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-default">
+
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Attendees <span class="label label-default pull-right" id="event-number">Loading...</span></h3>
+                  </div>
+
+                  <ul class="list-group" id="attendees-wrapper">
+                    <li class="list-group-item">No Attendees</li>
+                  </ul>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="input-group input-group-md">
+                  <span class="input-group-addon">Notes</span>
+                  <input type="text" class="form-control" placeholder="Add an optional message to the event organizer">
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-block">Signup!</button>
+          </div>
+
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- Application JS -->
+    <script src="/static/assets/js/bootstrap-modal.js"></script>
+    <script src="/static/app.js"></script>
+
+  </body>
+</html>
