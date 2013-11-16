@@ -2,7 +2,7 @@
 //offline.js
 
 //Code to make allow direct linking but prevent back button linking
-if(window.location.hash.substr(1) != '') {
+if(window.location.hash.substr(1) != ' ') {
 	value = window.location.hash.substr(1)
 	window.location.replace("#");
 	showLinkedEvent(value)
@@ -129,7 +129,7 @@ $(document).ready(function() {
         if(feed.length == 0) {
 	        feedHTML += ['<a href="#" class="list-group-item" >',
               			'<h5 class="list-group-item-heading">No Events Found</h5>',
-              			'<p class="list-group-item-text"><span class="label label-success">Events that you have signed up for will appear here</span></p>',
+              			'<p class="list-group-item-text"><span class="label label-danger">Register For Events!</span></p>',
             			'</a>'
             			].join('\n');
 
@@ -140,7 +140,7 @@ $(document).ready(function() {
               				'<button onclick="cancelEvent('+theEvent.id+')" class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i></button>',
               				'<button onclick="showLinkedEvent('+theEvent.id+')" class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>',
               				'<h5 class="list-group-item-heading">'+theEvent.title+'</h5>',
-              				'<p class="list-group-item-text"><span class="label label-warning">Date: '+theEvent.start+'</span></p>',
+              				'<p style="font-size: 12px;" class="list-group-item-text">Date: '+theEvent.start+'</p>',
             				'</a>'
             				].join('\n');
 	        }

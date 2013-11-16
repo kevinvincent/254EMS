@@ -346,7 +346,7 @@ def register(eventId):
 
 @app.route('/')
 def dashboard():
-    return render_template("main.html")
+    return render_template("single_page.html")
 
 @app.route('/flat')
 def flat():
