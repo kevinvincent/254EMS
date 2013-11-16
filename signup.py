@@ -326,7 +326,7 @@ def cancel(eventId):
 
 
 #Add a registration
-@app.route('/register/<eventId>',methods=['GET','POST'])
+@app.route('/register/<eventId>',methods=['GET'])
 def register(eventId):
 
     theEvent = db.session.query(Event).filter(Event.id == int(eventId)).first()
@@ -339,9 +339,9 @@ def register(eventId):
     db.session.commit()
 
     if(request.args.get('callback') != None):
-        return request.args.get('callback') + "(" + json.dumps(["Successfully Registered"]) + ")"
+        return request.args.get('callback') + "(" + json.dumps(["success"]) + ")"
     else:
-        return json.dumps([])
+        return json.dumps([["success"]])
 
 
 @app.route('/')

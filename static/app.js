@@ -27,13 +27,14 @@ function cancelEvent(e_id) {
     theEvent = feed[i]
     if(theEvent.id == e_id) event_str = " for </h4></br><h5>" + theEvent.title + " on " + theEvent.start;
   }
+  	$('#myModal').modal('hide');
   	bootbox.dialog({
 	  message: "<h4>Are you sure you want to cancel your signup" + event_str + "?</h5>",
 	  title: "Confirm Cancellation",
 	  buttons: {
 	    main: {
 	      label: "No",
-	      className: "btn-primary pull-left",
+	      className: "btn-primary",
 	    },
 	    success: {
 	      label: "Yes",
@@ -44,8 +45,7 @@ function cancelEvent(e_id) {
 	          dataType : "json",
 	          url : '/cancel/'+e_id,
 	          success: function(data){
-	            alert("Event Cancelled!");
-	            location.reload(true);
+	            loadEvents();
 	          }
 	        });
 	      }
@@ -62,8 +62,17 @@ function ratioToColor(numberAttending, maxAttending) {
 	else return "success"
 }
 
-function registerEvent() {
-	
+function registerEvent(e_id) {
+	$.ajax({
+      type : "GET",
+      dataType : "json",
+      url : '/register/'+e_id,
+      success: function(data){
+        loadEvents();
+        $('#myModal').modal('hide');
+      }
+    });
+    
 }
 
 //Used by fullcalendar to launch event modal
@@ -97,6 +106,10 @@ function showEventModal(calEvent) {
     	$('#attendees-wrapper').html('<li class="list-group-item">No Attendees</li>');
     }
 
+    if(calEvent.isRegistered) {$('.modal-footer').html('<button type="button" onclick="cancelEvent('+calEvent.id+')" class="btn btn-danger btn-block">Cancel</button>');}
+    else {$('.modal-footer').html('<button type="button" onclick="registerEvent('+calEvent.id+')" class="btn btn-primary btn-block">Signup</button>');}
+    
+
     $('#myModal').modal('show');
 }
 
@@ -113,13 +126,9 @@ function showLinkedEvent(eventId) {
 
 }
 
+function loadEvents() {
 
-
-
-$(document).ready(function() {
-
-
-    $.ajax({
+	$.ajax({
       type : "GET",
       dataType : "json",
       url : '/mySignupsFeed',
@@ -148,6 +157,22 @@ $(document).ready(function() {
         $("#feed-wrapper").html(feedHTML);
       }
     });
+	$('#calendar').fullCalendar('refetchEvents');
+}
+
+
+
+
+$(document).ready(function() {
+
+	$('#myModal').bind('hidden.bs.modal', function () {
+	  $("html").css("margin-right", "0px");
+	});
+	$('#myModal').bind('show.bs.modal', function () {
+	  $("html").css("margin-right", "-15px");
+	});
+
+	loadEvents();
 
     $('#calendar').fullCalendar({
 

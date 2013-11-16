@@ -49,7 +49,7 @@
     }
 
     body {
-      background-color: #ecf0f1;
+      background-color: #E5E5E5;
     }
 
     .text-muted {
@@ -83,10 +83,6 @@
 
     .btn-success {
       margin-right: 10px;
-    }
-
-    .navbar {
-      background-color: black;
     }
 
 
@@ -253,7 +249,7 @@
 
   <body>
 
-    <div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar navbar-default black navbar-fixed">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="icon-bar"></span>
@@ -278,16 +274,16 @@
     </div>
     -->
 
-      <div id="wrapper">
+<!--       <div id="wrapper">
       
-      <!-- Sidebar -->
+      <!-- Sidebar ->
       <div id="sidebar-wrapper">
         <div class="panel panel-info">
             <div class="panel-heading"><center><h1><i class="fa fa-user"></i></h1><h4 id="username">kevinvincent</a></center></h4></div>
             <div class="panel-heading" id="frc-status"><center><h4><span class="label label-lg label-primary">FRC Status: Eligible</span></a></center></h4></div>
         </div>
         <div class="registeredPanel">
-          <div class="panel black">
+          <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-check-square"></i>Registered Events</div>
           </div>
             <div class="list-group alist" id="feed-wrapper">
@@ -299,7 +295,7 @@
         </div>
 
         <div class="categoriesPanel">
-          <div class="panel black">
+          <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-tasks"></i>Categories</div> 
           </div>
           <div class="list-group alist">
@@ -319,7 +315,7 @@
         </div>
       </div>
           
-      <!-- Page content -->
+      <!-- Page content ->
       <div id="page-content-wrapper">
         <br/>
         <br/>
@@ -332,7 +328,7 @@
             </div>
           </h1>
         </div>
-        <!-- Keep all page content within the page-content inset div! -->
+        <!-- Keep all page content within the page-content inset div! ->
         <div class="page-content inset">
           <div class="col-md-12">
             <div class="calendar">
@@ -347,24 +343,52 @@
         </div>
       </div>
       
-    </div>
+    </div> -->
 
 
-      <!-- Sidebar 
+      <!-- Sidebar -->
       <div class="col-md-3">
 
-        <div class="panel panel-primary shadow">
-          <div class="panel-heading">Registered Events</div>
-        </div>
-          <div class="list-group alist" id="feed-wrapper">
-            <a href="#" class="list-group-item" >
-              <h5 class="list-group-item-heading">No Events Found</h5>
-              <p class="list-group-item-text"><span class="label label-danger">Events that you have signed up for will appear here</span></p>
-            </a>
+        <div class="shadow">
+          <div class="panel panel-info">
+              <div class="panel-heading"><center><h1><i class="fa fa-user"></i></h1><h4 id="username">username</a></center></h4></div>
+              <div class="panel-heading" id="frc-status"><center><h4><span class="label label-lg label-primary">FRC Status: Eligible</span></a></center></h4></div>
+          </div>
+          <div class="registeredPanel">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><i class="fa fa-check-square"></i>Registered Events</div>
+            </div>
+              <div class="list-group alist" id="feed-wrapper">
+                <a href="#" class="list-group-item" >
+                  <h5 class="list-group-item-heading">No Events Found</h5>
+                  <p class="list-group-item-text"><span class="label label-danger">Register For Events!</span></p>
+                </a>
+              </div>
           </div>
 
+          <div class="categoriesPanel">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><i class="fa fa-tasks"></i>Categories</div> 
+            </div>
+            <div class="list-group alist">
+                <a href="#" class="list-group-item">
+                  <button class="btn btn-info btn-xs pull-right">Show</button>
+                  <h5 class="list-group-item-heading">FRC Build</h5>
+                </a>
+                <a href="#" class="list-group-item">
+                  <button class="btn btn-info btn-xs pull-right">Hide</i></button>
+                  <h5 class="list-group-item-heading">FRC Build</h5>
+                </a>
+                <a href="#" class="list-group-item">
+                  <button class="btn btn-info btn-xs pull-right">Show</button>
+                  <h5 class="list-group-item-heading">FRC Build</h5>
+                </a>
+            </div>
+          </div>
+        </div>
 
-        <div class="panel panel-primary shadow">
+
+        <!-- <div class="panel panel-primary shadow">
           <div class="panel-heading">Categories</div> 
         </div>
         <div class="list-group alist">
@@ -380,22 +404,22 @@
               <button class="btn btn-info btn-xs pull-right">Show</button>
               <h5 class="list-group-item-heading">FRC Build</h5>
             </a>
-        </div>
+        </div> -->
 
         
 
-      </div>-->
+      </div>
 
-      <!-- Cal 
+      <!-- Cal -->
       <div class="col-md-9">
 
         <div class="panel panel-success shadow">
-          <div class="panel-heading"> Calendar </div>
+          <div class="panel-heading"></div>
         </div>
           <div class="well" id="calendarBG">
             <div id="calendar"></div>
           </div>
-      </div>-->
+      </div>
 
       <!-- Calendar 
       <div class="row">
@@ -483,7 +507,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-block">Signup!</button>
+            <button type="button" class="btn btn-danger btn-block">Cancel</button>
           </div>
 
         </div><!-- /.modal-content -->
