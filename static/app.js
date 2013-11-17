@@ -19,6 +19,7 @@ $(window).on('hashchange', function() {
 
 //
 var feed;
+var categories;
 
 //Cancel user registration for event id
 function cancelEvent(e_id) {
@@ -157,10 +158,32 @@ function loadEvents() {
         $("#feed-wrapper").html(feedHTML);
       }
     });
+	
+	$('#progressBar').addClass('progress-striped');
+	$('#progressBar').addClass('active');
 	$('#calendar').fullCalendar('refetchEvents');
 }
 
+// function loadCategories() {
+// 	var categoriesHTML = "";
+// 	for (category in categories) {
+// 	     categoriesHTML += ['<a href="#" class="list-group-item">',
+// 	      				'<button onclick="cancelEvent('+theEvent.id+')" class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i></button>',
+// 	      				'<button onclick="showLinkedEvent('+theEvent.id+')" class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>',
+// 	      				'<h5 class="list-group-item-heading">'+theEvent.title+'</h5>',
+// 	      				'<p style="font-size: 12px;" class="list-group-item-text">Date: '+theEvent.start+'</p>',
+// 	    				'</a>'
+// 	    				].join('\n');
+// 	 }
+// }
 
+// function showEvents(category) {
+// 	$('div[category="'+category+'"').show();
+// }
+
+// function hideEvents(category) {
+// 	$('div[category="'+category+'"').hide();
+// }
 
 
 $(document).ready(function() {
@@ -173,6 +196,9 @@ $(document).ready(function() {
 	});
 
 	loadEvents();
+
+	$('#progressBar').addClass('progress-striped');
+	$('#progressBar').addClass('active');
 
     $('#calendar').fullCalendar({
 
@@ -192,15 +218,22 @@ $(document).ready(function() {
         url: '/loadView',
         type: 'GET',
         dataType: "json",
+        success: function () {
+        	$('#progressBar').removeClass('progress-striped');
+			$('#progressBar').removeClass('active');
+        },
         error: function() {
-            alert('there was an error while fetching events!');
+            alert('There was an error while fetching events!');
           }
        },
 
       eventClick: function(calEvent, jsEvent, view) {
       	showEventModal(calEvent);
-      }
+      },
 
+      eventRender: function(event, element) {
+        	element.attr("category",event.category)
+    	}
     
     });
 

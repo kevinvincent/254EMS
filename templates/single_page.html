@@ -122,127 +122,9 @@
       border-color: black !important;
       color: white;
     }
-
-    /*Sidebar*/
-    #wrapper {
-  padding-left: 275px;
-  transition: all 0.4s ease 0s;
-}
-
-#sidebar-wrapper {
-  margin-left: -275px;
-  margin-top: 60px;
-  left: 275px;
-  width: 275px;
-  background-color: #FFFFFF;
-  position: fixed;
-  height: 100%;
-  overflow-y: auto;
-  z-index: 1000;
-  transition: all 0.4s ease 0s;
-}
-
-#page-content-wrapper {
-  width: 100%;
-}
-
-.sidebar-nav {
-  position: relative;
-  top: 0;
-  width: 275px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.sidebar-nav li {
-  line-height: 40px;
-  text-indent: 20px;
-}
-
-.sidebar-nav li a {
-  color: #999999;
-  display: block;
-  text-decoration: none;
-}
-
-.sidebar-nav li a:hover {
-  color: #fff;
-  background: rgba(255,255,255,0.2);
-  text-decoration: none;
-}
-
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-  text-decoration: none;
-}
-
-.sidebar-nav > .sidebar-brand {
-  height: 65px;
-  line-height: 60px;
-  font-size: 18px;
-}
-
-.sidebar-nav > .sidebar-brand a {
-  color: #999999;
-}
-
-.sidebar-nav > .sidebar-brand a:hover {
-  color: #fff;
-  background: none;
-}
-
-.content-header {
-  height: 65px;
-  line-height: 65px;
-}
-
-.content-header h1 {
-  margin: 0;
-  margin-left: 20px;
-  line-height: 65px;
-  display: inline-block;
-}
-
-#menu-toggle {
-  display: none;
-}
-
-.inset {
-  padding: 20px;
-}
-
-@media (max-width:767px) {
-
-#wrapper {
-  padding-left: 0;
-}
-
-#sidebar-wrapper {
-  left: 0;
-}
-
-#wrapper.active {
-  position: relative;
-  left: 275px;
-}
-
-#wrapper.active #sidebar-wrapper {
-  left: 275px;
-  width: 275px;
-  transition: all 0.4s ease 0s;
-}
-
-#menu-toggle {
-  display: inline-block;
-}
-
-.inset {
-  padding: 15px;
-}
-
-}
-
+    #progressBar {
+      height: 20px;
+    }
     </style>
 
   </head>
@@ -413,12 +295,21 @@
       <!-- Cal -->
       <div class="col-md-9">
 
-        <div class="panel panel-success shadow">
-          <div class="panel-heading"></div>
+        <div class="input-group input-group-md" style="width: 100%;">
+          <input type="text" class="form-control" placeholder="Search Events &hellip;">
         </div>
-          <div class="well" id="calendarBG">
-            <div id="calendar"></div>
+
+        <br/>
+        <!-- <div class="panel panel-success shadow">
+          <div class="panel-heading"></div>
+        </div> -->
+        <div class="progress shadow" id="progressBar">
+          <div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
           </div>
+        </div>
+        <div class="well" id="calendarBG">
+          <div id="calendar"></div>
+        </div>
       </div>
 
       <!-- Calendar 
@@ -518,12 +409,6 @@
     <script src="/static/assets/js/bootstrap-modal.js"></script>
     <script src="/static/assets/js/bootbox.js"></script>
     <script src="/static/app.js"></script>
-    <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("active");
-    });
-    </script>
 
   </body>
 </html>
