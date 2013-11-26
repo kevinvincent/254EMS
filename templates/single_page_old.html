@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/static/assets/ico/favicon.png">
+
+    <title>Cheesy Signups</title>
+
+
+    <!-- Full Calendar -->
+    <link href='/static/assets/fullcalendar/fullcalendar.css' rel='stylesheet' />
+    <link href='/static/assets/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <script src='/static/assets/lib/jquery.min.js'></script>
+    <script src='/static/assets/lib/jquery-ui.custom.min.js'></script>
+    <script src='/static/assets/fullcalendar/fullcalendar.min.js'></script>
+
+    <!-- CORE -->
+    <script src="/static/assets/js/bootstrap.min.js"></script>
+    <link href="/static/assets/css/bootstrap-flat.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Mustache Templating -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+    
+
+    <style type="text/css">
+    .jumbotron {
+      margin-top: -50px;
+      background-color: white;
+    }
+
+    .glyphicon-ok-sign {
+      position: relative;
+      top: 6px;
+    }
+
+    #text {
+      margin-bottom: -20px;
+    }
+
+    body {
+      background-color: #E5E5E5;
+    }
+
+    .text-muted {
+      font-size: 40px;
+    }
+
+    #calendarBG {
+      background-color: #FFFFFF;
+      -moz-box-shadow: 0 0 8px #888;
+      -webkit-box-shadow: 0 0 8px#888;
+      box-shadow: 0 0 8px #888;
+      margin-top: -21px;
+    }
+
+    .alist {
+      margin-top: -21px;
+      /*-moz-box-shadow: 0 0 8px #888;
+      -webkit-box-shadow: 0 0 8px#888;
+      box-shadow: 0 0 8px #888;*/
+    }
+
+    .shadow {
+      -moz-box-shadow: 0 0 8px #888;
+      -webkit-box-shadow: 0 0 8px#888;
+      box-shadow: 0 0 8px #888;
+    }
+
+    .panel-heading {
+
+    }
+
+    .btn-success {
+      margin-right: 10px;
+    }
+
+
+    * {
+      -webkit-border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+      border-radius: 0 !important;
+    }
+
+
+    .registeredPanel {
+      margin-top: -21px;
+    }
+    #username {
+      margin-top: 15px;
+    }
+    #frc-status {
+      margin-top: -25px;
+    }
+    .calendar {
+      margin-top: -10px; 
+    }
+    .fa-tasks {
+      margin-right: 10px;
+    }
+    .fa-check-square {
+      margin-right: 10px;
+    }
+    .fa-rocket {
+      margin-right: 10px;
+    }
+    .fa-search {
+      margin-right: 10px;
+    }
+
+    .black {
+      background-color: black !important;
+      border-color: black !important;
+      color: white;
+    }
+    #progressBar {
+      height: 20px;
+    }
+
+    .form-control {
+      background-color: transparent !important; 
+      border-color: transparent !important;
+      color: white !important;
+    }
+
+    .form-control:hover{
+      background-color: transparent; 
+      border-color: transparent;
+    }
+
+    .twitter-typeahead .tt-query,
+    .twitter-typeahead .tt-hint {
+      margin-bottom: 0;
+    }
+
+    .tt-dropdown-menu {
+      min-width: 160px;
+      margin-top: 2px;
+      padding: 5px 0;
+      background-color: #2b3c4e;
+      border: 1px solid #ccc;
+      border: 1px solid rgba(0,0,0,.2);
+      *border-right-width: 2px;
+      *border-bottom-width: 2px;
+      -webkit-border-radius: 6px;
+         -moz-border-radius: 6px;
+              border-radius: 6px;
+      -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+         -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+              box-shadow: 0 5px 10px rgba(0,0,0,.2);
+      -webkit-background-clip: padding-box;
+         -moz-background-clip: padding;
+              background-clip: padding-box;
+    }
+
+    .tt-suggestion {
+      display: block;
+      padding: 3px 20px;
+    }
+
+    .tt-suggestion.tt-is-under-cursor {
+      color: black;
+      background-color: #0081c2;
+      background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+      background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+      background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+      background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+      background-repeat: repeat-x;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0)
+    }
+
+    .tt-suggestion.tt-is-under-cursor a {
+      color: white;
+    }
+
+    .tt-suggestion p {
+      margin: 0;
+    }
+
+    .twitter-typeahead .tt-hint {
+        display: block;
+        height: 38px;
+        padding: 8px 12px;
+        font-size: 14px;
+        line-height: 1.428571429;
+        border: 1px solid transparent;
+        visibility: hidden;
+
+    }
+    .modal
+    {
+        overflow-y: auto;
+    }
+    .bootbox
+    {
+        overflow-y: auto;
+    }
+
+  </style>
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-default black navbar-fixed">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></splo
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><i class="fa fa-rocket"></i>Cheesy Signups</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <div class="col-sm-3 pull-right">
+          <form class="navbar-form" role="search">
+            <div class="input-group">
+              <div class="input-group-btn">
+                <span class="glyphicon glyphicon-search"></span>
+              </div>
+              <input type="text" class="form-control typeahead" placeholder="Search Events" id="srch-term">
+            </div>
+          </form>
+        </div>
+      </div><!--/.navbar-collapse-->
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-md-3">
+      <div class="shadow">
+
+        <div class="userPanel">
+          <div class="panel panel-info">
+            <div class="panel-heading"><center><h1><i class="fa fa-user"></i></h1><h4 id="username">username</a></center></h4></div>
+            <div class="panel-heading" id="frc-status">
+              <center><h4><span class="label label-lg label-primary">FRC Status: Eligible</span></a></center></h4>
+            </div>
+          </div>
+        </div>
+        
+        <div class="registeredPanel">
+          <div class="component_registeredPanel"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Cal -->
+    <div class="col-md-9">
+      <div class="progress shadow" id="progressBar">
+        <div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+        </div>
+      </div>
+      <div class="well" id="calendarBG">
+        <div id="calendar"></div>
+      </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="component_modal"></div>
+
+       
+    <!-- Application JS -->
+    <script src="/static/assets/js/bootstrap-modal.js"></script>
+    <script src="/static/assets/js/bootbox.js"></script>
+    <script src='/static/assets/fullcalendar/fullcalendar.min.js'></script>
+    <script src='/static/typeahead.js'></script>
+    <script src="/static/app.js"></script>
+
+  </body>
+</html>
+
+
+
+<!--           <div class="categoriesPanel">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><i class="fa fa-tasks"></i>Categories</div> 
+            </div>
+            <div class="list-group alist">
+                <a href="#" class="list-group-item">
+                  <button class="btn btn-info btn-xs pull-right">Show</button>
+                  <h5 class="list-group-item-heading">FRC Build</h5>
+                </a>
+                <a href="#" class="list-group-item">
+                  <button class="btn btn-info btn-xs pull-right">Hide</i></button>
+                  <h5 class="list-group-item-heading">FRC Build</h5>
+                </a>
+                <a href="#" class="list-group-item">
+                  <button class="btn btn-info btn-xs pull-right">Show</button>
+                  <h5 class="list-group-item-heading">FRC Build</h5>
+                </a>
+            </div>
+          </div> -->

@@ -193,6 +193,9 @@ def loadView():
         #Event Category
         data['category'] = str(category.name)
 
+        #Description
+        data['description'] = theEvent.description;
+
         #Unique Id
         data['id'] = theEvent.id
 
@@ -248,6 +251,9 @@ def getEvent(eventId):
     #Event Category
     data['category'] = str(category.name)
 
+    #Description
+    data['description'] = theEvent.description;
+
     #Unique Id
     data['id'] = theEvent.id
 
@@ -272,6 +278,9 @@ def getEvent(eventId):
 
     app.logger.info(json.dumps(data));
 
+    #search
+    data['name'] = theEvent.title
+
     #Handle Jsonp cross domain requests
     # - Basically allow this to be accesed from any domain through ajax
     if(request.args.get('callback') != None):
@@ -283,6 +292,8 @@ def getEvent(eventId):
 @app.route('/mySignupsFeed')
 def mySignupsFeed():
     print "mySignupsFeed";
+
+    theFeed = {};
 
     returnList = [];
 
@@ -299,12 +310,13 @@ def mySignupsFeed():
 
         returnList.append(data)
 
-        #Handle Jsonp cross domain requests
+    theFeed['feed'] = returnList;
+    #Handle Jsonp cross domain requests
     # - Basically allow this to be accesed from any domain through ajax
     if(request.args.get('callback') != None):
-        return request.args.get('callback') + "(" + json.dumps(returnList) + ")"
+        return request.args.get('callback') + "(" + json.dumps(theFeed) + ")"
     else:
-        return json.dumps(returnList)
+        return json.dumps(theFeed)
 
 
 #Cancel a registration
@@ -346,7 +358,7 @@ def register(eventId):
 
 @app.route('/')
 def dashboard():
-    return render_template("single_page.html")
+    return render_template("single_page_old.html")
 
 @app.route('/flat')
 def flat():

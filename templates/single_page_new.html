@@ -125,6 +125,7 @@
     #progressBar {
       height: 20px;
     }
+    h2 .btn-group { display: inline-block; }
     </style>
 
   </head>
@@ -148,20 +149,13 @@
         </div><!--/.navbar-collapse-->
     </div>
 
-    <!-- Main jumbotron for a primary marketing message or call to action 
-    <div class="jumbotron">
-      <div class="container" id="text">
-        <h1><span class="glyphicon glyphicon-ok-sign"></span> Signup <small>Register for events</small></h1>
-      </div>
-    </div>
-    -->
 
-<!--       <div id="wrapper">
-      
-      <!-- Sidebar ->
-      <div id="sidebar-wrapper">
+    <!-- Sidebar -->
+    <div class="col-md-3">
+
+      <div class="shadow">
         <div class="panel panel-info">
-            <div class="panel-heading"><center><h1><i class="fa fa-user"></i></h1><h4 id="username">kevinvincent</a></center></h4></div>
+            <div class="panel-heading"><center><h1><i class="fa fa-user"></i></h1><h4 id="username">username</a></center></h4></div>
             <div class="panel-heading" id="frc-status"><center><h4><span class="label label-lg label-primary">FRC Status: Eligible</span></a></center></h4></div>
         </div>
         <div class="registeredPanel">
@@ -176,7 +170,7 @@
             </div>
         </div>
 
-        <div class="categoriesPanel">
+<!--         <div class="categoriesPanel">
           <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-tasks"></i>Categories</div> 
           </div>
@@ -194,135 +188,88 @@
                 <h5 class="list-group-item-heading">FRC Build</h5>
               </a>
           </div>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- <div class="col-md-9">
+      <div class="progress shadow" id="progressBar">
+        <div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
         </div>
       </div>
-          
-      <!-- Page content ->
-      <div id="page-content-wrapper">
-        <br/>
-        <br/>
-        <br/>
-        <div class="content-header">
-          <h1>
-            <div class="container">
-              <a id="menu-toggle" href="#" class="btn btn-default"><i class="fa fa-bars"></i></a>
-              Register For Events
-            </div>
-          </h1>
-        </div>
-        <!-- Keep all page content within the page-content inset div! ->
-        <div class="page-content inset">
-          <div class="col-md-12">
-            <div class="calendar">
-              <div class="panel panel-success shadow">
-                <div class="panel-heading"></div>
-              </div>
-                <div class="well" id="calendarBG">
-                  <div id="calendar"></div>
-                </div>
-            </div>
-          </div>
-        </div>
+      <div class="well" id="calendarBG">
+        <div id="calendar"></div>
       </div>
-      
     </div> -->
 
+    <div class="col-md-9">
 
-      <!-- Sidebar -->
-      <div class="col-md-3">
+      <div class="progress shadow" style="height: 40px;">
+        <div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+          <button type="button" class="btn btn-success pull-left"><i class="fa fa-chevron-left"></i></button>
+        </div>
+      </div>
 
-        <div class="shadow">
-          <div class="panel panel-info">
-              <div class="panel-heading"><center><h1><i class="fa fa-user"></i></h1><h4 id="username">username</a></center></h4></div>
-              <div class="panel-heading" id="frc-status"><center><h4><span class="label label-lg label-primary">FRC Status: Eligible</span></a></center></h4></div>
+      <div class="well" id="calendarBG">
+
+        <div class="row">
+          <div class="col-md-12">
+            <center><h1>Some title</h1></cente>
+            <hr>
           </div>
-          <div class="registeredPanel">
-            <div class="panel panel-primary">
-              <div class="panel-heading"><i class="fa fa-check-square"></i>Registered Events</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12" style="margin-top: -20px;">
+            <div class="col-xs-4">
+              <center><div><p><div id="event-start">Start: 12/12/12</div></p></div></center>
             </div>
-              <div class="list-group alist" id="feed-wrapper">
-                <a href="#" class="list-group-item" >
-                  <h5 class="list-group-item-heading">No Events Found</h5>
-                  <p class="list-group-item-text"><span class="label label-danger">Register For Events!</span></p>
-                </a>
+            <div class="col-xs-4">
+              <center><div><p><div id="event-start">Category: FRC Build</div></p></div></center>
+            </div>
+            <div class="col-xs-4">
+              <center><div><p><div id="event-start">Start: 12/12/12</div></p></div></center>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-md-12">
+            <p style="font-size: 18px;">Description<p>
+            <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+
+              <div class="panel-heading">
+                <h3 class="panel-title">Attendees <span class="label label-default pull-right" id="event-number">Loading...</span></h3>
               </div>
-          </div>
 
-          <div class="categoriesPanel">
-            <div class="panel panel-primary">
-              <div class="panel-heading"><i class="fa fa-tasks"></i>Categories</div> 
-            </div>
-            <div class="list-group alist">
-                <a href="#" class="list-group-item">
-                  <button class="btn btn-info btn-xs pull-right">Show</button>
-                  <h5 class="list-group-item-heading">FRC Build</h5>
-                </a>
-                <a href="#" class="list-group-item">
-                  <button class="btn btn-info btn-xs pull-right">Hide</i></button>
-                  <h5 class="list-group-item-heading">FRC Build</h5>
-                </a>
-                <a href="#" class="list-group-item">
-                  <button class="btn btn-info btn-xs pull-right">Show</button>
-                  <h5 class="list-group-item-heading">FRC Build</h5>
-                </a>
+              <ul class="list-group" id="attendees-wrapper">
+                <li class="list-group-item">No Attendees</li>
+              </ul>
+
             </div>
           </div>
         </div>
-
-
-        <!-- <div class="panel panel-primary shadow">
-          <div class="panel-heading">Categories</div> 
+        <!-- Notes -->
+        <div class="row">
+          <!-- <div class="col-md-6">
+            <div class="input-group input-group-md">
+              <span class="input-group-addon">Notes</span>
+              <input type="text" class="form-control" placeholder="Add an optional message to the event organizer">
+            </div>
+          </div> -->
+          <div class="col-md-12">
+            <button type="button" class="btn btn-danger btn-block">Cancel</button>
+          </div>
         </div>
-        <div class="list-group alist">
-            <a href="#" class="list-group-item">
-              <button class="btn btn-info btn-xs pull-right">Show</button>
-              <h5 class="list-group-item-heading">FRC Build</h5>
-            </a>
-            <a href="#" class="list-group-item">
-              <button class="btn btn-info btn-xs pull-right">Hide</i></button>
-              <h5 class="list-group-item-heading">FRC Build</h5>
-            </a>
-            <a href="#" class="list-group-item">
-              <button class="btn btn-info btn-xs pull-right">Show</button>
-              <h5 class="list-group-item-heading">FRC Build</h5>
-            </a>
-        </div> -->
-
-        
 
       </div>
-
-      <!-- Cal -->
-      <div class="col-md-9">
-
-        <div class="input-group input-group-md" style="width: 100%;">
-          <input type="text" class="form-control" placeholder="Search Events &hellip;">
-        </div>
-
-        <br/>
-        <!-- <div class="panel panel-success shadow">
-          <div class="panel-heading"></div>
-        </div> -->
-        <div class="progress shadow" id="progressBar">
-          <div class="progress-bar progress-bar-success"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-          </div>
-        </div>
-        <div class="well" id="calendarBG">
-          <div id="calendar"></div>
-        </div>
-      </div>
-
-      <!-- Calendar 
-      <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-primary">
-            <div class="panel-heading"></div>
-            <div class="panel-body">
-              <div id="calendar"></div>
-            </div>
-          </div>
-        </div> 
-      </div>-->
+    </div>
 
 
 
@@ -408,6 +355,7 @@
     <!-- Application JS -->
     <script src="/static/assets/js/bootstrap-modal.js"></script>
     <script src="/static/assets/js/bootbox.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/typeahead.js/0.9.3/typeahead.min.js"></script>
     <script src="/static/app.js"></script>
 
   </body>

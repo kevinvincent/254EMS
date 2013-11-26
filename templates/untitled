@@ -1,0 +1,9 @@
+<div class="panel panel-primary">
+	<div class="panel-heading"><i class="fa fa-check-square"></i>Registered Events</div>
+	</div>
+	<div class="list-group alist" id="feed-wrapper">
+	<a href="#" class="list-group-item" >
+	  <h5 class="list-group-item-heading">No Events Found</h5>
+	  <p class="list-group-item-text"><span class="label label-danger">Register For Events!</span></p>
+	</a>
+</div>
