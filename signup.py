@@ -129,10 +129,6 @@ def gateKeeper():
 
 """TESTER VIEWS"""
 
-@app.route('/sess')
-def sess():
-    return session['user_data']
-
 @app.route('/createEvents')
 def createEvents():
     def daterange(start_date, end_date):
@@ -229,7 +225,7 @@ def loadView():
     else:
         return json.dumps(returnList)
 
-@app.route('/getEvent/<eventId>')
+@app.route('/event/<eventId>')
 def getEvent(eventId):
     print "getEvent";
 
@@ -356,18 +352,13 @@ def register(eventId):
         return json.dumps([["success"]])
 
 
+#Get user information
+@app.route('/user')
+def sess():
+    return session['user_data']
+
+
 @app.route('/')
 def dashboard():
     return render_template("single_page_old.html")
 
-@app.route('/flat')
-def flat():
-    return render_template("main_flat.html")
-
-@app.route('/signup')
-def signup():
-    return render_template("signup.html")
-
-@app.route('/single')
-def singlePage():
-    return render_template("single_page.html")

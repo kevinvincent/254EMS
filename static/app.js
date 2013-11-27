@@ -102,7 +102,7 @@ function showLinkedEvent(eventId) {
   $.ajax({
       type : "GET",
       dataType : "json",
-      url : '/getEvent/'+eventId,
+      url : '/event/'+eventId,
       success: function(data){
         showEventModal(data);
       }
