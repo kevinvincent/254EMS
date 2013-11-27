@@ -65,6 +65,12 @@ store = DictStore()
 kvsession = KVSessionExtension(store, app)
 
 
+# ******** #
+# Compress
+# ******** #
+from flask.ext.compress import Compress
+Compress(app)
+
 # ****************** #
 # DB Admin Interface
 # ****************** #
