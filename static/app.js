@@ -1,6 +1,25 @@
 /* Initialize */
 /* ---------------------------------------------------- */
 
+//Load Components
+var modalContent;
+$.ajax({
+  type : "GET",
+  url : 'static/components/component_modal.html',
+  success: function(data){
+    modalContent = data;
+  }
+});
+
+var registerPanelContent;
+$.ajax({
+  type : "GET",
+  url : 'static/components/component_registeredPanel.html',
+  success: function(data){
+    registerPanelContent = data;
+  }
+});
+
 //Globals
 var feed;
 var rawCategories = new Array();
@@ -84,16 +103,11 @@ function showEventModal(calEvent) {
 
   calEvent.spotsLeft = calEvent.maxRegistrations - calEvent.numberOfRegistrations;
 
-  $.ajax({
-    type : "GET",
-    url : 'static/components/component_modal.html',
-    success: function(data){
-      template = Mustache.render(data, calEvent);
-      $(".component_modal").html("");
-      $(".component_modal").append(template);
-      $('#myModal').modal('show');
-    }
-  });
+  template = Mustache.render(modalContent, calEvent);
+  $(".component_modal").html("");
+  $(".component_modal").append(template);
+  $('#myModal').modal('show');
+
     
 }
 
@@ -115,73 +129,24 @@ function loadEvents() {
 
   $.ajax({
     type : "GET",
-    url : 'static/components/component_registeredPanel.html',
-    success: function(html){
+    dataType : "json",
+    url : '/mySignupsFeed',
+    success: function(data){
 
-      $.ajax({
-        type : "GET",
-        dataType : "json",
-        url : '/mySignupsFeed',
-        success: function(data){
-
-          feed = data;
-          template = Mustache.render(html, data);
-          $(".component_registeredPanel").html("");
-          $(".component_registeredPanel").append(template);
-
-        }
-      });
+      feed = data;
+      template = Mustache.render(registerPanelContent, data);
+      $(".component_registeredPanel").html("");
+      $(".component_registeredPanel").append(template);
 
     }
   });
-
-  // $.ajax({
-  //     type : "GET",
-  //     dataType : "json",
-  //     url : '/mySignupsFeed',
-  //     success: function(data){
-  //       var feedHTML = "";
-  //       if(feed.length == 0) {
-  //         feedHTML += ['<a href="#" class="list-group-item" >',
-  //                   '<h5 class="list-group-item-heading">No Events Found</h5>',
-  //                   '<p class="list-group-item-text"><span class="label label-danger">Register For Events!</span></p>',
-  //                 '</a>'
-  //                 ].join('\n');
-
-  //       } else {
-  //         for (i in feed) {
-  //         var theEvent = feed[i]
-  //          feedHTML += ['<a href="#" class="list-group-item">',
-  //                     '<button onclick="cancelEvent('+theEvent.id+')" class="btn btn-danger btn-xs pull-right"><i class="fa fa-times fa-right"></i></button>',
-  //                     '<button onclick="showLinkedEvent('+theEvent.id+')" class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>',
-  //                     '<h5 class="list-group-item-heading">'+theEvent.title+'</h5>',
-  //                     '<p style="font-size: 12px;" class="list-group-item-text">Date: '+theEvent.start+'</p>',
-  //                   '</a>'
-  //                   ].join('\n');
-  //         }
-  //     }
-  //       $("#feed-wrapper").html(feedHTML);
-  //     }
-  //   });
   
   $('#progressBar').addClass('progress-striped');
   $('#progressBar').addClass('active');
   $('#calendar').fullCalendar('refetchEvents');
 }
 
-// function loadCategories() {
-//  var categoriesHTML = "";
-//  for (category in categories) {
-//       categoriesHTML += ['<a href="#" class="list-group-item">',
-//                '<button onclick="cancelEvent('+theEvent.id+')" class="btn btn-danger btn-xs pull-right"><i class="fa fa-times"></i></button>',
-//                '<button onclick="showLinkedEvent('+theEvent.id+')" class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>',
-//                '<h5 class="list-group-item-heading">'+theEvent.title+'</h5>',
-//                '<p style="font-size: 12px;" class="list-group-item-text">Date: '+theEvent.start+'</p>',
-//              '</a>'
-//              ].join('\n');
-//   }
-// }
-
+//Filter Categories
 function filter(category) {
   if(category=="all") {
     $('.fc-event').show(100);
