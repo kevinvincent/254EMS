@@ -52,7 +52,7 @@ function cancelEvent(e_id) {
     buttons: {
       main: {
         label: "No",
-        className: "btn-primary",
+        className: "btn-primary"
       },
       success: {
         label: "Yes",
