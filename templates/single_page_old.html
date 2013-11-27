@@ -8,11 +8,26 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/static/assets/ico/favicon.png">
 
+    <title>Cheesy Signups</title>
+
+
+    <!-- Full Calendar -->
+    <link href='/static/assets/fullcalendar/fullcalendar.css' rel='stylesheet' />
+    <link href='/static/assets/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <script src='/static/assets/lib/jquery.min.js'></script>
+    <script src='/static/assets/lib/jquery-ui.custom.min.js'></script>
+    <script src='/static/assets/fullcalendar/fullcalendar.min.js'></script>
+
     <!-- CORE -->
     <script src="/static/assets/js/bootstrap.min.js"></script>
     <link href="/static/assets/css/bootstrap-flat.css" rel="stylesheet">
 
-    <title>Cheesy Signups</title>
+    <!-- Font Awesome -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Mustache Templating -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+    
 
     <style type="text/css">
     .jumbotron {
@@ -29,7 +44,9 @@
       margin-bottom: -20px;
     }
 
-
+    body {
+      background-color: #E5E5E5;
+    }
 
     .text-muted {
       font-size: 40px;
@@ -190,7 +207,7 @@
 
   </head>
 
-  <body style="background-color: #E5E5E5;">
+  <body>
 
     <div class="navbar navbar-default black navbar-fixed">
       <div class="navbar-header">
@@ -252,20 +269,7 @@
     <div class="component_modal"></div>
 
        
-    <!-- Resources -->
-
-    <!-- Full Calendar -->
-    <link href='/static/assets/fullcalendar/fullcalendar.css' rel='stylesheet' />
-    <link href='/static/assets/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
-    <script src='/static/assets/lib/jquery.min.js'></script>
-    <script src='/static/assets/lib/jquery-ui.custom.min.js'></script>
-    <script src='/static/assets/fullcalendar/fullcalendar.min.js'></script>
-
-    <!-- Font Awesome -->
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-
-    <!-- Mustache Templating -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+    <!-- Application JS -->
     <script src="/static/assets/js/bootstrap-modal.js"></script>
     <script src="/static/assets/js/bootbox.js"></script>
     <script src='/static/assets/fullcalendar/fullcalendar.min.js'></script>
