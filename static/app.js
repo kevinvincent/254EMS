@@ -22,6 +22,7 @@ $.ajax({
 
 //Globals
 var feed;
+var typeaheadItems = []
 var rawCategories = new Array();
 
 //Allow Direct Linking but Prevent Back Button Behavior
@@ -32,10 +33,9 @@ if(window.location.hash.substr(1) != ' ') {
 }
 
 //Initialize Typeahead Search
-$('.typeahead').typeahead({
-    name: '',
-    local: ['asdf','test']
-})
+$('.typeahead').on('typeahead:selected', function($e, datum){
+  alert(datum["value"]);
+});
 
 
 /* HELPER FUNCTIONS */
@@ -222,11 +222,15 @@ $(document).ready(function() {
     eventRender: function(event, element) {
         element.attr("category",event.category)
         rawCategories.push(event.category);
+        typeaheadItems.push({"value":event.title, "id":event.id});
     },
 
     //Apply Custom Modifications when done loading
     loading: function(bool) {
       if (!bool){
+
+        //Put pointers on all the events
+        $('.fc-event').css( 'cursor', 'pointer' );
 
         //Render Categories Selector
         var categoryArr = unique(rawCategories);
@@ -242,6 +246,12 @@ $(document).ready(function() {
       }
     }
   
+  });
+
+  //Initialize Search
+  $('.typeahead').typeahead({
+      name: '',
+      local: typeaheadItems
   });
 });
 
