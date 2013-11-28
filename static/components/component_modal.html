@@ -1,7 +1,7 @@
 <script type="text/javascript">
   
 function toggleChevron(e) {
-  $("i.indicator").toggleClass('fa-chevron-down fa-chevron-right');
+  $("i.indicator").toggleClass('fa-chevron-right fa-chevron-down');
   $("i.indicator").css('margin-right',"8");
 }
 $('.accordion-toggle').on('click', toggleChevron);
@@ -78,7 +78,7 @@ $('.accordion-toggle').on('click', toggleChevron);
             <div class="panel-heading">
               <h3 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                  <i class="indicator fa fa-chevron-right pull-left" style="margin-right:10px; margin-top:2px;"></i> Attendees
+                  <i class="indicator fa fa-chevron-down pull-left" style="margin-right:10px; margin-top:2px;"></i> Attendees
                 </a>
                 <span class="label label-default pull-right">Spots Left: {{spotsLeft}}</span>
               </h3>

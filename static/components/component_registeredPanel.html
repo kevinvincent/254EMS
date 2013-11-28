@@ -5,9 +5,10 @@
 
 
 	{{#feed}}
-	<a href="#" class="list-group-item" >
-	  <button onclick="cancelEvent({{id}})" class="btn btn-danger btn-xs pull-right"><i class="fa fa-times fa-right"></i></button>
-	  <button onclick="showLinkedEvent('{{id}}')" class="btn btn-success btn-xs pull-right"><i class="fa fa-chevron-circle-right"></i></button>
+	<a href="javascript:showLinkedEvent('{{id}}')" class="list-group-item" >
+	  <!-- <button onclick="cancelEvent({{id}})" class="btn btn-danger btn-xs pull-right"><i class="fa fa-times fa-right"></i></button> -->
+	  <h5><i id="chevron{{id}}" style="color: #e74c3c;" class="fa fa-chevron-right pull-right"></i></h5>
+	  <img id="loader{{id}}" class="loader pull-right" style="display: none;" src="/static/assets/img/snake_loader.gif"/>
 	  <h5 class="list-group-item-heading">{{title}}</h5>
 	  <p style="font-size: 12px;" class="list-group-item-text">Date: {{start}}</p>
 	</a>

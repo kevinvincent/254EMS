@@ -95,7 +95,6 @@ function cancelEvent(e_id) {
 //Show the Event Modal - Internal Use Only
 function showEventModal(calEvent) {
 
-  //Override some display data
   var start_time = new Date(calEvent.start);
   var end_time = new Date(calEvent.end || calEvent.start);
   calEvent.start_time = start_time.getHours()+":"+start_time.getMinutes();
@@ -107,12 +106,17 @@ function showEventModal(calEvent) {
   $(".component_modal").html("");
   $(".component_modal").append(template);
   $('#myModal').modal('show');
+  $("#loader"+calEvent.id).hide();
+  $("#chevron"+calEvent.id).show();
+  
 
     
 }
 
 //Show an Event by eventID
 function showLinkedEvent(eventId) {
+  $("#chevron"+eventId).hide();
+  $("#loader"+eventId).show();
   $.ajax({
       type : "GET",
       dataType : "json",
@@ -160,7 +164,7 @@ function filter(category) {
   }
   else {
     $('.fc-event').hide(100);
-    $('div[category="'+category+'"').show(100);
+    $('div[category="'+category+'"]').show(100);
 
     //Render Categories Selector
     var categoryArr = unique(rawCategories);
@@ -239,10 +243,5 @@ $(document).ready(function() {
     }
   
   });
-    
-   
-    
- 
-
 });
 
