@@ -7,10 +7,17 @@
 	{{#feed}}
 	<a href="javascript:showLinkedEvent('{{id}}')" class="list-group-item" >
 	  <!-- <button onclick="cancelEvent({{id}})" class="btn btn-danger btn-xs pull-right"><i class="fa fa-times fa-right"></i></button> -->
-	  <h5><i id="chevron{{id}}" style="color: #e74c3c;" class="fa fa-chevron-right pull-right"></i></h5>
-	  <img id="loader{{id}}" class="loader pull-right" style="display: none;" src="/static/assets/img/snake_loader.gif"/>
-	  <h5 class="list-group-item-heading">{{title}}</h5>
-	  <p style="font-size: 12px;" class="list-group-item-text">Date: {{start}}</p>
+	  <div class="row">
+		<div class="col-xs-10">
+			<h5 class="list-group-item-heading">{{title}}</h5>
+			<p style="font-size: 12px;" class="list-group-item-text">Date: {{start}}</p>
+		</div>
+	  	<div class="col-xs-2">
+	  		<h5><i id="chevron{{id}}" style="color: #e74c3c;" class="fa fa-chevron-right pull-right"></i></h5>
+			<img id="loader{{id}}" class="loader pull-right" style="display: none;" src="/static/assets/img/loader_ball_red.gif"/>
+	  	</div>
+	  </div>
+	  
 	</a>
 	{{/feed}}
 
