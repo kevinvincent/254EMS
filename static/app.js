@@ -43,7 +43,7 @@ if(window.location.hash.substr(1) != ' ') {
 
 //Initialize Typeahead Search
 $('.typeahead').on('typeahead:selected', function($e, datum){
-  alert(datum["value"]);
+  showLinkedEvent(datum["id"]);
 });
 
 
