@@ -20,6 +20,15 @@ $.ajax({
   }
 });
 
+var userPanelContent;
+$.ajax({
+  type : "GET",
+  url : 'static/components/component_user.html',
+  success: function(data){
+    userPanelContent = data;
+  }
+});
+
 //Globals
 var feed;
 var typeaheadItems = []
@@ -51,13 +60,17 @@ function unique(array) {
 
 //Register For an Event
 function registerEvent(e_id) {
+  $('#myModal').modal('hide');
   $.ajax({
       type : "GET",
       dataType : "json",
       url : '/register/'+e_id,
       success: function(data){
+        var theEvent = $('#calendar').fullCalendar( 'clientEvents', parseInt(e_id));
+        theEvent[0].isRegistered = true;
+        $('#calendar').fullCalendar('updateEvent', theEvent);
+        console.log($('#calendar').fullCalendar( 'clientEvents', parseInt(e_id)))
         loadEvents();
-        $('#myModal').modal('hide');
       }
     });
 }
@@ -82,6 +95,10 @@ function cancelEvent(e_id) {
             dataType : "json",
             url : '/cancel/'+e_id,
             success: function(data){
+              var theEvent = $('#calendar').fullCalendar( 'clientEvents', parseInt(e_id));
+              theEvent[0].isRegistered = false;
+              $('#calendar').fullCalendar('updateEvent', theEvent);
+              console.log($('#calendar').fullCalendar( 'clientEvents', parseInt(e_id)))
               loadEvents();
             }
           });
@@ -144,10 +161,6 @@ function loadEvents() {
 
     }
   });
-  
-  $('#progressBar').addClass('progress-striped');
-  $('#progressBar').addClass('active');
-  $('#calendar').fullCalendar('refetchEvents');
 }
 
 //Filter Categories
@@ -181,6 +194,19 @@ $(document).ready(function() {
   //Load Registered Event List
   loadEvents();
 
+  //Load User Panel
+  $.ajax({
+    type : "GET",
+    dataType : "json",
+    url : '/user',
+    success: function(user_data){
+      template = Mustache.render(userPanelContent, user_data);
+      $(".component_user").html("");
+      $(".component_user").append(template);
+    }
+  });
+  
+
   //Start Moving Progress Bar
   $('#progressBar').addClass('progress-striped');
   $('#progressBar').addClass('active');
@@ -195,6 +221,7 @@ $(document).ready(function() {
     },
 
     weekMode: 'liquid',
+    lazyFetching: true,
     handleWindowResize: true,
     editable: false,
     buttonIcons: true,
@@ -242,16 +269,24 @@ $(document).ready(function() {
         var prev = "$('#calendar').fullCalendar('prev');"
         var next = "$('#calendar').fullCalendar('next');"
         $('.fc-header-right').html('<div class="btn-group btn-group-sm"> <button type="button" onclick="'+prev+'" class="btn btn-primary"><i class="fa fa-chevron-left"></i></button> <button type="button" onclick="'+next+'" class="btn btn-primary"><i class="fa fa-chevron-right"></i></button> </div>');
-
       }
     }
   
   });
 
+  var template = Mustache.compile('<p><strong>{{value}}</strong></p><p> – {{start_date_pretty}}</p>');
   //Initialize Search
   $('.typeahead').typeahead({
       name: '',
-      local: typeaheadItems
+      remote: '/search/%QUERY',
+      template: template
   });
+
+  // ​$(window).on('resize', function(){
+  //     var win = $(".typeahead"); //this = window
+  //     $()
+  // });​​​​
+
+  
 });
 

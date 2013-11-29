@@ -94,6 +94,10 @@ admin.add_view(CustomView(Registration, db.session))
 # Main App
 # ********************** #
 
+
+
+# Auth Api
+# ********************** #
 @app.before_request
 def gateKeeper():
 
@@ -133,7 +137,9 @@ def gateKeeper():
                 pass
 
 
-"""TESTER VIEWS"""
+
+# Test Endpoints
+# ********************** #
 
 @app.route('/createEvents')
 def createEvents():
@@ -156,17 +162,18 @@ def createEvents():
 
     return returnString
 
-@app.route('/reset')
-def reset():
-    db.drop_all()
-    db.create_all()
-    return "DONE"
+# @app.route('/reset')
+# def reset():
+#     db.drop_all()
+#     db.create_all()
+#     return "DONE"
 
 
 
-""" Application Views """
+# Application Endpoints
+# ********************** #
 
-#Full Calendar Event Loader
+#Fullcalendar endpoint
 @app.route('/loadView')
 def loadView():
     print "loadView";
@@ -231,6 +238,57 @@ def loadView():
     else:
         return json.dumps(returnList)
 
+#Endpoint for search
+@app.route('/search/<query>')
+def search(query):
+    print "Search";
+
+    startDbTime = int(round(time.time() * 1000))
+    results = db.session.query(Event).filter(Event.title.ilike("%"+query+"%")).all()
+    print "Search DB Query: " + str(int(round(time.time() * 1000))-startDbTime);
+
+    returnList = [];
+
+    for result in results:
+        data = {}
+
+        #Full Calendar Required Information
+        data['title'] = result.title
+        data['allDay'] = True
+        data['start'] = str(result.start_time)
+        data['end'] = str(result.end_time)
+
+        #Custom MetaData
+        category = db.session.query(Event_Category).filter(Event_Category.id==result.et_id).first()
+
+        #Event Category
+        data['category'] = str(category.name)
+
+        #Description
+        data['description'] = result.description;
+
+        #Unique Id
+        data['id'] = result.id
+
+        #TypeaheadJS
+        data['value'] = result.title
+        data['start_time_pretty'] = str(result.start_time.hour)+":"+str(result.start_time.minute)
+        data['start_date_pretty'] = str(result.start_time.month)+"/"+str(result.start_time.day)+"/"+str(result.start_time.year)
+
+        tokens = [data['value'],data['start_date_pretty']]
+        data['tokens'] = tokens
+
+        returnList.append(data);
+
+    #Handle Jsonp cross domain requests
+    # - Basically allow this to be accesed from any domain through ajax
+    if(request.args.get('callback') != None):
+        return request.args.get('callback') + "(" + json.dumps(returnList) + ")"
+    else:
+        return json.dumps(returnList)
+
+
+#Returns information for a event
 @app.route('/event/<eventId>')
 def getEvent(eventId):
     print "getEvent";
@@ -290,7 +348,8 @@ def getEvent(eventId):
     else:
         return json.dumps(data)
 
-#Dashboard feed wide
+
+#Get the list of registered events
 @app.route('/mySignupsFeed')
 def mySignupsFeed():
     print "mySignupsFeed";

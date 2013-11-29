@@ -82,7 +82,7 @@
     }
 
 
-    * {
+    *:not(.tt-dropdown-menu) {
       -webkit-border-radius: 0 !important;
       -moz-border-radius: 0 !important;
       border-radius: 0 !important;
@@ -140,7 +140,7 @@
     }
 
     .tt-dropdown-menu {
-      min-width: 160px;
+      min-width: 250px;
       margin-top: 2px;
       padding: 5px 0;
       /*background-color: #2b3c4e;*/
@@ -234,12 +234,7 @@
       <div class="shadow">
 
         <div class="userPanel">
-          <div class="panel panel-info">
-            <div class="panel-heading"><center><h1><i class="fa fa-user"></i></h1><h4 id="username">username</a></center></h4></div>
-            <div class="panel-heading" id="frc-status">
-              <center><h4><span class="label label-lg label-primary">FRC Status: Eligible</span></a></center></h4>
-            </div>
-          </div>
+          <div class="component_user"></div>
         </div>
         
         <div class="registeredPanel">
