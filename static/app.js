@@ -64,13 +64,37 @@ function registerEvent(e_id) {
   $.ajax({
       type : "GET",
       dataType : "json",
-      url : '/register/'+e_id,
+      url : '/registerFRC/'+e_id,
       success: function(data){
-        var theEvent = $('#calendar').fullCalendar( 'clientEvents', parseInt(e_id));
-        theEvent[0].isRegistered = true;
-        $('#calendar').fullCalendar('updateEvent', theEvent);
-        console.log($('#calendar').fullCalendar( 'clientEvents', parseInt(e_id)))
-        loadEvents();
+
+        //Parse returned data and alert user if necessary
+        if(data.result == "error") {
+
+          msg = Messenger({
+            extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-left'
+          });
+
+          msg.post({
+            message: "Registration Error <br/> You can only signup for 3 events a week",
+            type: "error"
+          })
+
+        } else {
+          msg = Messenger({
+            extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-left'
+          });
+
+          msg.post({
+            message: "Successfuly Registered",
+            type: "success"
+          })
+          var theEvent = $('#calendar').fullCalendar( 'clientEvents', parseInt(e_id));
+          theEvent[0].isRegistered = true;
+          $('#calendar').fullCalendar('updateEvent', theEvent);
+          console.log($('#calendar').fullCalendar( 'clientEvents', parseInt(e_id)))
+          loadEvents();
+        }
+        
       }
     });
 }
@@ -95,6 +119,14 @@ function cancelEvent(e_id) {
             dataType : "json",
             url : '/cancel/'+e_id,
             success: function(data){
+              msg = Messenger({
+                extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-left'
+              });
+
+              msg.post({
+                message: "Registration Cancelled",
+                type: "info"
+              })
               var theEvent = $('#calendar').fullCalendar( 'clientEvents', parseInt(e_id));
               theEvent[0].isRegistered = false;
               $('#calendar').fullCalendar('updateEvent', theEvent);
@@ -111,11 +143,6 @@ function cancelEvent(e_id) {
 
 //Show the Event Modal - Internal Use Only
 function showEventModal(calEvent) {
-
-  var start_time = new Date(calEvent.start);
-  var end_time = new Date(calEvent.end || calEvent.start);
-  calEvent.start_time = start_time.getHours()+":"+start_time.getMinutes();
-  calEvent.end_time = end_time.getHours()+":"+end_time.getMinutes();
 
   calEvent.spotsLeft = calEvent.maxRegistrations - calEvent.numberOfRegistrations;
 
@@ -286,6 +313,7 @@ $(document).ready(function() {
   //     var win = $(".typeahead"); //this = window
   //     $()
   // });​​​​
+  
 
   
 });

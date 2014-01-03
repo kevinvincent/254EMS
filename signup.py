@@ -304,6 +304,8 @@ def getEvent(eventId):
     data['allDay'] = True
     data['start'] = str(theEvent.start_time)
     data['end'] = str(theEvent.end_time)
+    data['start_pretty'] = theEvent.start_time.strftime('%I:%M %p')
+    data['end_pretty'] = theEvent.end_time.strftime('%I:%M %p')
 
     #Custom MetaData
     category = db.session.query(Event_Category).filter(Event_Category.id==theEvent.et_id).first()
@@ -334,7 +336,9 @@ def getEvent(eventId):
     data['numberOfRegistrations'] = len(signups)
 
     #Max Number of registrations
-    data['maxRegistrations'] = theEvent.metas.filter(Event_Meta.key=="MAX_REGISTRATION_COUNT").first().value;
+    maxRegistrations = theEvent.metas.filter(Event_Meta.key=="MAX_REGISTRATION_COUNT").first();
+    if(maxRegistrations == None): data['maxRegistrations'] = 15
+    else: data['maxRegistrations'] = maxRegistrations.value
 
     app.logger.info(json.dumps(data));
 
@@ -366,7 +370,7 @@ def mySignupsFeed():
         data = {}
 
         data['title'] = signup.title
-        data['start'] = str(signup.start_time)
+        data['start'] = signup.start_time.strftime('%b, %d %Y - %I:%M %p')
         data['id'] = signup.id
 
         returnList.append(data)
@@ -412,9 +416,54 @@ def register(eventId):
     db.session.commit()
 
     if(request.args.get('callback') != None):
-        return request.args.get('callback') + "(" + json.dumps(["success"]) + ")"
+        return request.args.get('callback') + "(" + json.dumps(['success']) + ")"
     else:
-        return json.dumps([["success"]])
+        return json.dumps(['success'])
+    
+#Add a FRC registration
+@app.route('/registerFRC/<eventId>',methods=['GET'])
+def registerFRC(eventId):
+
+    theEvent = db.session.query(Event).filter(Event.id == int(eventId)).first()
+    userInfo = json.loads(session['user_data']);
+
+    #Get Start and End of Week
+    day = theEvent.start_time
+    day_of_week = day.weekday()
+    to_beginning_of_week = datetime.timedelta(days=day_of_week+1)
+    beginning_of_week = day - to_beginning_of_week
+    beginning_of_week = beginning_of_week.replace(hour=0, minute=0, second=0)
+    to_end_of_week = datetime.timedelta(days=6 - day_of_week-1)
+    end_of_week = day + to_end_of_week
+    end_of_week = end_of_week.replace(hour=23, minute=59, second=59)
+    #app.logger.info("Start: "+str(beginning_of_week)+" End: "+str(end_of_week));
+
+    #Get number of events they have registered for on the week of the event they want to register for
+    a = and_(Registration.u_id==session['user_id'],Registration.has_cancelled==False)
+    b = or_(and_(Event.start_time >= beginning_of_week, Event.start_time <= end_of_week),and_(Event.end_time >= beginning_of_week, Event.end_time <= end_of_week))
+    count = db.session.query(Registration).join(Event).filter(and_(a,b)).count();
+
+    data = {}
+    data['result'] = 'error'
+    data['message'] = 'Registration Failed - Server Error'
+
+    if(count<=2):
+        #Go ahead and register for requested event
+        newRegistration = Registration(u_id=userInfo['id'], username=userInfo['username'], e_id=theEvent.id, timestamp=datetime.datetime.now(), remind=False, cancel_time=None, has_cancelled=False, no_show=False, notes=request.args.get("notes",""))
+        db.session.add(newRegistration)
+        db.session.commit()
+        data['result'] = 'success'
+        data['message'] = 'Successfully Registered!'
+
+    else:
+        #Sorry too many registrations for you
+        data['message'] = "Sorry, you have already registered for 3 events this week!"
+
+
+    if(request.args.get('callback') != None):
+        return request.args.get('callback') + "(" + json.dumps(data) + ")"
+    else:
+        return json.dumps(data)
 
 
 #Get user information
