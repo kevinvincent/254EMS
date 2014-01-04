@@ -175,17 +175,14 @@ function showEventModal(calEvent) {
               <li><a href="javascript:switchNo();">No</a></li>\
             </ul>\
           </div>'
-    calEvent.button_html = '<button type="button" onclick="registerEvent('+calEvent.id+')" class="btn btn-primary btn-block">Signup</button>';
+    calEvent.button_html = '<button type="button" onclick="registerEvent('+calEvent.id+')" class="btn btn-success btn-block">Signup</button>';
   }
   else if(!calEvent.isRegistered && !calEvent.open) {
     calEvent.bus_html =  '<div class="btn-group">\
-            <button type="button" disabled="disabled" class="btn btn-default"><span id="btn-text">Need Bus: No</span></button>\
-            <button type="button" disabled="disabled" class="btn btn-default dropdown-toggle" data-toggle="dropdown">\
-              <span class="caret"></span>\
-              <span class="sr-only">Toggle Dropdown</span>\
+            <button type="button" disabled="disabled" class="btn btn-default"><span id="btn-text">Bus Signups Full</span></button>\
             </button>\
           </div>'
-    calEvent.button_html = '<button type="button" disabled="disabled" class="btn btn-default btn-block">Signups Full</button>';
+    calEvent.button_html = '<button type="button" disabled="disabled" class="btn btn-default btn-block">Event Signups Full</button>';
   }
   else {
     calEvent.button_html = "ERROR";

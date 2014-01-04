@@ -102,8 +102,8 @@ admin.add_view(CustomView(Registration, db.session))
 def gateKeeper():
 
     if 'user_id' in session:
-        if(request.path == '/admin'):
-            return redirect("http://tweetharder.com/t/634/lol/")
+        # if(request.path == '/admin'):
+        #     return redirect("http://tweetharder.com/t/634/lol/")
         return
 
     else:
@@ -228,6 +228,13 @@ def loadView():
 
         #Max Number of registrations
         data['maxRegistrations'] = theEvent.metas.filter(Event_Meta.key=="MAX_REGISTRATION_COUNT").first().value;
+
+        if(float(data['maxRegistrations']) / float(data['numberOfRegistrations']) == 1 ):
+            data['color'] = "#e74c3c"
+        elif(float(data['numberOfRegistrations']) / float(data['maxRegistrations']) >= .5):
+            data['color'] = "#f39c12"
+        else:
+            data['color'] = "#18bc9c"
 
         returnList.append(data)
 
