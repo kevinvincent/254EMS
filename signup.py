@@ -490,3 +490,6 @@ def sess():
 def dashboard():
     return render_template("single_page_old.html")
 
+if __name__ == "__main__":
+    app.run()
+
