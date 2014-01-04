@@ -11,12 +11,16 @@ $(document).ready(function(){
     });
 });
 
+var needBus = 0;
+
 function switchYes() {
   $('#btn-text').html("Need Bus: Yes")
+  needBus = 1;
 }
 
 function switchNo() {
   $('#btn-text').html("Need Bus: No")
+  needBus = 0;
 }
 
 </script>
@@ -117,16 +121,7 @@ function switchNo() {
       <!-- Signup -->
       <div class="row">
         <div class="col-md-4">
-<!--           {{#isRegistered}}
-          <button type="button" onclick="cancelEvent('{{id}}')" class="btn btn-danger btn-block">Cancel Bus</button>
-          {{/isRegistered}}
-
-          {{^isRegistered}}
-          <button type="button" onclick="registerEvent('{{id}}')" class="btn btn-primary btn-block">Bus Signup</button>
-          {{/isRegistered}} -->
-         <!-- Squared TWO -->
-          <!-- Single button -->
-          <div class="btn-group">
+          <!-- <div class="btn-group">
             <button type="button" class="btn btn-info"><span id="btn-text">Need Bus: No</span></button>
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
               <span class="caret"></span>
@@ -136,31 +131,11 @@ function switchNo() {
               <li><a href="javascript:switchYes();">Yes</a></li>
               <li><a href="javascript:switchNo();">No</a></li>
             </ul>
-          </div>
-
-          <!-- <div class="btn-group">
-            <button type="button" class="btn btn-info dropdown-toggle"data-toggle="dropdown">
-              <span id="btn-text">Need Bus: No</span> <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="javascript:switchYes();">Yes</a></li>
-              <li><a href="javascript:switchNo();">No</a></li>
-            </ul>
           </div> -->
-
+            {{{bus_html}}}
         </div>
         <div class="col-md-8">
             {{{button_html}}}
-
-           <!--  {{^isRegistered}}
-              {{#registrationsOpen}}
-                <button type="button" onclick="registerEvent('{{id}}')" class="btn btn-primary btn-block">Signup</button>
-              {{/registrationsOpen}}
-
-              {{^registrationsOpen}}
-                <button type="button" disabled="disabled" class="btn btn-default btn-block">Signups Full</button>
-              {{/registrationsOpen}}
-            {{/isRegistered}} -->
         </div>
       </div>
 

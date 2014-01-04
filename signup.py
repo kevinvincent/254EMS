@@ -26,7 +26,7 @@ from sqlalchemy.sql import *
 # APP Configs
 # *********** #
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://hllpxqiyjuxsdm:qyPRWZzTNvdFRxTbwNL0igVkDf@ec2-54-204-37-92.compute-1.amazonaws.com:5432/d312udd5d2fig4"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://sdrlkkapvrjfbj:DhYDslB1Q-E6bTldFOxILHhTZA@ec2-54-197-246-197.compute-1.amazonaws.com:5432/d1j67bkedrnib1"
 app.config['DEBUG'] = True;
 db = SQLAlchemy(app)
 app.secret_key = '\xe8\xec~G:\xa9iZ{D|^\x1bvc}U\xac\xbc\x1e\xf4\xed\x8c'
@@ -346,6 +346,12 @@ def getEvent(eventId):
 
     app.logger.info(json.dumps(data));
 
+    prevRegistration = theEvent.registrations.filter(and_(Registration.u_id==session['user_id'],Registration.has_cancelled==False)).first();
+    try:
+        data['needBus'] = prevRegistration.needBus;
+    except:
+        data['needBus'] = False
+
     #search
     data['name'] = theEvent.title
 
@@ -431,6 +437,8 @@ def registerFRC(eventId):
     theEvent = db.session.query(Event).filter(Event.id == int(eventId)).first()
     userInfo = json.loads(session['user_data']);
 
+    bus = bool(int(request.args.get("needBus","0")))
+
     #Get Start and End of Week
     day = theEvent.start_time
     day_of_week = day.weekday()
@@ -451,9 +459,11 @@ def registerFRC(eventId):
     data['result'] = 'error'
     data['message'] = 'Registration Failed - Server Error'
 
-    if(count<=2):
+    cutoff = theEvent.start_time - datetime.timedelta(days=1);
+
+    if(count<=2 or datetime.datetime.now() > cutoff):
         #Go ahead and register for requested event
-        newRegistration = Registration(u_id=userInfo['id'], username=userInfo['username'], e_id=theEvent.id, timestamp=datetime.datetime.now(), remind=False, cancel_time=None, has_cancelled=False, no_show=False, notes=request.args.get("notes",""))
+        newRegistration = Registration(u_id=userInfo['id'], username=userInfo['username'], e_id=theEvent.id, timestamp=datetime.datetime.now(), remind=False, cancel_time=None, has_cancelled=False, no_show=False, notes=request.args.get("notes",""), needBus=bus)
         db.session.add(newRegistration)
         db.session.commit()
         data['result'] = 'success'

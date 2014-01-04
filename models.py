@@ -113,6 +113,9 @@ class Registration(db.Model):
     #why u no show up?
     no_show = db.Column(db.Boolean, default=False)
 
+    #Do you need a bus
+    needBus = db.Column(db.Boolean, default=False)
+
     #anything else?
     notes = db.Column(db.Text)
 

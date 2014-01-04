@@ -1,6 +1,7 @@
 /* Initialize */
 /* ---------------------------------------------------- */
 
+
 //Load Components
 var modalContent;
 $.ajax({
@@ -60,11 +61,11 @@ function unique(array) {
 
 //Register For an Event
 function registerEvent(e_id) {
-  $('#myModal').modal('hide');
+  $('#myModal').modal('hide'); 
   $.ajax({
       type : "GET",
       dataType : "json",
-      url : '/registerFRC/'+e_id,
+      url : '/registerFRC/'+e_id+'?needBus='+needBus,
       success: function(data){
 
         //Parse returned data and alert user if necessary
@@ -75,7 +76,7 @@ function registerEvent(e_id) {
           });
 
           msg.post({
-            message: "Registration Error <br/> You can only signup for 3 events a week",
+            message: "Registration Error <br/> You can only signup for 3 events a week <br/> (Unless 24 hours before event)",
             type: "error"
           })
 
@@ -146,16 +147,44 @@ function showEventModal(calEvent) {
 
   calEvent.spotsLeft = calEvent.maxRegistrations - calEvent.numberOfRegistrations;
   // alert("isOpen: " + calEvent.open + " - isRegistered: " + calEvent.isRegistered)
+
+  if(calEvent.needBus == true) calEvent.needBusStr = "Yes"
+  else calEvent.needBusStr = "No"
+
   if(calEvent.isRegistered && calEvent.open) {
+    calEvent.bus_html =  '<div class="btn-group">\
+            <button type="button" disabled="disabled" class="btn btn-info"><span id="btn-text">Need Bus: '+calEvent.needBusStr+'</span></button>\
+          </div>'
     calEvent.button_html = '<button type="button" onclick="cancelEvent('+calEvent.id+')" class="btn btn-danger btn-block">Deregister</button>';
   }
   else if(calEvent.isRegistered && !calEvent.open) {
+    calEvent.bus_html =  '<div class="btn-group">\
+            <button type="button" disabled="disabled" class="btn btn-info"><span id="btn-text">Need Bus: '+calEvent.needBusStr+'</span></button>\
+          </div>'
     calEvent.button_html = '<button type="button" onclick="cancelEvent('+calEvent.id+')" class="btn btn-danger btn-block">Deregister</button>';
   }
   else if(!calEvent.isRegistered && calEvent.open) {
+    calEvent.bus_html =  '<div class="btn-group">\
+            <button type="button" class="btn btn-info"><span id="btn-text">Need Bus: No</span></button>\
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">\
+              <span class="caret"></span>\
+              <span class="sr-only">Toggle Dropdown</span>\
+            </button>\
+            <ul class="dropdown-menu" role="menu">\
+              <li><a href="javascript:switchYes();">Yes</a></li>\
+              <li><a href="javascript:switchNo();">No</a></li>\
+            </ul>\
+          </div>'
     calEvent.button_html = '<button type="button" onclick="registerEvent('+calEvent.id+')" class="btn btn-primary btn-block">Signup</button>';
   }
   else if(!calEvent.isRegistered && !calEvent.open) {
+    calEvent.bus_html =  '<div class="btn-group">\
+            <button type="button" disabled="disabled" class="btn btn-default"><span id="btn-text">Need Bus: No</span></button>\
+            <button type="button" disabled="disabled" class="btn btn-default dropdown-toggle" data-toggle="dropdown">\
+              <span class="caret"></span>\
+              <span class="sr-only">Toggle Dropdown</span>\
+            </button>\
+          </div>'
     calEvent.button_html = '<button type="button" disabled="disabled" class="btn btn-default btn-block">Signups Full</button>';
   }
   else {
