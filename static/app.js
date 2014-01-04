@@ -5,7 +5,7 @@
 var modalContent;
 $.ajax({
   type : "GET",
-  url : 'static/components/component_modal.html',
+  url : 'static/components/component_modal_new.html',
   success: function(data){
     modalContent = data;
   }
@@ -145,6 +145,23 @@ function cancelEvent(e_id) {
 function showEventModal(calEvent) {
 
   calEvent.spotsLeft = calEvent.maxRegistrations - calEvent.numberOfRegistrations;
+  // alert("isOpen: " + calEvent.open + " - isRegistered: " + calEvent.isRegistered)
+  if(calEvent.isRegistered && calEvent.open) {
+    calEvent.button_html = '<button type="button" onclick="cancelEvent('+calEvent.id+')" class="btn btn-danger btn-block">Deregister</button>';
+  }
+  else if(calEvent.isRegistered && !calEvent.open) {
+    calEvent.button_html = '<button type="button" onclick="cancelEvent('+calEvent.id+')" class="btn btn-danger btn-block">Deregister</button>';
+  }
+  else if(!calEvent.isRegistered && calEvent.open) {
+    calEvent.button_html = '<button type="button" onclick="registerEvent('+calEvent.id+')" class="btn btn-primary btn-block">Signup</button>';
+  }
+  else if(!calEvent.isRegistered && !calEvent.open) {
+    calEvent.button_html = '<button type="button" disabled="disabled" class="btn btn-default btn-block">Signups Full</button>';
+  }
+  else {
+    calEvent.button_html = "ERROR";
+  }
+
 
   template = Mustache.render(modalContent, calEvent);
   $(".component_modal").html("");
@@ -269,7 +286,7 @@ $(document).ready(function() {
 
     //Modal Listener
     eventClick: function(calEvent, jsEvent, view) {
-      showEventModal(calEvent);
+      showLinkedEvent(calEvent.id);
     },
 
     //Add Category

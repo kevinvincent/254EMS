@@ -1,5 +1,4 @@
 <script type="text/javascript">
-  
 function toggleChevron(e) {
   $("i.indicator").toggleClass('fa-chevron-down fa-chevron-right');
   $("i.indicator").css('margin-right',"8");
@@ -11,6 +10,14 @@ $(document).ready(function(){
         $('#toggle_icon').toggleClass("fa-check fa-times");
     });
 });
+
+function switchYes() {
+  $('#btn-text').html("Need Bus: Yes")
+}
+
+function switchNo() {
+  $('#btn-text').html("Need Bus: No")
+}
 
 </script>
 
@@ -29,23 +36,23 @@ $(document).ready(function(){
 
     <div class="well" id="calendarBG">
 
-      <div class="row">
+      <div class="row" style="margin-top: -25px;">
         <div class="col-md-12">
           <center><h1>{{title}}</h1></center>
-          <hr>
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" style="margin-top: -20px;">
+        <hr>
         <div class="col-md-12">
           <div class="col-xs-4">
-            <center><div><p>Start</p></div></center>
+            <center><div><b><p>Start</p></b></div></center>
           </div>
           <div class="col-xs-4">
-            <center><div><p>Category</p></div></center>
+            <center><div><b><p>End</p></b></div></center>
           </div>
           <div class="col-xs-4">
-            <center><div><p>End</p></div></center>
+            <center><div><b><p>Category</p></b></div></center>
           </div>
         </div>
       </div>
@@ -55,10 +62,10 @@ $(document).ready(function(){
             <center><div><p>{{start_pretty}}</p></div></center>
           </div>
           <div class="col-xs-4">
-            <center><div><p>{{category}}</div></center>
+            <center><div><p>{{end_pretty}}</div></center>
           </div>
           <div class="col-xs-4">
-            <center><div><p>{{end_pretty}}</div></center>
+            <center><div><p>{{category}}</div></center>
           </div>
         </div>
       </div>
@@ -86,9 +93,9 @@ $(document).ready(function(){
             <div class="panel-heading">
               <h3 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                  <i class="indicator fa fa-chevron-down pull-left" style="margin-right:10px; margin-top:2px;"></i> Attendees
+                  <i class="indicator fa fa-chevron-right pull-left" style="margin-right:10px; margin-top:2px;"></i> Attendees
                 </a>
-                <span class="label label-default pull-right">Spots Left: {{spotsLeft}}</span>
+                <span class="pull-right">Available Spots: {{spotsLeft}}</span>
               </h3>
             </div>
 
@@ -109,7 +116,7 @@ $(document).ready(function(){
 
       <!-- Signup -->
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
 <!--           {{#isRegistered}}
           <button type="button" onclick="cancelEvent('{{id}}')" class="btn btn-danger btn-block">Cancel Bus</button>
           {{/isRegistered}}
@@ -119,34 +126,41 @@ $(document).ready(function(){
           {{/isRegistered}} -->
          <!-- Squared TWO -->
           <!-- Single button -->
-
           <div class="btn-group">
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-              Need Bus? <span class="caret"></span>
+            <button type="button" class="btn btn-info"><span id="btn-text">Need Bus: No</span></button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Yes</a></li>
-              <li><a href="#">No</a></li>
+              <li><a href="javascript:switchYes();">Yes</a></li>
+              <li><a href="javascript:switchNo();">No</a></li>
             </ul>
           </div>
 
+          <!-- <div class="btn-group">
+            <button type="button" class="btn btn-info dropdown-toggle"data-toggle="dropdown">
+              <span id="btn-text">Need Bus: No</span> <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="javascript:switchYes();">Yes</a></li>
+              <li><a href="javascript:switchNo();">No</a></li>
+            </ul>
+          </div> -->
+
         </div>
-        <div class="col-md-9">
-          {{#registrationsOpen}}
-            {#isRegistered}}
-            <button type="button" onclick="cancelEvent('{{id}}')" class="btn btn-danger btn-block">Deregister</button>
-            {{/isRegistered}}
+        <div class="col-md-8">
+            {{{button_html}}}
 
-            {{^isRegistered}}
-            <button type="button" onclick="registerEvent('{{id}}')" class="btn btn-primary btn-block">Signup</button>
-            {{/isRegistered}}
-          {{/registrationsOpen}}
+           <!--  {{^isRegistered}}
+              {{#registrationsOpen}}
+                <button type="button" onclick="registerEvent('{{id}}')" class="btn btn-primary btn-block">Signup</button>
+              {{/registrationsOpen}}
 
-
-          {{#registrationsOpen}}
-            <button type="button" disabled="disabled" class="btn btn-default btn-block">Signups Full</button>
-          {{/registrationsOpen}}
-
+              {{^registrationsOpen}}
+                <button type="button" disabled="disabled" class="btn btn-default btn-block">Signups Full</button>
+              {{/registrationsOpen}}
+            {{/isRegistered}} -->
         </div>
       </div>
 

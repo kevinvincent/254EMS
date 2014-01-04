@@ -340,6 +340,10 @@ def getEvent(eventId):
     if(maxRegistrations == None): data['maxRegistrations'] = 15
     else: data['maxRegistrations'] = maxRegistrations.value
 
+    data['open'] = True
+    if(int(data['maxRegistrations']) - int(data['numberOfRegistrations']) < 1):
+        data['open'] = False
+
     app.logger.info(json.dumps(data));
 
     #search
