@@ -102,6 +102,8 @@ admin.add_view(CustomView(Registration, db.session))
 def gateKeeper():
 
     if 'user_id' in session:
+        if(request.path == '/admin'):
+            return redirect("http://tweetharder.com/t/634/lol/")
         return
 
     else:
@@ -119,7 +121,7 @@ def gateKeeper():
             if(request.args.get('callback') != None):
                 return 'window.location = '+'"http://www.team254.com/wp-login.php?redirect_to=http://www.team254.com/auth/?sub=www&path=/"'
             else:
-                return redirect("http://www.team254.com/wp-login.php?redirect_to=http://www.team254.com/auth/?sub=www&path=/") # <-- cookie monster
+                return redirect("http://www.team254.com/wp-login.php?redirect_to=http://www.team254.com/auth/?sub=signup&path=/") # <-- cookie monster
 
         else:
 
