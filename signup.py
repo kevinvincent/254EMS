@@ -413,22 +413,22 @@ def cancel(eventId):
 
 
 #Add a registration
-@app.route('/register/<eventId>',methods=['GET'])
-def register(eventId):
+# @app.route('/register/<eventId>',methods=['GET'])
+# def register(eventId):
 
-    theEvent = db.session.query(Event).filter(Event.id == int(eventId)).first()
-    userInfo = json.loads(session['user_data']);
+#     theEvent = db.session.query(Event).filter(Event.id == int(eventId)).first()
+#     userInfo = json.loads(session['user_data']);
 
-    #Registration(u_id=userInfo['id'], username=userInfo['username'], e_id=theEvent, timestamp=datetime.datetime.now(), remind=False, cancel_time=None, has_cancelled=False, no_show=False, notes=request.args.get("notes"))
-    newRegistration = Registration(u_id=userInfo['id'], username=userInfo['username'], e_id=theEvent.id, timestamp=datetime.datetime.now(), remind=False, cancel_time=None, has_cancelled=False, no_show=False, notes=request.args.get("notes",""))
+#     #Registration(u_id=userInfo['id'], username=userInfo['username'], e_id=theEvent, timestamp=datetime.datetime.now(), remind=False, cancel_time=None, has_cancelled=False, no_show=False, notes=request.args.get("notes"))
+#     newRegistration = Registration(u_id=userInfo['id'], username=userInfo['username'], e_id=theEvent.id, timestamp=datetime.datetime.now(), remind=False, cancel_time=None, has_cancelled=False, no_show=False, notes=request.args.get("notes",""))
 
-    db.session.add(newRegistration)
-    db.session.commit()
+#     db.session.add(newRegistration)
+#     db.session.commit()
 
-    if(request.args.get('callback') != None):
-        return request.args.get('callback') + "(" + json.dumps(['success']) + ")"
-    else:
-        return json.dumps(['success'])
+#     if(request.args.get('callback') != None):
+#         return request.args.get('callback') + "(" + json.dumps(['success']) + ")"
+#     else:
+#         return json.dumps(['success'])
     
 #Add a FRC registration
 @app.route('/registerFRC/<eventId>',methods=['GET'])
