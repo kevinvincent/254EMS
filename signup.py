@@ -1,6 +1,10 @@
 #http://stackoverflow.com/questions/11616260/how-to-get-all-objects-with-a-date-that-fall-in-a-specific-month-sqlalchemy
 #qry = DBSession.query(User).filter(User.birthday.between('1985-01-17', '1988-01-17'))
 
+#TODO
+# Take old events out of signups feed
+# Server side validatation of reservations < maxRegistration
+# Admin lockout
 
 # *************** #
 # General Imports
@@ -229,7 +233,9 @@ def loadView():
         #Max Number of registrations
         data['maxRegistrations'] = theEvent.metas.filter(Event_Meta.key=="MAX_REGISTRATION_COUNT").first().value;
 
-        if(float(data['maxRegistrations']) / float(data['numberOfRegistrations']) == 1 ):
+        if(theEvent.start_time < datetime.datetime.now()):
+            data['color'] = "#95a5a6"
+        elif(float(data['maxRegistrations']) - float(data['numberOfRegistrations']) == 0 ):
             data['color'] = "#e74c3c"
         elif(float(data['numberOfRegistrations']) / float(data['maxRegistrations']) >= .5):
             data['color'] = "#f39c12"
@@ -350,7 +356,9 @@ def getEvent(eventId):
     else: data['maxRegistrations'] = maxRegistrations.value
 
     data['open'] = True
-    if(int(data['maxRegistrations']) - int(data['numberOfRegistrations']) < 1):
+    if(theEvent.start_time < datetime.datetime.now()):
+        data['open'] = False
+    elif(int(data['maxRegistrations']) - int(data['numberOfRegistrations']) < 1):
         data['open'] = False
 
     app.logger.info(json.dumps(data));
@@ -386,6 +394,10 @@ def mySignupsFeed():
     print "Feed DB Query: " + str(int(round(time.time() * 1000))-startDbTime)
 
     for signup in mySignups:
+
+        if(signup.start_time < datetime.datetime.now()):
+            continue
+
         data = {}
 
         data['title'] = signup.title

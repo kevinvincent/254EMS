@@ -165,8 +165,8 @@ function showEventModal(calEvent) {
   }
   else if(!calEvent.isRegistered && calEvent.open) {
     calEvent.bus_html =  '<div class="btn-group">\
-            <button type="button" class="btn btn-info"><span id="btn-text">Need Bus: No</span></button>\
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">\
+            <button type="button" disabled="disabled" class="btn btn-info"><span id="btn-text">Need Bus: No</span></button>\
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">\
               <span class="caret"></span>\
               <span class="sr-only">Toggle Dropdown</span>\
             </button>\
@@ -179,10 +179,10 @@ function showEventModal(calEvent) {
   }
   else if(!calEvent.isRegistered && !calEvent.open) {
     calEvent.bus_html =  '<div class="btn-group">\
-            <button type="button" disabled="disabled" class="btn btn-default"><span id="btn-text">Bus Signups Full</span></button>\
+            <button type="button" disabled="disabled" class="btn btn-default"><span id="btn-text">Bus Signups Closed</span></button>\
             </button>\
           </div>'
-    calEvent.button_html = '<button type="button" disabled="disabled" class="btn btn-default btn-block">Event Signups Full</button>';
+    calEvent.button_html = '<button type="button" disabled="disabled" class="btn btn-default btn-block">Event Signups Closed</button>';
   }
   else {
     calEvent.button_html = "ERROR";

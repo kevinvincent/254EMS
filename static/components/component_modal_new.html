@@ -97,9 +97,11 @@ function switchNo() {
             <div class="panel-heading">
               <h3 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                  <i class="indicator fa fa-chevron-right pull-left" style="margin-right:10px; margin-top:2px;"></i> Attendees
+                  <i class="indicator fa fa-chevron-right pull-left" style="margin-right:10px; margin-top:2px;"> </i> Attendees
                 </a>
-                <span class="pull-right">Available Spots: {{spotsLeft}}</span>
+                <a class="accordion-toggle pull-right" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                  <span>Available Spots: {{spotsLeft}}</span>
+                </a>
               </h3>
             </div>
 

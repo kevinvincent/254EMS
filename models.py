@@ -40,7 +40,7 @@ class Event(db.Model):
                                 lazy='dynamic')
 
     def __repr__(self):
-        return str(self.title)
+        return str(self.title) + str(self.id)
 
 
     #Amount slots open
