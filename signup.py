@@ -16,6 +16,8 @@ import json
 import time
 import hashlib
 import requests
+from pytz import timezone
+import pytz
 from flask import *
 
 
@@ -174,7 +176,10 @@ def createEvents():
 #     db.create_all()
 #     return "DONE"
 
-
+def now():
+    date = datetime.datetime.now(tz=pytz.utc)
+    date = date.astimezone(timezone('US/Pacific'))
+    return date
 
 # Application Endpoints
 # ********************** #
@@ -263,6 +268,8 @@ def search(query):
     print "Search DB Query: " + str(int(round(time.time() * 1000))-startDbTime);
 
     returnList = [];
+
+    app.logger.info("Now: " + str(now())
 
     for result in results:
         data = {}
