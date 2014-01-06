@@ -320,7 +320,7 @@ $(document).ready(function() {
         $('#progressBar').removeClass('active');
       },
       error: function() {
-          alert('There was an error while fetching events!');
+          window.location = "http://www.team254.com/wp-login.php?redirect_to=http://signup.team254.com/"
         }
      },
 
