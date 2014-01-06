@@ -369,6 +369,12 @@ def getEvent(eventId):
     except:
         data['needBus'] = False
 
+    #Notes placeholder
+    if(theEvent.category == "FRC Food"):
+        data["notes_placeholder"] = "What will you be bringing?"
+    else
+        data["notes_placeholder"] = "Add any additional notes - Publically Visible"
+
     #search
     data['name'] = theEvent.title
 
