@@ -150,7 +150,7 @@ function showEventModal(calEvent) {
 
   calEvent.spotsLeft = calEvent.maxRegistrations - calEvent.numberOfRegistrations;
   // alert("isOpen: " + calEvent.open + " - isRegistered: " + calEvent.isRegistered)
-
+  calEvent.block = true
   calEvent.name = function () {
     if(this.notes != "") return this.username + " - " + this.notes
     else return this.username;
