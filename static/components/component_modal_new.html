@@ -109,7 +109,7 @@ function switchNo() {
             <div id="collapseOne" id="accordion" class="panel-collapse collapse">
 
                 {{#registrations}}
-                  <li class="list-group-item">{{name}}</li>
+                  <li class="list-group-item">{{#name}}<span class="pull-right">{{name}}</span>{{/name}}</li>
                 {{/registrations}}
                 {{^registrations}}
                   <li class="list-group-item">No Attendees</li>
