@@ -123,7 +123,7 @@ def gateKeeper():
         if not wpCookieExists:
             #Handle jsonp requests
             if(request.args.get('callback') != None):
-                return 'window.location = '+'"http://www.team254.com/wp-login.php?redirect_to=http://www.team254.com/auth/?sub=www&path=/"'
+                return 'window.location = '+'"http://www.team254.com/wp-login.php?redirect_to=http://signup.team254.com/"'
             else:
                 return redirect("http://www.team254.com/wp-login.php?redirect_to=http://www.team254.com/auth/?sub=signup&path=/") # <-- cookie monster
 
