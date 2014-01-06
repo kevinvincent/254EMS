@@ -191,6 +191,7 @@ function showEventModal(calEvent) {
   if(calEvent.category == "FRC Food") {
     calEvent.notes_placeholder = "What will you be bringing?"
     calEvent.bus_html = ""
+  }
   else {
     calEvent.notes_placeholder = "Add any additional notes - Publically Visible"
   }
