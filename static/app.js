@@ -148,7 +148,6 @@ function showEventModal(calEvent) {
   calEvent.spotsLeft = calEvent.maxRegistrations - calEvent.numberOfRegistrations;
   // alert("isOpen: " + calEvent.open + " - isRegistered: " + calEvent.isRegistered)
 
-  if(calEvent.category != "FRC Food") {
   if(calEvent.needBus == true) calEvent.needBusStr = "Yes"
   else calEvent.needBusStr = "No"
 
@@ -192,7 +191,6 @@ function showEventModal(calEvent) {
   if(calEvent.category == "FRC Food") {
     calEvent.notes_placeholder = "What will you be bringing?"
     calEvent.bus_html = ""
-  }
   else {
     calEvent.notes_placeholder = "Add any additional notes - Publically Visible"
   }
