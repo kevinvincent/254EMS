@@ -125,7 +125,7 @@ def gateKeeper():
             if(request.args.get('callback') != None):
                 return 'window.location = '+'"http://www.team254.com/wp-login.php?redirect_to=http://signup.team254.com/"'
             else:
-                return redirect("http://www.team254.com/wp-login.php?redirect_to=http://www.team254.com/auth/?sub=signup&path=") # <-- cookie monster
+                return redirect("http://www.team254.com/wp-login.php?redirect_to=http://www.team254.com/auth/?sub=www&path=") # <-- cookie monster
 
         else:
 
