@@ -132,12 +132,19 @@ function switchNo() {
       </div>
       <br/>
       <div class="row">
-        <div class="col-xs-4">
-            {{{bus_html}}}
-        </div>
-        <div class="col-xs-8">
-            {{{button_html}}}
-        </div>
+        {{#block}}
+          <div class="col-xs-4">
+              {{{bus_html}}}
+          </div>
+          <div class="col-xs-8">
+              {{{button_html}}}
+          </div>
+        {{/block}}
+        {{^block}}
+          <div class="col-xs-12">
+            {{button_html}}
+          </div>
+        {{/block}}
       </div>
 
     </div>

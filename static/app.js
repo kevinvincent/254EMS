@@ -179,7 +179,7 @@ function showEventModal(calEvent) {
   }
   else if(!calEvent.isRegistered && !calEvent.open) {
     calEvent.bus_html =  '<div class="btn-group">\
-            <button type="button" disabled="disabled" class="btn btn-default"><span id="btn-text">Bus Signups Closed</span></button>\
+            <button type="button" disabled="disabled" class="btn btn-default"><span id="btn-text">Signups Closed</span></button>\
             </button>\
           </div>'
     calEvent.button_html = '<button type="button" disabled="disabled" class="btn btn-default btn-block">Event Signups Closed</button>';
@@ -191,6 +191,7 @@ function showEventModal(calEvent) {
   if(calEvent.category == "FRC Food") {
     calEvent.notes_placeholder = "What will you be bringing?"
     calEvent.bus_html = ""
+    calEvent.block = false
   }
   else {
     calEvent.notes_placeholder = "Add any additional notes - Publically Visible"
