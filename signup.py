@@ -488,7 +488,7 @@ def registerFRC(eventId):
 
     if(count<=2 or datetime.datetime.now() > cutoff):
         #Go ahead and register for requested event
-        newRegistration = Registration(u_id=userInfo['id'], username=userInfo['username'], e_id=theEvent.id, timestamp=datetime.datetime.now(), remind=False, cancel_time=None, has_cancelled=False, no_show=False, notes=request.args.get("notes",""), needBus=bus)
+        newRegistration = Registration(u_id=userInfo['id'], username=userInfo['name'], e_id=theEvent.id, timestamp=datetime.datetime.now(), remind=False, cancel_time=None, has_cancelled=False, no_show=False, notes=request.args.get("notes",""), needBus=bus)
         db.session.add(newRegistration)
         db.session.commit()
         data['result'] = 'success'
