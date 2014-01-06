@@ -122,6 +122,7 @@ function switchNo() {
       </div>
 
       <!-- Signup -->
+      {{^isRegistered}}
       <div class="row">
         <div class="col-xs-12">
             <div class="input-group">
@@ -130,6 +131,7 @@ function switchNo() {
             </div>
         </div>
       </div>
+      {{/isRegistered}
       <br/>
       <div class="row">
         {{#block}}
