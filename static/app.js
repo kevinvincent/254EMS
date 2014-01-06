@@ -87,7 +87,7 @@ function registerEvent(e_id) {
           });
 
           msg.post({
-            message: "Successfuly Registered",
+            message: "Successfully Registered",
             type: "success"
           })
           // var theEvent = $('#calendar').fullCalendar( 'clientEvents', parseInt(e_id));
