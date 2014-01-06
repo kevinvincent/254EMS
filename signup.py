@@ -458,7 +458,7 @@ def registerFRC(eventId):
     theEvent = db.session.query(Event).filter(Event.id == int(eventId)).first()
     userInfo = json.loads(session['user_data']);
 
-    bus = bool(int(request.args.get("needBus","0")))
+    app.logger.info(str(request.args.get("notes","ERROR")))
 
     #Get Start and End of Week
     day = theEvent.start_time

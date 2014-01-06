@@ -62,10 +62,11 @@ function unique(array) {
 //Register For an Event
 function registerEvent(e_id) {
   $('#myModal').modal('hide'); 
+  var notes = bla = $('#notes').val();
   $.ajax({
       type : "GET",
       dataType : "json",
-      url : '/registerFRC/'+e_id+'?needBus='+needBus,
+      url : '/registerFRC/'+e_id+'?needBus='+needBus+'&notes='+notes,
       success: function(data){
 
         //Parse returned data and alert user if necessary
