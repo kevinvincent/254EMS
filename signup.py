@@ -16,6 +16,8 @@ import json
 import time
 import hashlib
 import requests
+from pytz import timezone
+import pytz
 from flask import *
 
 
@@ -98,7 +100,10 @@ admin.add_view(CustomView(Registration, db.session))
 # Main App
 # ********************** #
 
-
+def now():
+    western = timezone('US/Pacific')
+    now = western.localize(datetime.datetime.now())
+    return now
 
 # Auth Api
 # ********************** #
