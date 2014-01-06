@@ -199,7 +199,7 @@ function showEventModal(calEvent) {
     calEvent.block = false
   }
   else {
-    calEvent.notes_placeholder = "Add any additional notes - Publically Visible"
+    calEvent.notes_placeholder = "Add any additional notes - Publicaly Visible"
   }
 
 
