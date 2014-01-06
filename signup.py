@@ -477,7 +477,7 @@ def registerFRC(eventId):
 
     #Get number of events they have registered for on the week of the event they want to register for
     a = and_(Registration.u_id==session['user_id'],Registration.has_cancelled==False)
-    b = or_(and_(Event.start_time >= beginning_of_week, Event.start_time <= end_of_week),and_(Event.end_time >= beginning_of_week, Event.end_time <= end_of_week))
+    b = or_(Event.start_time >= beginning_of_week, Event.end_time >= beginning_of_week)
     count = db.session.query(Registration).join(Event).filter(and_(a,b)).count();
 
     data = {}
