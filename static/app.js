@@ -152,7 +152,8 @@ function showEventModal(calEvent) {
   // alert("isOpen: " + calEvent.open + " - isRegistered: " + calEvent.isRegistered)
 
   calEvent.name = function () {
-    return this.username + " " + this.notes;
+    if(this.notes != "") return this.username + " - " + this.notes
+    else return this.username;
   }
 
   if(calEvent.needBus == true) calEvent.needBusStr = "Yes"
