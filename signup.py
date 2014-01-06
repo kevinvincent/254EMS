@@ -338,7 +338,7 @@ def getEvent(eventId):
     signupsResults = theEvent.registrations.filter(Registration.has_cancelled==False).all()
     signups = []
     for theRegistration in signupsResults:
-        regdata = []
+        regdata = {}
         regdata['username'] = theRegistration.username
         regdata['notes'] = theRegistration.notes
         signups.append(regdata)
