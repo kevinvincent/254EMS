@@ -361,8 +361,10 @@ def getEvent(eventId):
 
     data['open'] = True
     if(theEvent.start_time < datetime.datetime.now()):
+        app.logger.info("Time")
         data['open'] = False
     elif(int(data['maxRegistrations']) - int(data['numberOfRegistrations']) < 1):
+        app.logger.info("Max Reg")
         data['open'] = False
 
     app.logger.info(json.dumps(data));
