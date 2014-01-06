@@ -147,7 +147,7 @@ function showEventModal(calEvent) {
 
   calEvent.spotsLeft = calEvent.maxRegistrations - calEvent.numberOfRegistrations;
   // alert("isOpen: " + calEvent.open + " - isRegistered: " + calEvent.isRegistered)
-
+  
   if(calEvent.needBus == true) calEvent.needBusStr = "Yes"
   else calEvent.needBusStr = "No"
 
