@@ -189,11 +189,13 @@ function showEventModal(calEvent) {
     calEvent.button_html = "ERROR";
   }
 
-  if(calEvent.category == "FRC Food")
+  if(calEvent.category == "FRC Food") {
     calEvent.notes_placeholder = "What will you be bringing?"
     calEvent.bus_html = ""
-  else
+  }
+  else {
     calEvent.notes_placeholder = "Add any additional notes - Publically Visible"
+  }
 
 
   template = Mustache.render(modalContent, calEvent);
