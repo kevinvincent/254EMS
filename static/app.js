@@ -89,10 +89,11 @@ function registerEvent(e_id) {
             message: "Successfuly Registered",
             type: "success"
           })
-          var theEvent = $('#calendar').fullCalendar( 'clientEvents', parseInt(e_id));
-          theEvent[0].isRegistered = true;
-          $('#calendar').fullCalendar('updateEvent', theEvent);
-          console.log($('#calendar').fullCalendar( 'clientEvents', parseInt(e_id)))
+          // var theEvent = $('#calendar').fullCalendar( 'clientEvents', parseInt(e_id));
+          // theEvent[0].isRegistered = true;
+          // $('#calendar').fullCalendar('updateEvent', theEvent);
+          // console.log($('#calendar').fullCalendar( 'clientEvents', parseInt(e_id)))
+          $('#calendar').fullCalendar( 'refetchEvents' )
           loadEvents();
         }
         
@@ -128,10 +129,11 @@ function cancelEvent(e_id) {
                 message: "Registration Cancelled",
                 type: "info"
               })
-              var theEvent = $('#calendar').fullCalendar( 'clientEvents', parseInt(e_id));
-              theEvent[0].isRegistered = false;
-              $('#calendar').fullCalendar('updateEvent', theEvent);
-              console.log($('#calendar').fullCalendar( 'clientEvents', parseInt(e_id)))
+              // var theEvent = $('#calendar').fullCalendar( 'clientEvents', parseInt(e_id));
+              // theEvent[0].isRegistered = false;
+              // $('#calendar').fullCalendar('updateEvent', theEvent);
+              // console.log($('#calendar').fullCalendar( 'clientEvents', parseInt(e_id)))
+              $('#calendar').fullCalendar( 'refetchEvents' )
               loadEvents();
             }
           });
