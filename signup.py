@@ -16,6 +16,8 @@ import json
 import time
 import hashlib
 import requests
+from pytz import timezone
+import pytz
 from flask import *
 
 
@@ -360,7 +362,11 @@ def getEvent(eventId):
     else: data['maxRegistrations'] = maxRegistrations.value
 
     data['open'] = True
-    if(theEvent.start_time < datetime.datetime.now()):
+
+    now = datetime.datetime.now(tz=pytz.utc)
+    now = date.astimezone(timezone('US/Pacific'))
+
+    if(theEvent.start_time < now):
         app.logger.info("Event Time: " + str(theEvent.start_time) + " Now: " + str(datetime.datetime.now()))
         data['open'] = False
     elif(int(data['maxRegistrations']) - int(data['numberOfRegistrations']) < 1):
