@@ -338,7 +338,11 @@ def getEvent(eventId):
     signupsResults = theEvent.registrations.filter(Registration.has_cancelled==False).all()
     signups = []
     for theRegistration in signupsResults:
-        signups.append(theRegistration.username)
+        regdata = []
+        regdata['username'] = theRegistration.username
+        regdata['notes'] = theRegistration.notes
+        signups.append(regdata)
+
     data['registrations'] = signups
 
     #Is the user already registered?
@@ -459,8 +463,6 @@ def registerFRC(eventId):
     userInfo = json.loads(session['user_data']);
 
     bus = bool(int(request.args.get("needBus","0")))
-
-    app.logger.info(request.args.get("notes","ERROR"))
 
     #Get Start and End of Week
     day = theEvent.start_time
