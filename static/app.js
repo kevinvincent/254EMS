@@ -186,10 +186,7 @@ function showEventModal(calEvent) {
     calEvent.button_html = '<button type="button" onclick="registerEvent('+calEvent.id+')" class="btn btn-success btn-block">Signup</button>';
   }
   else if(!calEvent.isRegistered && !calEvent.open) {
-    calEvent.bus_html =  '<div class="btn-group">\
-            <button type="button" disabled="disabled" class="btn btn-default"><span id="btn-text">Signups Closed</span></button>\
-            </button>\
-          </div>'
+    calEvent.block = false
     calEvent.button_html = '<button type="button" disabled="disabled" class="btn btn-default btn-block">Event Signups Closed</button>';
   }
   else {
