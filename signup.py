@@ -105,6 +105,7 @@ admin.add_view(CustomView(Registration, db.session))
 @app.before_request
 def gateKeeper():
 
+    app.logger.info(str(datetime.datetime.now()))
     if 'user_id' in session:
         # if(request.path == '/admin'):
         #     return redirect("http://tweetharder.com/t/634/lol/")
