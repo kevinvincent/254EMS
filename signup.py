@@ -16,8 +16,6 @@ import json
 import time
 import hashlib
 import requests
-from pytz import timezone
-import pytz
 from flask import *
 
 
@@ -100,10 +98,7 @@ admin.add_view(CustomView(Registration, db.session))
 # Main App
 # ********************** #
 
-def now():
-    western = timezone('US/Pacific')
-    now = western.localize(datetime.datetime.now())
-    return now
+
 
 # Auth Api
 # ********************** #
@@ -238,7 +233,7 @@ def loadView():
         #Max Number of registrations
         data['maxRegistrations'] = theEvent.metas.filter(Event_Meta.key=="MAX_REGISTRATION_COUNT").first().value;
 
-        if(theEvent.start_time < now()):
+        if(theEvent.start_time < datetime.datetime.now()):
             data['color'] = "#95a5a6"
         elif(float(data['maxRegistrations']) - float(data['numberOfRegistrations']) == 0 ):
             data['color'] = "#e74c3c"
