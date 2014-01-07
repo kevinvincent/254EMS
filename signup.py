@@ -512,6 +512,22 @@ def registerFRC(eventId):
     else:
         return json.dumps(data)
 
+@app.route('/print/<eventId>')
+def p(eventId):
+    printId = int(eventId)
+    theEvent = db.session.query(Event).filter(Event.id==int(eventId)).first()
+
+    signupsResults = theEvent.registrations.filter(Registration.has_cancelled==False).all()
+    signups = []
+    returnStr = ""
+    for theRegistration in signupsResults:
+        regdata = {}
+        returnStr += theRegistration.username
+        returnStr += "  -  "
+        returnStr += theRegistration.notes
+        returnStr += "<br/>"
+
+    return returnStr
 
 #Get user information
 @app.route('/user')
