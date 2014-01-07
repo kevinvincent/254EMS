@@ -70,36 +70,25 @@ function registerEvent(e_id) {
       success: function(data){
 
         //Parse returned data and alert user if necessary
-        if(data.result == "error") {
 
           msg = Messenger({
             extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-left'
           });
 
           msg.post({
-            message: "Registration Error <br/> You can only signup for 3 events a week <br/> (Unless 24 hours before event)",
-            type: "error"
+            message: data.message,
+            type: data.result
           })
 
-        } else {
-          msg = Messenger({
-            extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-left'
-          });
-
-          msg.post({
-            message: "Successfully Registered",
-            type: "success"
-          })
           // var theEvent = $('#calendar').fullCalendar( 'clientEvents', parseInt(e_id));
           // theEvent[0].isRegistered = true;
           // $('#calendar').fullCalendar('updateEvent', theEvent);
           // console.log($('#calendar').fullCalendar( 'clientEvents', parseInt(e_id)))
           $('#calendar').fullCalendar( 'refetchEvents' )
           loadEvents();
-        }
         
       }
-    });
+  });
 }
 
 //Cancel Registration for Event

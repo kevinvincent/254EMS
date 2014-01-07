@@ -155,16 +155,18 @@ def createEvents():
             yield start_date + datetime.timedelta(n)
 
 
-    year = 2013
-    month = 7
+    year = 2014
+    month = 1
 
-    start_date = datetime.date(year, month, 1)
-    end_date = datetime.date(year, month+1, 1)
+    start_date = datetime.datetime(year, month, 1)
+    end_date = datetime.datetime(year, month+1, 1)
 
     returnString = ""
     for single_date in daterange(start_date, end_date):
         #returnString += time.strftime("%Y-%m-%d", single_date.timetuple())
-        returnString += str(single_date)
+        single_date_start = single_date.replace(hour=17, minute=30, second=0)
+        single_date_end = single_date.replace(hour=21, minute=30, second=0)
+        returnString += str(single_date_start) + "   ,   " + str(single_date_end)
         returnString += "<br/>"
 
     return returnString
@@ -494,11 +496,15 @@ def registerFRC(eventId):
         db.session.add(newRegistration)
         db.session.commit()
         data['result'] = 'success'
-        data['message'] = 'Successfully Registered!'
+        data['message'] = 'Successfully Registered'
+
+        # if(theEvent.start_time.weekday() == 4):
+        #     db.session.query(Registration).join(Event).filter(and_(and_(Registration.e_id == theEvent.id,Registration.has_cancelled==False),Registration.needBus == True)).count()
+        #     app.logger.info()
 
     else:
         #Sorry too many registrations for you
-        data['message'] = "Sorry, you have already registered for 3 events this week!"
+        data['message'] = "Registration Error <br/> You can only signup for 3 events a week <br/> (Unless 24 hours before event)"
 
 
     if(request.args.get('callback') != None):
