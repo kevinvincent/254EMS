@@ -523,7 +523,7 @@ def p(eventId):
         regdata = {}
         returnStr += theRegistration.username
         returnStr += "  -  "
-        returnStr += theRegistration.needBus
+        returnStr += str(theRegistration.needBus)
         returnStr += "  -  "
         returnStr += "<br/>"
 
