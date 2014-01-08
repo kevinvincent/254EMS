@@ -105,7 +105,6 @@ admin.add_view(CustomView(Registration, db.session))
 @app.before_request
 def gateKeeper():
 
-    app.logger.info(str(datetime.datetime.now()))
     if 'user_id' in session:
         # if(request.path == '/admin'):
         #     return redirect("http://tweetharder.com/t/634/lol/")
@@ -519,7 +518,7 @@ def p(eventId):
 
     signupsResults = theEvent.registrations.filter(Registration.has_cancelled==False).all()
     signups = []
-    returnStr = "Name  /  Bus?  /  Notes"
+    returnStr = "Name  /  Bus?  /  Notes<br/>"
     for theRegistration in signupsResults:
         regdata = {}
         returnStr += theRegistration.username
