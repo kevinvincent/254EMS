@@ -140,6 +140,7 @@ function showEventModal(calEvent) {
   calEvent.spotsLeft = calEvent.maxRegistrations - calEvent.numberOfRegistrations;
   // alert("isOpen: " + calEvent.open + " - isRegistered: " + calEvent.isRegistered)
   calEvent.block = true
+  calEvent.notes = true
   calEvent.name = function () {
     if(this.notes != "") return this.username + " - " + this.notes
     else return this.username;
@@ -149,12 +150,14 @@ function showEventModal(calEvent) {
   else calEvent.needBusStr = "No"
 
   if(calEvent.isRegistered && calEvent.open) {
+    calEvent.notes = false
     calEvent.bus_html =  '<div class="btn-group">\
             <button type="button" disabled="disabled" class="btn btn-info"><span id="btn-text">Need Bus: '+calEvent.needBusStr+'</span></button>\
           </div>'
     calEvent.button_html = '<button type="button" onclick="cancelEvent('+calEvent.id+')" class="btn btn-danger btn-block">Deregister</button>';
   }
   else if(calEvent.isRegistered && !calEvent.open) {
+    calEvent.notes = false
     calEvent.bus_html =  '<div class="btn-group">\
             <button type="button" disabled="disabled" class="btn btn-info"><span id="btn-text">Need Bus: '+calEvent.needBusStr+'</span></button>\
           </div>'
@@ -176,6 +179,7 @@ function showEventModal(calEvent) {
   }
   else if(!calEvent.isRegistered && !calEvent.open) {
     calEvent.block = false
+    calEvent.notes = false
     calEvent.button_html = '<button type="button" disabled="disabled" class="btn btn-default btn-block">Event Signups Closed</button>';
   }
   else {
