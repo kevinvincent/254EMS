@@ -519,12 +519,13 @@ def p(eventId):
 
     signupsResults = theEvent.registrations.filter(Registration.has_cancelled==False).all()
     signups = []
-    returnStr = ""
+    returnStr = "Name  /  Bus?  /  Notes"
     for theRegistration in signupsResults:
         regdata = {}
         returnStr += theRegistration.username
         returnStr += "  -  "
-        returnStr += theRegistration.notes
+        returnStr += theRegistration.needBus
+        returnStr += "  -  "
         returnStr += "<br/>"
 
     return returnStr
