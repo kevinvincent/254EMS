@@ -85,6 +85,9 @@ class CustomView(ModelView):
     column_display_pk = True
     column_auto_select_related = True
 
+    def is_accessible(self):
+        return json.loads(session['user_data']).leader == 1
+
 admin = Admin(app, name = "Cheesy-Signups DB Admin")
 admin.add_view(CustomView(Event, db.session))
 admin.add_view(CustomView(Event_Category, db.session))
@@ -106,8 +109,6 @@ admin.add_view(CustomView(Registration, db.session))
 def gateKeeper():
 
     if 'user_id' in session:
-        # if(request.path == '/admin'):
-        #     return redirect("http://tweetharder.com/t/634/lol/")
         return
 
     else:
@@ -466,7 +467,7 @@ def cancel(eventId):
 def registerFRC(eventId):
 
     theEvent = db.session.query(Event).filter(Event.id == int(eventId)).first()
-    userInfo = json.loads(session['user_data']);
+    userInfo = json.loads(session['user_data'])
 
     bus = bool(int(request.args.get("needBus","0")))
 
