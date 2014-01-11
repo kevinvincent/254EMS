@@ -362,7 +362,7 @@ def getEvent(eventId):
 
     #Max Number of registrations
     maxRegistrations = theEvent.metas.filter(Event_Meta.key=="MAX_REGISTRATION_COUNT").first();
-    if(maxRegistrations == None): data['maxRegistrations'] = 15
+    if(maxRegistrations == None): data['maxRegistrations'] = 20
     else: data['maxRegistrations'] = maxRegistrations.value
 
     data['open'] = True
