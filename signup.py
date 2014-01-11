@@ -86,7 +86,7 @@ class CustomView(ModelView):
     column_auto_select_related = True
 
     def is_accessible(self):
-        return json.loads(session['user_data']).leader == 1
+        return json.loads(session['user_data'])['leader'] == 1
 
 admin = Admin(app, name = "Cheesy-Signups DB Admin")
 admin.add_view(CustomView(Event, db.session))
