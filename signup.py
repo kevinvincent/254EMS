@@ -233,7 +233,10 @@ def loadView():
         data['numberOfRegistrations'] = len(signups)
 
         #Max Number of registrations
-        data['maxRegistrations'] = theEvent.metas.filter(Event_Meta.key=="MAX_REGISTRATION_COUNT").first().value;
+        try:
+            data['maxRegistrations'] = theEvent.metas.filter(Event_Meta.key=="MAX_REGISTRATION_COUNT").first().value;
+        except:
+            data['maxRegistrations'] = 20
 
         if(theEvent.start_time < datetime.datetime.now()):
             data['color'] = "#95a5a6"
