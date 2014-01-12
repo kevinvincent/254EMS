@@ -507,7 +507,7 @@ def registerFRC(eventId):
 
     else:
         #Sorry too many registrations for you
-        data['message'] = "Registration Error <br/> You can only signup for 3 events a week <br/> (Unless 24 hours before event)"
+        data['message'] = "Registration Error <br/> You can only signup for 2 events a week <br/> (Unless 24 hours before event)"
 
 
     if(request.args.get('callback') != None):
