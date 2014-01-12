@@ -1,4 +1,4 @@
-cheesy-signups 
+254 Event Management System
 ============== 
 The signup system for FRC - maybe extended later to other signupss 
 
