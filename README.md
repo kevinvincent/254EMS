@@ -2,10 +2,12 @@ cheesy-signups
 ============== 
 The signup system for FRC - maybe extended later to other signupss 
 
-***Calendar View***
+**Calendar View**
+
 ![Screenshot 1](https://raw2.github.com/Team254/cheesy-signups/master/screenshots/1.png?token=1350245__eyJzY29wZSI6IlJhd0Jsb2I6VGVhbTI1NC9jaGVlc3ktc2lnbnVwcy9tYXN0ZXIvc2NyZWVuc2hvdHMvMS5wbmciLCJleHBpcmVzIjoxMzkwMDk0MjIxfQ%3D%3D--704c134f05f60c0cfccfe52b4fddf05f25aa3953) 
 
-***Event and Registration View***
+**Event and Registration View**
+
 ![Screenshot 2](https://raw2.github.com/Team254/cheesy-signups/master/screenshots/2.png?token=1350245__eyJzY29wZSI6IlJhd0Jsb2I6VGVhbTI1NC9jaGVlc3ktc2lnbnVwcy9tYXN0ZXIvc2NyZWVuc2hvdHMvMi5wbmciLCJleHBpcmVzIjoxMzkwMDk0MjkyfQ%3D%3D--0d105bf3239e33698d2e74502f155988dff28f25) 
 
 Stack Infomration 
